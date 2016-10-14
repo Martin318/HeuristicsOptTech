@@ -34,8 +34,6 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
 
         KPMPSolution s = new KPMPSolution(instance.getNumVertices(), instance.getK());
 
-
-        // TODO find good ordering
         Integer[] ordering = new Integer[instance.getNumVertices()];
 
 
@@ -44,13 +42,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
             System.out.println("Degree of vertex " + i + " is " + getDegree(i));
         }
 
-        Arrays.sort(ordering, new Comparator<Integer>() {
-            public int compare(Integer int1, Integer int2) {
-                Integer degree1 = getDegree(int1);
-                Integer degree2 = getDegree(int2);
-                return degree1.compareTo(degree2);
-            }
-        });
+        Arrays.sort(ordering, (int1, int2) -> { return getDegree(int1).compareTo(getDegree(int2));});
 
         Integer[] copyOrdering = ordering.clone();
         System.out.println("vertices "+ instance.getNumVertices());
@@ -92,13 +84,13 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
     }
 
     /**
-     * Computes the degree by using the adjaceny matrix
+     * Computes the degree by using the adjacency matrix
      *
      * @param vertex
      * @return
      */
-    public int getDegree(int vertex){
-        int degree = 0;
+    public Integer getDegree(int vertex){
+        Integer degree = 0;
 
         boolean[][] adjacenyMatrix = this.instance.getAdjacencyMatrix();
 
