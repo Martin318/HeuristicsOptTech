@@ -1,5 +1,7 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -51,11 +53,13 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         });
 
         Integer[] copyOrdering = ordering.clone();
+        System.out.println("vertices "+ instance.getNumVertices());
 
-        // shift the highest value to the middle, weird to read but makes sense
-        for (int i= 0; i< instance.getNumVertices(); i++)
-            ordering[(i+( instance.getNumVertices() / 2 ) )%  instance.getNumVertices()] = copyOrdering[i];
-
+        // shift the highest values to the middle, by magic
+        for (int i= 0; i< instance.getNumVertices(); i++) {
+            int magic = (instance.getNumVertices() / 2) + (int) (Math.pow(-1.0,i)* (up(i) / 2));
+            ordering[magic] = copyOrdering[i];
+        }
 
         s.ordering = ordering;
 
@@ -78,6 +82,13 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         return s;
 
 
+    }
+
+    private int up(int n ){
+        if (n == 0)
+            return 0;
+
+        return (n % 2 == 0)? n : n+1;
     }
 
     /**
