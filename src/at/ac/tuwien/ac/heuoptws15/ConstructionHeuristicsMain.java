@@ -1,5 +1,8 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import com.sun.security.auth.SolarisNumericUserPrincipal;
+import sun.java2d.pipe.SolidTextRenderer;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -45,6 +48,7 @@ public class ConstructionHeuristicsMain {
 
                     while(s != null){
                         System.out.println(s);
+                        System.out.println("With following No of crossings: " + KPMPSolution.crossings(s));
                         s = h.getNextSolution();
                     }
 
