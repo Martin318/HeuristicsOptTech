@@ -1,5 +1,8 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * Created by Martin on 14.10.2016.
  */
@@ -33,11 +36,10 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         // TODO find good ordering
         int[] ordering = new int[instance.getNumVertices()];
 
+
         for (int i= 0; i< instance.getNumVertices(); i++){
             ordering[i] = i;
         }
-
-        s.ordering = ordering;
 
 
         // TODO find good assignment of edges
@@ -59,6 +61,24 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         return s;
 
 
+    }
+
+    /**
+     * Computes the degree by using the adjaceny matrix
+     *
+     * @param vertex
+     * @return
+     */
+    public int getDegree(int vertex){
+        int degree = 0;
+
+        boolean[][] adjacenyMatrix = this.instance.getAdjacencyMatrix();
+
+        for(int i = 0; i < this.instance.getNumVertices(); i++)
+            if (adjacenyMatrix[vertex][i])
+                degree++;
+
+        return degree;
     }
 
     public String getName(){
