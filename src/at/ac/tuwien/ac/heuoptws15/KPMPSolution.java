@@ -75,7 +75,7 @@ public class KPMPSolution {
      */
     public static int crossings(KPMPSolution solution){
         if (solution == null ||  solution.ordering.length <= 3) //no possible crossings if less than four vertices, by def
-            return 5;
+            return 0;
         int crossingFound = 0;
 
         for(Page page : solution.pages){
