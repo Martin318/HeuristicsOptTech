@@ -9,13 +9,13 @@ import java.util.stream.*;
  */
 public class KPMPSolution {
 
-    public int[] ordering;
+    public Integer[] ordering;
 
     public Page[] pages;
 
     public KPMPSolution(int numVertices, int numPages){
 
-        ordering = new int[numVertices];
+        ordering = new Integer[numVertices];
 
         pages = new Page[numPages];
 

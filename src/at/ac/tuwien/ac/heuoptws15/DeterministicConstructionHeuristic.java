@@ -34,13 +34,30 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
 
 
         // TODO find good ordering
-        int[] ordering = new int[instance.getNumVertices()];
+        Integer[] ordering = new Integer[instance.getNumVertices()];
 
 
         for (int i= 0; i< instance.getNumVertices(); i++){
             ordering[i] = i;
+            System.out.println("Degree of vertex " + i + " is " + getDegree(i));
         }
 
+        Arrays.sort(ordering, new Comparator<Integer>() {
+            public int compare(Integer int1, Integer int2) {
+                Integer degree1 = getDegree(int1);
+                Integer degree2 = getDegree(int2);
+                return degree1.compareTo(degree2);
+            }
+        });
+
+        Integer[] copyOrdering = ordering.clone();
+
+        // shift the highest value to the middle, weird to read but makes sense
+        for (int i= 0; i< instance.getNumVertices(); i++)
+            ordering[(i+( instance.getNumVertices() / 2 ) )%  instance.getNumVertices()] = copyOrdering[i];
+
+
+        s.ordering = ordering;
 
         // TODO find good assignment of edges
 
