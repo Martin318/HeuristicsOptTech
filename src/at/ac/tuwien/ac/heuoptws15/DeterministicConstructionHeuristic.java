@@ -28,10 +28,13 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
 
     }
 
+    /**
+     *  A simple heuristic that first determines the spine order on degree count
+     *  and then assigns edges by first fit.
+     *
+     * @return  A possible solution
+     */
     private KPMPSolution createDeterministicSolution(){
-        // TODO implement real Heuristic
-
-
         KPMPSolution s = new KPMPSolution(instance.getNumVertices(), instance.getK());
 
         Integer[] ordering = new Integer[instance.getNumVertices()];
@@ -55,7 +58,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
 
         s.ordering = ordering;
 
-        // TODO find good assignment of edges
+        // Currently chooses greedily the first fitting assignment
 
         int pageIndex = 0;
 
@@ -63,10 +66,10 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
             for (int x = 0; x < instance.getNumVertices(); x++){
 
                 if(instance.getAdjacencyMatrix()[x][y] == true){
-                    s.pages[pageIndex % instance.getK()].edges.add(new Edge(x,y));
+                    Edge temp = new Edge(x,y);
+                    s.pages[s.nextFreePage(temp)].edges.add(temp);
+
                     pageIndex++;
-
-
                 }
             }
 

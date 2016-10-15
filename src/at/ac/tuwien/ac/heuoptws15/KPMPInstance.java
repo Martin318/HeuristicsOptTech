@@ -47,9 +47,9 @@ public class KPMPInstance {
 			int b = s.nextInt();
 			s.skip("\\s*\\[[0-9]+\\]");
 			inst.adjacencyList.get(a).add(b);
-			inst.adjacencyList.get(b).add(a);
+			//inst.adjacencyList.get(b).add(a);
 			inst.adjacencyMatrix[a][b] = true;
-			inst.adjacencyMatrix[b][a] = true;
+			//inst.adjacencyMatrix[b][a] = true;
 		}
 		
 		s.close();

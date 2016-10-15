@@ -63,7 +63,15 @@ public class KPMPSolution {
      * @return  an exception if a or b are too large
      */
     private boolean smallerInOrdering(int a, int b){
-        return this.ordering[a] < this.ordering[b];
+        if (a == b)
+            return false;
+        for(int i = 0; i < this.ordering.length; i++){
+            if( this.ordering[i] == a)
+                return true;
+            if( this.ordering[i] == b)
+                return false;
+        }
+        return false;
     }
 
     /**
@@ -74,7 +82,7 @@ public class KPMPSolution {
      * @return Number of crossings found
      */
     public static int crossings(KPMPSolution solution){
-        if (solution == null ||  solution.ordering.length <= 3) //no possible crossings if less than four vertices, by def
+        if (solution == null )
             return 0;
         int crossingFound = 0;
 
@@ -92,6 +100,24 @@ public class KPMPSolution {
         return crossingFound;
 
 
+    }
+
+    /**
+     *  Returns the index of the first page in which this edge fits, if not such page exists, returns 0.
+     *
+     * @param edge
+     * @return
+     */
+    public int nextFreePage( Edge edge){
+        for(int i = 0; i < this.pages.length; i++){
+                if( this.pages[i].edges.stream()
+                        .noneMatch(e2 -> this.smallerInOrdering(edge.start,e2.start) &&
+                                        this.smallerInOrdering(e2.start,edge.end)   &&
+                                        this.smallerInOrdering(edge.end,e2.end ) ))
+                    return i;
+
+        }
+        return 0;
     }
 
 }
