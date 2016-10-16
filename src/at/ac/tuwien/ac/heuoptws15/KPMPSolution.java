@@ -68,9 +68,11 @@ public class KPMPSolution {
         for(int i = 0; i < this.ordering.length; i++){
             if( this.ordering[i] == a)
                 return true;
+
             if( this.ordering[i] == b)
                 return false;
         }
+
         return false;
     }
 
@@ -86,7 +88,7 @@ public class KPMPSolution {
             return 0;
         int crossingFound = 0;
 
-        for(Page page : solution.pages){
+        for(Page page : solution.pages)
             for(Edge e1 : page.edges){
                 List<Edge> crossed  = page.edges.stream()
                         .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
@@ -95,29 +97,41 @@ public class KPMPSolution {
                         .collect(Collectors.toList());
                 crossingFound += crossed.size();
             }
-        }
+
 
         return crossingFound;
-
-
     }
 
     /**
-     *  Returns the index of the first page in which this edge fits, if not such page exists, returns 0.
+     *  Returns the index of the first page in which this edge fits,
+     *  if not such page exists, returns the page with least edges
      *
      * @param edge
      * @return
      */
     public int nextFreePage( Edge edge){
+        int pageMinSize = this.pages[0].edges.size();
+        int pageMinIndex = 0;
         for(int i = 0; i < this.pages.length; i++){
-                if( this.pages[i].edges.stream()
-                        .noneMatch(e2 -> this.smallerInOrdering(edge.start,e2.start) &&
-                                        this.smallerInOrdering(e2.start,edge.end)   &&
-                                        this.smallerInOrdering(edge.end,e2.end ) ))
-                    return i;
+                if( this.pages[i].edges.size() < pageMinSize){
+                    pageMinSize = this.pages[i].edges.size();
+                    pageMinIndex = i;
+                }
 
+                Boolean NoneBefore = this.pages[i].edges.stream()
+                        .noneMatch(e2 ->    this.smallerInOrdering(e2.start,edge.start) &&
+                                            this.smallerInOrdering(edge.start,e2.end)   &&
+                                            this.smallerInOrdering(e2.end,edge.end ) );
+
+                Boolean NoneAfter = this.pages[i].edges.stream()
+                        .noneMatch(e2 ->    this.smallerInOrdering(edge.start,e2.start) &&
+                                            this.smallerInOrdering(e2.start,edge.end)   &&
+                                            this.smallerInOrdering(edge.end,e2.end ) );
+                if (NoneBefore && NoneAfter)
+                    return i;
         }
-        return 0;
+
+        return pageMinIndex;
     }
 
 }

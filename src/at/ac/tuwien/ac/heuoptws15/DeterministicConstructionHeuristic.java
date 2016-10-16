@@ -1,9 +1,6 @@
 package at.ac.tuwien.ac.heuoptws15;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * Created by Martin on 14.10.2016.
@@ -59,24 +56,14 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         s.ordering = ordering;
 
         // Currently chooses greedily the first fitting assignment
-
-        int pageIndex = 0;
-
-        for (int y = 0; y < instance.getNumVertices(); y++){
-            for (int x = 0; x < instance.getNumVertices(); x++){
-
+        for (int x = 0; x < instance.getNumVertices(); x++)
+            for (int y = x; y < instance.getNumVertices(); y++)
                 if(instance.getAdjacencyMatrix()[x][y] == true){
                     Edge temp = new Edge(x,y);
                     s.pages[s.nextFreePage(temp)].edges.add(temp);
-
-                    pageIndex++;
                 }
-            }
 
-        }
         return s;
-
-
     }
 
     private int up(int n ){
