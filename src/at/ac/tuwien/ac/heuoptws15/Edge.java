@@ -11,8 +11,8 @@ public class Edge{
 
     public Edge(int start, int end){
 
-        this.start = Math.min(start,end);
-        this.end = Math.max(start,end);
+        this.start = start;
+        this.end = end;
     }
 
     @Override

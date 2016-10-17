@@ -62,7 +62,7 @@ public class KPMPSolution {
      * @param b must be smaller numVertex (not checked)
      * @return  an exception if a or b are too large
      */
-    private boolean smallerInOrdering(int a, int b){
+    public boolean smallerInOrdering(int a, int b){
         if (a == b)
             return false;
         for(int i = 0; i < this.ordering.length; i++){
