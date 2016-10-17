@@ -9,7 +9,6 @@ public class ActiveEdgeDataStructure{
 
     private Object[] futureActiveVertexPoints;
     private Object[] pastActiveVertexPoints;
-
     private Integer[] vertexOrdering;
 
 
@@ -19,8 +18,10 @@ public class ActiveEdgeDataStructure{
 
         this.pastActiveVertexPoints = new Object[numVertices];
 
-
-        this.vertexOrdering = vertexOrdering;
+        // Compute the index of each id value
+        this.vertexOrdering = new Integer[vertexOrdering.length];
+        for (int i = 0; i < vertexOrdering.length; i++)
+            this.vertexOrdering[vertexOrdering[i]] = i;
 
         for (int i = 0; i < numVertices; i++) {
             futureActiveVertexPoints[i] = new TreeSet<EdgePoint>();
@@ -37,7 +38,6 @@ public class ActiveEdgeDataStructure{
         // Get  start and end indices, respecting the vertex ordering.
 
         int start = Math.min(vertexOrdering[e.start], vertexOrdering[e.end]);
-
         int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
 
 
