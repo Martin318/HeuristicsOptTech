@@ -26,6 +26,7 @@ public class ActiveEdgeDataStructure{
             futureActiveVertexPoints[i] = new TreeSet<EdgePoint>();
             pastActiveVertexPoints[i] = new TreeSet<EdgePoint>();
 
+
         }
     }
 
