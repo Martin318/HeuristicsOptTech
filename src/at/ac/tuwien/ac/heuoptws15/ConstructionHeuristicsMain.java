@@ -5,6 +5,7 @@ import sun.java2d.pipe.SolidTextRenderer;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by Martin on 14.10.2016.
@@ -36,6 +37,9 @@ public class ConstructionHeuristicsMain {
                 constructionHeuristics.add(new DeterministicConstructionHeuristic());
                 constructionHeuristics.add(new RandomizedConstructionHeuristic());
 
+
+                long start = System.currentTimeMillis();
+
                 for(ConstructionHeuristic h : constructionHeuristics){
                     h.initialize(instance);
                 }
@@ -55,6 +59,9 @@ public class ConstructionHeuristicsMain {
                     System.out.println("--------------------");
 
                 }
+
+
+                System.out.println("Progamm finished in " + (System.currentTimeMillis() - start) + " Milliseconds." );
 
 
 

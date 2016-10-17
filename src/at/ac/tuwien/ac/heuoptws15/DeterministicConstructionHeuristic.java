@@ -1,5 +1,6 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -55,18 +56,47 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
 
         s.ordering = ordering;
 
-        // Currently chooses greedily the first fitting assignment
-        for (int x = 0; x < instance.getNumVertices(); x++)
+        System.out.println("Ordering done.");
+
+        ///
+
+
+        ActiveEdgeDataStructure a = new ActiveEdgeDataStructure(instance.getNumVertices(), ordering);
+
+        for (int x = 0; x < instance.getNumVertices(); x++) {
             for (int y = x; y < instance.getNumVertices(); y++)
-                if(instance.getAdjacencyMatrix()[x][y] == true){
+                if (instance.getAdjacencyMatrix()[x][y] == true) {
+                    Edge temp = new Edge(y, x);
+
+                    a.addEdge(temp);
+
+                }
+        }
+
+
+
+
+
+
+
+        System.out.println("Active Edge Array creation done.");
+
+
+
+
+        // Currently chooses greedily the first fitting assignment
+        for (int x = 0; x < instance.getNumVertices(); x++) {
+            for (int y = x; y < instance.getNumVertices(); y++)
+                if (instance.getAdjacencyMatrix()[x][y] == true) {
                     Edge temp;
-                    if ( s.smallerInOrdering(x,y))
-                        temp = new Edge(x,y);
+                    if (s.smallerInOrdering(x, y))
+                        temp = new Edge(x, y);
                     else
-                        temp = new Edge(y,x);
+                        temp = new Edge(y, x);
 
                     s.pages[s.nextFreePage(temp)].edges.add(temp);
                 }
+        }
 
         return s;
     }
@@ -99,5 +129,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
     public String getName(){
         return "Deterministic Construction Heuristic";
     }
+
+
 
 }
