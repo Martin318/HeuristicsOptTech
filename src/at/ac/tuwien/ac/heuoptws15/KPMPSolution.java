@@ -11,6 +11,8 @@ public class KPMPSolution {
 
     public Integer[] ordering;
 
+    private Integer[] orderingComp;
+
     public Page[] pages;
 
     public KPMPSolution(int numVertices, int numPages){
@@ -63,17 +65,13 @@ public class KPMPSolution {
      * @return  an exception if a or b are too large
      */
     public boolean smallerInOrdering(int a, int b){
-        if (a == b)
-            return false;
-        for(int i = 0; i < this.ordering.length; i++){
-            if( this.ordering[i] == a)
-                return true;
-
-            if( this.ordering[i] == b)
-                return false;
+        if (orderingComp == null) {
+            orderingComp = new Integer[this.ordering.length];
+            for (int i = 0; i < this.ordering.length; i++)
+                orderingComp[this.ordering[i]] = i;
         }
 
-        return false;
+        return orderingComp[a] < orderingComp[b];
     }
 
     /**
