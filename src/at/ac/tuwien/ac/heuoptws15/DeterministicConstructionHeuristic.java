@@ -64,15 +64,17 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         ActiveEdgeDataStructure a = new ActiveEdgeDataStructure(instance.getNumVertices(), ordering);
 
         for (int x = 0; x < instance.getNumVertices(); x++) {
-            for (int y = x; y < instance.getNumVertices(); y++)
+            for (int y = x; y < instance.getNumVertices(); y++) {
                 if (instance.getAdjacencyMatrix()[x][y] == true) {
-                    Edge temp = new Edge(y, x);
+
+
+                    Edge temp = new Edge(x, y);
 
                     a.addEdge(temp);
 
                 }
+            }
         }
-
 
 
 
