@@ -71,7 +71,7 @@ public class ActiveEdgeDataStructure{
 
     private void binaryInsert(EdgePoint e, ArrayList<EdgePoint> list){
         int leftindex = 0;
-        int rightindex = list.size();
+        int rightindex = list.size()-1;
         int centerindex;
         int compareResult;
 
@@ -103,7 +103,7 @@ public class ActiveEdgeDataStructure{
 
     private Integer countCrossings(EdgePoint e, ArrayList<EdgePoint> list){
         int leftindex = 0;
-        int rightindex = list.size();
+        int rightindex = list.size()-1;
         int centerindex = 0;
         int compareResult;
 
@@ -112,6 +112,9 @@ public class ActiveEdgeDataStructure{
             compareResult = list.get(centerindex).compareTo(e);
 
             if (compareResult == 0) {
+                int i = 0;
+                for (;(centerindex-i) > 0 && (centerindex-i) < list.size() && list.get(centerindex-i).compareTo(e) == 0; i++)
+                centerindex = centerindex - i;
                 break;
             }
 
