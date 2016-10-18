@@ -11,12 +11,12 @@ public class ActiveEdgeDataStructure{
     private Object[] pastActiveVertexPoints;
     private Integer[] vertexOrdering;
     private Integer crosssings = 0;
-    private ArrayList<Edge> crossingEdges;
+    private ArrayList<EdgePoint> crossingEdges;
 
     public ActiveEdgeDataStructure(int numVertices, Integer[] vertexOrdering) {
         this.futureActiveVertexPoints = new Object[numVertices];
         this.pastActiveVertexPoints = new Object[numVertices];
-        this.crossingEdges = new ArrayList<Edge>();
+        this.crossingEdges = new ArrayList<EdgePoint>();
 
         // Compute the index of each id value
         this.vertexOrdering = new Integer[vertexOrdering.length];
@@ -132,7 +132,7 @@ public class ActiveEdgeDataStructure{
         }
 
         for(int i = 0; i < centerindex; i++)
-            crossingEdges.add(list.get(i).e);
+            crossingEdges.add(new EdgePoint(e.e,list.get(i).e.start,list.get(i).e.end));
 
         return centerindex;
     }
@@ -143,8 +143,8 @@ public class ActiveEdgeDataStructure{
 
     public void outputCrossings(){
         System.out.println("Active Edge Array found crossings:");
-        for ( Edge e : crossingEdges)
-            System.out.println("(" + e.start +" " + e.end + ")");
+        for ( EdgePoint e : crossingEdges)
+            System.out.println("(" + e.index_end +" " + e.current_index  + ") hat ein Crossing mit "+ "(" + e.e.start +" " + e.e.end + ")" );
 
     }
 

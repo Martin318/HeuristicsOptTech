@@ -94,7 +94,7 @@ public class KPMPSolution {
                                       solution.smallerInOrdering(e1.end,e2.end ) )
                         .collect(Collectors.toList());
                 for(Edge e : crossed)
-                    System.out.println("(" + e.start +" " + e.end + ")");
+                    System.out.println("(" + e.start +" " + e.end + ") hat ein Crossing mit "+ "(" + e1.start +" " + e1.end + ")" );
                 crossingFound += crossed.size();
             }
 
