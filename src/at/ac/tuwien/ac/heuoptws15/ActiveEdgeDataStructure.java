@@ -100,7 +100,8 @@ public class ActiveEdgeDataStructure{
 
         }
          // leftindex == rightindex
-            list.add(leftindex, e);
+
+            list.add(Math.min(list.size(), leftindex+1), e);
     }
 
     private Integer countCrossings(EdgePoint e, ArrayList<EdgePoint> list){
@@ -109,7 +110,7 @@ public class ActiveEdgeDataStructure{
         int centerindex = 0;
         int compareResult;
 
-        while(leftindex < rightindex) {
+        while(leftindex <= rightindex) {
             centerindex = leftindex + ((rightindex - leftindex) / 2);
             compareResult = list.get(centerindex).compareTo(e);
 
@@ -122,7 +123,11 @@ public class ActiveEdgeDataStructure{
 
             if (compareResult < 0) {
                 // Center ist smaller than e
+                if(leftindex == rightindex){
+                    crossingEdges.add(new EdgePoint(e.e,list.get(leftindex).e.start,list.get(leftindex).e.end));
+                }
                 leftindex = centerindex + 1 ;
+
             }
 
             if (compareResult > 0) {
