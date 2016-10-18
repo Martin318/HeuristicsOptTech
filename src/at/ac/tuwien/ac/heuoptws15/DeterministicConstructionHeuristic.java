@@ -43,7 +43,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
             System.out.println("Degree of vertex " + i + " is " + getDegree(i));
         }
 
-        Arrays.sort(ordering, (int1, int2) -> { return getDegree(int1).compareTo(getDegree(int2));});
+        //Arrays.sort(ordering, (int1, int2) -> { return getDegree(int1).compareTo(getDegree(int2));});
 
         Integer[] copyOrdering = ordering.clone();
         System.out.println("vertices "+ instance.getNumVertices());
@@ -51,7 +51,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         // shift the highest values to the middle, by magic
         for (int i= 0; i< instance.getNumVertices(); i++) {
             int magic = (instance.getNumVertices() / 2) + (int) (Math.pow(-1.0,i)* (up(i) / 2));
-            ordering[magic] = copyOrdering[i];
+            //ordering[magic] = copyOrdering[i];
         }
 
         s.ordering = ordering;
