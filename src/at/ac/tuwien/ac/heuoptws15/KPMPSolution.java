@@ -85,7 +85,7 @@ public class KPMPSolution {
         if (solution == null )
             return 0;
         int crossingFound = 0;
-
+        System.out.println("Crossings found: ");
         for(Page page : solution.pages)
             for(Edge e1 : page.edges){
                 List<Edge> crossed  = page.edges.stream()
@@ -93,6 +93,8 @@ public class KPMPSolution {
                                       solution.smallerInOrdering(e2.start,e1.end)   &&
                                       solution.smallerInOrdering(e1.end,e2.end ) )
                         .collect(Collectors.toList());
+                for(Edge e : crossed)
+                    System.out.println("(" + e.start +" " + e.end + ")");
                 crossingFound += crossed.size();
             }
 

@@ -83,7 +83,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
 
         System.out.println("Active Edge Array creation done.");
 
-
+        a.outputCrossings();
         System.out.println("Active Edge Array crossings found: " + a.getCrossing());
 
 

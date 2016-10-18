@@ -11,10 +11,12 @@ public class ActiveEdgeDataStructure{
     private Object[] pastActiveVertexPoints;
     private Integer[] vertexOrdering;
     private Integer crosssings = 0;
+    private ArrayList<Edge> crossingEdges;
 
     public ActiveEdgeDataStructure(int numVertices, Integer[] vertexOrdering) {
         this.futureActiveVertexPoints = new Object[numVertices];
         this.pastActiveVertexPoints = new Object[numVertices];
+        this.crossingEdges = new ArrayList<Edge>();
 
         // Compute the index of each id value
         this.vertexOrdering = new Integer[vertexOrdering.length];
@@ -51,8 +53,8 @@ public class ActiveEdgeDataStructure{
             ArrayList<EdgePoint> currentFutureList = (ArrayList) futureActiveVertexPoints[i];
             ArrayList<EdgePoint> currentPastList = (ArrayList) pastActiveVertexPoints[i];
 
-            EdgePoint current_forward = new EdgePoint(vertexOrdering[e.end], i);
-            EdgePoint current_backward = new EdgePoint(vertexOrdering[e.start], i);
+            EdgePoint current_forward = new EdgePoint(e,vertexOrdering[e.end], i);
+            EdgePoint current_backward = new EdgePoint(e,vertexOrdering[e.start], i);
 
 
 
@@ -63,8 +65,8 @@ public class ActiveEdgeDataStructure{
         }
 
         // Count the new crossings introduced
-        int front = countCrossings(new EdgePoint(end,start),(ArrayList) futureActiveVertexPoints[start]);
-        int back = countCrossings(new EdgePoint(start,end),(ArrayList) pastActiveVertexPoints[end]);
+        int front = countCrossings(new EdgePoint(e,end,start),(ArrayList) futureActiveVertexPoints[start]);
+        int back = countCrossings(new EdgePoint(e,start,end),(ArrayList) pastActiveVertexPoints[end]);
 
         crosssings += back + front;
     }
@@ -129,6 +131,9 @@ public class ActiveEdgeDataStructure{
             }
         }
 
+        for(int i = 0; i < centerindex; i++)
+            crossingEdges.add(list.get(i).e);
+
         return centerindex;
     }
 
@@ -136,10 +141,19 @@ public class ActiveEdgeDataStructure{
         return this.crosssings;
     }
 
+    public void outputCrossings(){
+        System.out.println("Active Edge Array found crossings:");
+        for ( Edge e : crossingEdges)
+            System.out.println("(" + e.start +" " + e.end + ")");
+
+    }
+
     private class EdgePoint implements  Comparable<EdgePoint>{
+        private Edge e;
         private int index_end;
         private int current_index;
-        public EdgePoint( int index_end, int current_index) {
+        public EdgePoint(Edge e, int index_end, int current_index) {
+            this.e = e;
             this.index_end = index_end;
             this.current_index = current_index;
 
