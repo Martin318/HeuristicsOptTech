@@ -143,8 +143,12 @@ public class ActiveEdgeDataStructure{
 
     public void outputCrossings(){
         System.out.println("Active Edge Array found crossings:");
-        for ( EdgePoint e : crossingEdges)
-            System.out.println("(" + e.index_end +" " + e.current_index  + ") hat ein Crossing mit "+ "(" + e.e.start +" " + e.e.end + ")" );
+        for ( EdgePoint e : crossingEdges){
+            if (e.index_end < e.e.start)
+                System.out.println("(" + e.index_end +" " + e.current_index  + ") hat ein Crossing mit "+ "(" + e.e.start +" " + e.e.end + ")" );
+            else
+                System.out.println("(" + e.e.start +" " + e.e.end  + ") hat ein Crossing mit "+ "(" + e.index_end +" " + e.current_index + ")" );
+        }
 
     }
 

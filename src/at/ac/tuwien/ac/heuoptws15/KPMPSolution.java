@@ -93,8 +93,13 @@ public class KPMPSolution {
                                       solution.smallerInOrdering(e2.start,e1.end)   &&
                                       solution.smallerInOrdering(e1.end,e2.end ) )
                         .collect(Collectors.toList());
-                for(Edge e : crossed)
-                    System.out.println("(" + e.start +" " + e.end + ") hat ein Crossing mit "+ "(" + e1.start +" " + e1.end + ")" );
+                for(Edge e : crossed){
+                    if( e.start < e1.start)
+                        System.out.println("(" + e.start +" " + e.end + ") hat ein Crossing mit "+ "(" + e1.start +" " + e1.end + ")" );
+                    else
+                        System.out.println("(" + e1.start +" " + e1.end + ") hat ein Crossing mit "+ "(" + e.start +" " + e.end + ")" );
+
+                }
                 crossingFound += crossed.size();
             }
 
