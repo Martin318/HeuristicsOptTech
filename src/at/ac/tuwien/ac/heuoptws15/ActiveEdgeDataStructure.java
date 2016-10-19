@@ -1,5 +1,8 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import sun.text.resources.sk.CollationData_sk;
+
+import java.text.CollationElementIterator;
 import java.util.*;
 
 /**
@@ -39,6 +42,7 @@ public class ActiveEdgeDataStructure{
             ArrayList<EdgePoint> currentPastList = (ArrayList) pastActiveVertexPoints[i];
 
             Collections.sort(currentFutureList);
+            Collections.sort(currentPastList);
         }
     }
 
@@ -65,8 +69,15 @@ public class ActiveEdgeDataStructure{
         }
 
         // Count the new crossings introduced
-        int front = countCrossings(new EdgePoint(e,end,start),(ArrayList) futureActiveVertexPoints[start]);
-        int back = countCrossings(new EdgePoint(e,start,end),(ArrayList) pastActiveVertexPoints[end]);
+        int front = 0;
+        int back = 0;
+        if( start+1 != end){
+            Collections.sort((ArrayList)futureActiveVertexPoints[start]);
+            Collections.sort((ArrayList)pastActiveVertexPoints[end]);
+            front = countCrossings(new EdgePoint(e,end,start),(ArrayList) futureActiveVertexPoints[start]);
+            back = countCrossings(new EdgePoint(e,start,end),(ArrayList) pastActiveVertexPoints[end]);
+        }
+
 
         crosssings += back + front;
     }
@@ -116,16 +127,12 @@ public class ActiveEdgeDataStructure{
 
             if (compareResult == 0) {
                 int i = 0;
-                for (;(centerindex-i) > 0 && (centerindex-i) < list.size() && list.get(centerindex-i).compareTo(e) == 0; i++)
-                centerindex = centerindex - i;
-                break;
+                for (;(centerindex-(i+1)) > 0 && (centerindex-(i+1)) < list.size() && (list.get(centerindex-(i+1)).compareTo(e) == 0); i++)
+                    centerindex = centerindex -i;
+               break;
             }
 
             if (compareResult < 0) {
-                // Center ist smaller than e
-                if(leftindex == rightindex){
-                    crossingEdges.add(new EdgePoint(e.e,list.get(leftindex).e.start,list.get(leftindex).e.end));
-                }
                 leftindex = centerindex + 1 ;
 
             }
@@ -136,8 +143,13 @@ public class ActiveEdgeDataStructure{
             }
         }
 
-        for(int i = 0; i < centerindex; i++)
-            crossingEdges.add(new EdgePoint(e.e,list.get(i).e.start,list.get(i).e.end));
+
+
+       for(int i = 0; i < centerindex; i++){
+               if (e.e.end ==  list.get(i).e.end )
+                   System.out.println("ups");
+               crossingEdges.add(new EdgePoint(e.e,list.get(i).e.start,list.get(i).e.end));
+        }
 
         return centerindex;
     }
