@@ -13,16 +13,20 @@ public class KPMPSolution {
 
     private Integer[] orderingComp;
 
-    public Page[] pages;
+    private Page[] pages;
 
-    public KPMPSolution(int numVertices, int numPages){
+    private ActiveEdgeDataStructure[] activeEdge;
 
-        ordering = new Integer[numVertices];
+    public KPMPSolution(int numVertices, int numPages, Integer[] ordering){
+
+        this.ordering = ordering;
 
         pages = new Page[numPages];
+        activeEdge = new ActiveEdgeDataStructure[numPages];
 
         for(int i = 0; i < numPages; i++){
             pages[i] = new Page();
+            activeEdge[i] = new ActiveEdgeDataStructure(numVertices,ordering);
         }
 
     }
@@ -86,23 +90,25 @@ public class KPMPSolution {
             return 0;
         int crossingFound = 0;
         System.out.println("Crossings found: ");
-        for(Page page : solution.pages)
-            for(Edge e1 : page.edges){
-                List<Edge> crossed  = page.edges.stream()
-                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
-                                      solution.smallerInOrdering(e2.start,e1.end)   &&
-                                      solution.smallerInOrdering(e1.end,e2.end ) )
-                        .collect(Collectors.toList());
-                for(Edge e : crossed){
-                    if( e.start < e1.start)
-                        System.out.println("(" + e.start +" " + e.end + ") hat ein Crossing mit "+ "(" + e1.start +" " + e1.end + ")" );
-                    else
-                        System.out.println("(" + e1.start +" " + e1.end + ") hat ein Crossing mit "+ "(" + e.start +" " + e.end + ")" );
+//        for(Page page : solution.pages)
+//            for(Edge e1 : page.edges){
+//                List<Edge> crossed  = page.edges.stream()
+//                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
+//                                      solution.smallerInOrdering(e2.start,e1.end)   &&
+//                                      solution.smallerInOrdering(e1.end,e2.end ) )
+//                        .collect(Collectors.toList());
+////                for(Edge e : crossed){
+////                    if( e.start < e1.start)
+////                        System.out.println("(" + e.start +" " + e.end + ") hat ein Crossing mit "+ "(" + e1.start +" " + e1.end + ")" );
+////                    else
+////                        System.out.println("(" + e1.start +" " + e1.end + ") hat ein Crossing mit "+ "(" + e.start +" " + e.end + ")" );
+////                }
+//                crossingFound += crossed.size();
+//            }
 
-                }
-                crossingFound += crossed.size();
-            }
-
+        for(ActiveEdgeDataStructure active : solution.activeEdge){
+            crossingFound += active.getCrossing();
+        }
 
         return crossingFound;
     }
@@ -137,6 +143,12 @@ public class KPMPSolution {
         }
 
         return pageMinIndex;
+    }
+
+
+    public void addEdge(Edge e, int page){
+        pages[page].edges.add(e);
+        activeEdge[page].addEdge(e);
     }
 
 

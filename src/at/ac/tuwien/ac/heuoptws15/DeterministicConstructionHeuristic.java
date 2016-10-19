@@ -33,7 +33,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
      * @return  A possible solution
      */
     private KPMPSolution createDeterministicSolution(){
-        KPMPSolution s = new KPMPSolution(instance.getNumVertices(), instance.getK());
+        KPMPSolution s;
 
         Integer[] ordering = new Integer[instance.getNumVertices()];
 
@@ -43,7 +43,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
             System.out.println("Degree of vertex " + i + " is " + getDegree(i));
         }
 
-        //Arrays.sort(ordering, (int1, int2) -> { return getDegree(int1).compareTo(getDegree(int2));});
+        Arrays.sort(ordering, (int1, int2) -> { return getDegree(int1).compareTo(getDegree(int2));});
 
         Integer[] copyOrdering = ordering.clone();
         System.out.println("vertices "+ instance.getNumVertices());
@@ -51,41 +51,13 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         // shift the highest values to the middle, by magic
         for (int i= 0; i< instance.getNumVertices(); i++) {
             int magic = (instance.getNumVertices() / 2) + (int) (Math.pow(-1.0,i)* (up(i) / 2));
-            //ordering[magic] = copyOrdering[i];
+            ordering[magic] = copyOrdering[i];
         }
-
-        s.ordering = ordering;
 
         System.out.println("Ordering done.");
 
+        s = new KPMPSolution(instance.getNumVertices(), instance.getK(),ordering);
         ///
-
-
-        ActiveEdgeDataStructure a = new ActiveEdgeDataStructure(instance.getNumVertices(), ordering);
-
-        for (int x = 0; x < instance.getNumVertices(); x++) {
-            for (int y = x; y < instance.getNumVertices(); y++) {
-                if (instance.getAdjacencyMatrix()[x][y] == true) {
-
-
-                    Edge temp = new Edge(x, y);
-
-                    a.addEdge(temp);
-
-                }
-            }
-        }
-
-
-
-
-
-
-        System.out.println("Active Edge Array creation done.");
-
-        a.outputCrossings();
-        System.out.println("Active Edge Array crossings found: " + a.getCrossing());
-
 
         // Currently chooses greedily the first fitting assignment
         for (int x = 0; x < instance.getNumVertices(); x++) {
@@ -97,7 +69,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
                     else
                         temp = new Edge(y, x);
 
-                    s.pages[0].edges.add(temp);
+                   s.addEdge(temp,s.nextFreePage(temp));
                 }
         }
 

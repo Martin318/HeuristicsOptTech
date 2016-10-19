@@ -4,6 +4,7 @@ import sun.text.resources.sk.CollationData_sk;
 
 import java.text.CollationElementIterator;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Martin on 17.10.2016.
@@ -27,8 +28,8 @@ public class ActiveEdgeDataStructure{
             this.vertexOrdering[vertexOrdering[i]] = i;
 
         for (int i = 0; i < numVertices; i++) {
-            futureActiveVertexPoints[i] = new ArrayList<EdgePoint>();
-            pastActiveVertexPoints[i] = new ArrayList<EdgePoint>();
+            futureActiveVertexPoints[i] = new TreeMap<EdgePoint,Integer>();
+            pastActiveVertexPoints[i] = new TreeMap<EdgePoint,Integer>();
 
 
         }
@@ -56,18 +57,19 @@ public class ActiveEdgeDataStructure{
 
 
             for (int i = start + 1; i < end; i++) {
-                ArrayList<EdgePoint> currentFutureList = (ArrayList) futureActiveVertexPoints[i];
-                ArrayList<EdgePoint> currentPastList = (ArrayList) pastActiveVertexPoints[i];
+                TreeMap<EdgePoint,Integer> currentFutureList = (TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i];
+                TreeMap<EdgePoint,Integer> currentPastList = (TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i];
 
                 EdgePoint current_forward = new EdgePoint(e,vertexOrdering[e.end], i);
                 EdgePoint current_backward = new EdgePoint(e,vertexOrdering[e.start], i);
 
 
-
-                linearInsert(current_forward, currentFutureList);
+                currentFutureList.put(current_forward,current_forward.getRemainingLength());
+                currentPastList.put(current_backward,current_backward.getRemainingLength());
+              //  linearInsert(current_forward, currentFutureList);
 
                 // Vertices going "back"
-                linearInsert(current_backward, currentPastList);
+               // linearInsert(current_backward, currentPastList);
             }
 
         // Count the new crossings introduced
@@ -75,8 +77,8 @@ public class ActiveEdgeDataStructure{
             int back = 0;
             //Collections.sort((ArrayList)futureActiveVertexPoints[start]);
             //Collections.sort((ArrayList)pastActiveVertexPoints[end]);
-            front = linearCountCrossings(new EdgePoint(e,end,start),(ArrayList) futureActiveVertexPoints[start]);
-            back = linearCountCrossings(new EdgePoint(e,start,end),(ArrayList) pastActiveVertexPoints[end]);
+            front = linearCountCrossings(new EdgePoint(e,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
+            back = linearCountCrossings(new EdgePoint(e,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
 
             crosssings += back + front;
         }
@@ -151,23 +153,9 @@ public class ActiveEdgeDataStructure{
          }
     }
 
-    private Integer linearCountCrossings(EdgePoint e, ArrayList<EdgePoint> list){
-        int crossingCount = 0;
-
-        for(EdgePoint other : list){
-
-            int compareValue = e.compareTo(other);
-
-            if(compareValue <= 0){
-                break;
-            }
-            else {
-                crossingCount++;
-                crossingEdges.add(new EdgePoint(e.e,other.e.start, other.e.end));
-            }
-        }
-
-        return crossingCount;
+    private Integer linearCountCrossings(EdgePoint e, TreeMap<EdgePoint,Integer> map){
+          SortedMap<EdgePoint,Integer> crossings = map.headMap(e,true);
+          return  crossings.keySet().stream().filter( e2 -> e2.e.end != e.e.end).collect(Collectors.toList()).size();
     }
 
     private Integer binaryCountCrossings(EdgePoint e, ArrayList<EdgePoint> list){
@@ -244,7 +232,12 @@ public class ActiveEdgeDataStructure{
 
 
         public int compareTo(EdgePoint other){
-            return this.getRemainingLength() - other.getRemainingLength();
+            if ( this.getRemainingLength() != other.getRemainingLength())
+                return this.getRemainingLength() - other.getRemainingLength();
+            else if (this.e.start != other.e.end)
+                return this.e.start - other.e.start;
+            else
+                return this.e.end - other.e.end;
         }
     }
 
