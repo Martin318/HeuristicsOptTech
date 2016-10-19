@@ -52,37 +52,63 @@ public class ActiveEdgeDataStructure{
         int start = Math.min(vertexOrdering[e.start], vertexOrdering[e.end]);
         int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
 
-
-        for (int i = start + 1; i < end; i++) {
-            ArrayList<EdgePoint> currentFutureList = (ArrayList) futureActiveVertexPoints[i];
-            ArrayList<EdgePoint> currentPastList = (ArrayList) pastActiveVertexPoints[i];
-
-            EdgePoint current_forward = new EdgePoint(e,vertexOrdering[e.end], i);
-            EdgePoint current_backward = new EdgePoint(e,vertexOrdering[e.start], i);
+        if(start+1 != end){
 
 
+            for (int i = start + 1; i < end; i++) {
+                ArrayList<EdgePoint> currentFutureList = (ArrayList) futureActiveVertexPoints[i];
+                ArrayList<EdgePoint> currentPastList = (ArrayList) pastActiveVertexPoints[i];
 
-            binaryInsert(current_forward, currentFutureList);
+                EdgePoint current_forward = new EdgePoint(e,vertexOrdering[e.end], i);
+                EdgePoint current_backward = new EdgePoint(e,vertexOrdering[e.start], i);
 
-            // Vertices going "back"
-            binaryInsert(current_backward, currentPastList);
-        }
+
+
+                linearInsert(current_forward, currentFutureList);
+
+                // Vertices going "back"
+                linearInsert(current_backward, currentPastList);
+            }
 
         // Count the new crossings introduced
-        int front = 0;
-        int back = 0;
-        if( start+1 != end){
-            Collections.sort((ArrayList)futureActiveVertexPoints[start]);
-            Collections.sort((ArrayList)pastActiveVertexPoints[end]);
-            front = countCrossings(new EdgePoint(e,end,start),(ArrayList) futureActiveVertexPoints[start]);
-            back = countCrossings(new EdgePoint(e,start,end),(ArrayList) pastActiveVertexPoints[end]);
+            int front = 0;
+            int back = 0;
+            //Collections.sort((ArrayList)futureActiveVertexPoints[start]);
+            //Collections.sort((ArrayList)pastActiveVertexPoints[end]);
+            front = linearCountCrossings(new EdgePoint(e,end,start),(ArrayList) futureActiveVertexPoints[start]);
+            back = linearCountCrossings(new EdgePoint(e,start,end),(ArrayList) pastActiveVertexPoints[end]);
+
+            crosssings += back + front;
         }
 
 
-        crosssings += back + front;
+    }
+
+    private void linearInsert(EdgePoint e, ArrayList<EdgePoint> list){
+
+        int insertIndex = 0;
+
+        for(EdgePoint other : list){
+            if(e.compareTo(other) < 0){
+                break;
+            }
+            else {
+                insertIndex++;
+            }
+        }
+
+        if(insertIndex >= list.size()) list.add(e);
+        else list.add(insertIndex, e);
     }
 
     private void binaryInsert(EdgePoint e, ArrayList<EdgePoint> list){
+
+
+        if(list.isEmpty()){
+            list.add(e);
+            return;
+        }
+
         int leftindex = 0;
         int rightindex = list.size()-1;
         int centerindex;
@@ -112,10 +138,39 @@ public class ActiveEdgeDataStructure{
         }
          // leftindex == rightindex
 
-            list.add(Math.min(list.size(), leftindex+1), e);
+         if(list.get(leftindex).compareTo(e) > 0){
+             list.add(leftindex, e);
+         }
+         else{
+             if(leftindex <= list.size()-1){
+                 list.add(e);
+             }
+             else{
+                 list.add(leftindex+1, e);
+             }
+         }
     }
 
-    private Integer countCrossings(EdgePoint e, ArrayList<EdgePoint> list){
+    private Integer linearCountCrossings(EdgePoint e, ArrayList<EdgePoint> list){
+        int crossingCount = 0;
+
+        for(EdgePoint other : list){
+
+            int compareValue = e.compareTo(other);
+
+            if(compareValue <= 0){
+                break;
+            }
+            else {
+                crossingCount++;
+                crossingEdges.add(new EdgePoint(e.e,other.e.start, other.e.end));
+            }
+        }
+
+        return crossingCount;
+    }
+
+    private Integer binaryCountCrossings(EdgePoint e, ArrayList<EdgePoint> list){
         int leftindex = 0;
         int rightindex = list.size()-1;
         int centerindex = 0;
