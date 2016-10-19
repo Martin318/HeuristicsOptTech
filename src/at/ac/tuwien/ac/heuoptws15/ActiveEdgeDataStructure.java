@@ -59,6 +59,13 @@ public class ActiveEdgeDataStructure{
         }
     }
 
+    public int countAllCrossingsWithNewEdge(Edge e){
+        int front = countCrossings(new EdgePoint(e,e.end,e.start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[e.start]);
+        int back = countCrossings(new EdgePoint(e,e.start,e.end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[e.end]);
+
+        return front+back;
+    }
+
 
 
     private Integer countCrossings(EdgePoint e, TreeMap<EdgePoint,Integer> map){

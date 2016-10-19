@@ -113,6 +113,35 @@ public class KPMPSolution {
         return crossingFound;
     }
 
+
+
+    public int nextFreePage( Edge edge) {
+
+        int crossingsMinValue = Integer.MAX_VALUE;
+        int crossingsMinIndex = 0;
+        int currentCrossings;
+
+        for(int i = 0; i < this.pages.length; i++){
+
+
+            currentCrossings = activeEdge[i].countAllCrossingsWithNewEdge(edge);
+
+            if(currentCrossings == 0){
+                return i;
+            }
+
+            if(currentCrossings < crossingsMinValue){
+                crossingsMinValue = currentCrossings;
+                crossingsMinIndex = i;
+            }
+
+
+        }
+
+        return crossingsMinIndex;
+
+    }
+
     /**
      *  Returns the index of the first page in which this edge fits,
      *  if not such page exists, returns the page with least edges
@@ -120,7 +149,7 @@ public class KPMPSolution {
      * @param edge
      * @return
      */
-    public int nextFreePage( Edge edge){
+    public int nextFreePage_OLD( Edge edge){
         int pageMinSize = this.pages[0].edges.size();
         int pageMinIndex = 0;
         for(int i = 0; i < this.pages.length; i++){
