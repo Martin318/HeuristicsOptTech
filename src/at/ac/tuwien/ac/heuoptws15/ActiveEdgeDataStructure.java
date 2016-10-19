@@ -60,9 +60,12 @@ public class ActiveEdgeDataStructure{
     }
 
     public int countAllCrossingsWithNewEdge(Edge e){
-        int front = countCrossings(new EdgePoint(e,e.end,e.start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[e.start]);
-        int back = countCrossings(new EdgePoint(e,e.start,e.end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[e.end]);
+        int start = Math.min( vertexOrdering[e.start],vertexOrdering[e.end]);
+        int end = Math.max(vertexOrdering[e.end],vertexOrdering[start]);
+        Edge actualE = new Edge(start,end);
 
+        int front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
+        int back = countCrossings(new EdgePoint(actualE,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
         return front+back;
     }
 
@@ -70,7 +73,7 @@ public class ActiveEdgeDataStructure{
 
     private Integer countCrossings(EdgePoint e, TreeMap<EdgePoint,Integer> map){
           SortedMap<EdgePoint,Integer> crossings = map.headMap(e,true);
-          return  crossings.keySet().stream().filter( e2 -> e2.e.end != e.e.end).collect(Collectors.toList()).size();
+          return  crossings.keySet().stream().filter( e2 -> e2.e.end != e.e.end && e2.e.start != e.e.start).collect(Collectors.toList()).size();
     }
 
 
