@@ -121,6 +121,7 @@ public class KPMPSolution {
         int crossingsMinIndex = 0;
         int currentCrossings;
 
+
         for(int i = 0; i < this.pages.length; i++){
 
 
@@ -149,7 +150,7 @@ public class KPMPSolution {
      * @param edge
      * @return
      */
-    public int nextFreePage_OLD( Edge edge){
+    public int nextFreePage_old( Edge edge){
         int pageMinSize = this.pages[0].edges.size();
         int pageMinIndex = 0;
         for(int i = 0; i < this.pages.length; i++){
@@ -180,6 +181,22 @@ public class KPMPSolution {
         activeEdge[page].addEdge(e);
     }
 
+
+    public void insertIntoWriter(KPMPSolutionWriter w){
+
+        w.setSpineOrder(Arrays.asList(ordering));
+
+
+        for(int i = 0; i< pages.length; i++){
+
+            for(Edge e : pages[i].edges){
+                w.addEdgeOnPage(e.start,e.end,i);
+            }
+
+
+        }
+
+    }
 
 
 

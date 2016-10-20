@@ -4,6 +4,7 @@ import com.sun.security.auth.SolarisNumericUserPrincipal;
 import sun.java2d.pipe.SolidTextRenderer;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.SynchronousQueue;
 
@@ -44,6 +45,9 @@ public class ConstructionHeuristicsMain {
                     h.initialize(instance);
                 }
 
+                KPMPSolutionWriter w;
+
+
 
                 for(ConstructionHeuristic h : constructionHeuristics){
                     System.out.println(h.getName());
@@ -53,6 +57,16 @@ public class ConstructionHeuristicsMain {
                     while(s != null){
                         System.out.println(s);
                         System.out.println("With following No of crossings: " + KPMPSolution.crossings(s));
+                        w = new KPMPSolutionWriter(instance.getK());
+                        s.insertIntoWriter(w);
+                        try{
+                            w.write(args[0]+"_solution");
+                        }
+                        catch (IOException e){
+                            System.out.println("Failed to  write file: " + e);
+                        }
+
+
                         s = h.getNextSolution();
                     }
 
