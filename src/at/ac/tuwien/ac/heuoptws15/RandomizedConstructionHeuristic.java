@@ -1,6 +1,8 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by Martin on 14.10.2016.
@@ -69,8 +71,10 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
         s = new KPMPSolution(instance.getNumVertices(), instance.getK(),ordering);
         ///
 
+        ArrayList<Edge> edges = new ArrayList<>();
+
         // Currently chooses greedily the first fitting assignment
-        for (int x = 0; x < instance.getNumVertices(); x++) {
+        for (int x = 0; x < instance.getNumVertices(); x++)
             for (int y = x; y < instance.getNumVertices(); y++)
                 if (instance.getAdjacencyMatrix()[x][y] == true) {
                     Edge temp;
@@ -78,10 +82,12 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
                         temp = new Edge(x, y);
                     else
                         temp = new Edge(y, x);
-
-                    s.addEdge(temp,s.nextFreePage(temp));
+                    edges.add(temp);
                 }
-        }
+
+        Collections.shuffle(edges);
+        for(Edge e : edges)
+            s.addEdge(e,s.nextFreePage(e));
 
         return s;
     }
