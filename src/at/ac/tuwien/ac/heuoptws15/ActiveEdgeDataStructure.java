@@ -34,13 +34,17 @@ public class ActiveEdgeDataStructure{
         // Get  start and end indices, respecting the vertex ordering.
         int start = Math.min(vertexOrdering[e.start], vertexOrdering[e.end]);
         int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
+        Edge actualE = new Edge(start,end);
+
+        if(e.start == 5 && e.end == 4)
+            System.out.println("asdf");
 
         for (int i = start + 1; i < end; i++) {
              TreeMap<EdgePoint,Integer> currentFutureList = (TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i];
              TreeMap<EdgePoint,Integer> currentPastList = (TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i];
 
-             EdgePoint current_forward = new EdgePoint(e,vertexOrdering[e.end], i);
-             EdgePoint current_backward = new EdgePoint(e,vertexOrdering[e.start], i);
+             EdgePoint current_forward = new EdgePoint(actualE,end, i);
+             EdgePoint current_backward = new EdgePoint(actualE,start, i);
 
 
              currentFutureList.put(current_forward,current_forward.getRemainingLength());
@@ -52,8 +56,8 @@ public class ActiveEdgeDataStructure{
             int front = 0;
             int back = 0;
 
-            front = countCrossings(new EdgePoint(e,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
-            back = countCrossings(new EdgePoint(e,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
+            front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
+            back = countCrossings(new EdgePoint(actualE,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
 
             crosssings += back + front;
         }
@@ -105,7 +109,7 @@ public class ActiveEdgeDataStructure{
         public int compareTo(EdgePoint other){
             if ( this.getRemainingLength() != other.getRemainingLength())
                 return this.getRemainingLength() - other.getRemainingLength();
-            else if (this.e.start != other.e.end)
+            else if (this.e.start != other.e.start)
                 return this.e.start - other.e.start;
             else
                 return this.e.end - other.e.end;

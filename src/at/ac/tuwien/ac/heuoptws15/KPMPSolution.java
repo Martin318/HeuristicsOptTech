@@ -106,7 +106,7 @@ public class KPMPSolution {
 //                crossingFound += crossed.size();
 //            }
 
-        for(ActiveEdgeDataStructure active : solution.activeEdge){
+       for(ActiveEdgeDataStructure active : solution.activeEdge){
             crossingFound += active.getCrossing();
         }
 
