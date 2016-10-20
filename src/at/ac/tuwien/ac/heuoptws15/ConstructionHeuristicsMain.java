@@ -36,7 +36,7 @@ public class ConstructionHeuristicsMain {
                 ArrayList<ConstructionHeuristic> constructionHeuristics = new ArrayList<ConstructionHeuristic>();
 
                 constructionHeuristics.add(new DeterministicConstructionHeuristic());
-                constructionHeuristics.add(new RandomizedConstructionHeuristic());
+                constructionHeuristics.add(new RandomizedConstructionHeuristic(0.3));
 
 
                 long start = System.currentTimeMillis();
