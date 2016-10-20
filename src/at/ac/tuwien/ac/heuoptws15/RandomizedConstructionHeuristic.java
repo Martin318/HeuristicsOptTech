@@ -30,7 +30,7 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
     }
 
     public RandomizedConstructionHeuristic(double alpha){
-        this.alpha = alpha;
+        this.alpha = Math.max(Math.min(alpha,0.0),1.0);
     }
 
 
