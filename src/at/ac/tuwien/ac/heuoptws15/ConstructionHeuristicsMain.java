@@ -50,21 +50,27 @@ public class ConstructionHeuristicsMain {
 
 
                 for(ConstructionHeuristic h : constructionHeuristics){
-           //         System.out.println(h.getName());
+                    System.out.println(h.getName());
            //         System.out.println("The heuristic returned the following solution(s):");
                     KPMPSolution s = h.getNextSolution();
 
                     int bestSolutionValue = Integer.MAX_VALUE;
+                    int counter = 0;
 
-                    while(s != null) {
+                    while(s != null && counter < 10) {
+
+                        counter ++;
+
                         int crossings = KPMPSolution.crossings(s);
+
+                        System.out.println(crossings);
 
                         if (crossings < bestSolutionValue) {
 
                             bestSolutionValue = crossings;
 
-                            System.out.println(s);
-                            System.out.println("With following No of crossings: " + crossings);
+                           // System.out.println(s);
+                           // System.out.println("With following No of crossings: " + crossings);
                             w = new KPMPSolutionWriter(instance.getK());
                             s.insertIntoWriter(w);
                             try {
