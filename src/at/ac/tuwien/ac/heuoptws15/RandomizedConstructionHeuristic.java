@@ -48,9 +48,15 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
       //      System.out.println("Degree of vertex " + i + " is " + getDegree(i));
         }
 
+        int[] offsets = new int[instance.getNumVertices()];
+
+        for( int i = 0; i < instance.getNumVertices(); i++)
+            offsets[i] = (int) alpha*RandomWithin(0,instance.getNumVertices()-1);
+
+
         Arrays.sort(ordering, (int1, int2) -> {
-            Integer firstDegree = getDegree(int1) + (int) alpha*RandomWithin(0,instance.getNumVertices()-1);
-            Integer secondDegree = getDegree(int2)+ (int) alpha*RandomWithin(0,instance.getNumVertices()-1);
+            Integer firstDegree = getDegree(int1) + offsets[int1];
+            Integer secondDegree = getDegree(int2)+ offsets[int2];
             return firstDegree.compareTo(secondDegree);
         });
 

@@ -36,7 +36,7 @@ public class ConstructionHeuristicsMain {
                 ArrayList<ConstructionHeuristic> constructionHeuristics = new ArrayList<ConstructionHeuristic>();
 
                 constructionHeuristics.add(new DeterministicConstructionHeuristic());
-                constructionHeuristics.add(new RandomizedConstructionHeuristic(0.3));
+                constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
 
 
                 long start = System.currentTimeMillis();
@@ -57,24 +57,21 @@ public class ConstructionHeuristicsMain {
                     int bestSolutionValue = Integer.MAX_VALUE;
 
                     while(s != null) {
-
                         int crossings = KPMPSolution.crossings(s);
+
                         if (crossings < bestSolutionValue) {
 
                             bestSolutionValue = crossings;
 
-
-
-                        System.out.println(s);
-                        System.out.println("With following No of crossings: " + crossings);
-                        w = new KPMPSolutionWriter(instance.getK());
-                        s.insertIntoWriter(w);
-                        try {
-                            w.write(args[0] + "_solution");
-                        } catch (IOException e) {
-                            System.out.println("Failed to  write file: " + e);
-                        }
-
+                            System.out.println(s);
+                            System.out.println("With following No of crossings: " + crossings);
+                            w = new KPMPSolutionWriter(instance.getK());
+                            s.insertIntoWriter(w);
+                            try {
+                                w.write(args[0] + "_solution");
+                            } catch (IOException e) {
+                                System.out.println("Failed to  write file: " + e);
+                            }
                         }
 
                         s = h.getNextSolution();
