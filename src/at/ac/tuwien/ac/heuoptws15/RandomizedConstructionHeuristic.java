@@ -21,11 +21,8 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
 
     public KPMPSolution getNextSolution(){
 
-        if(!createdSolution){
-            createdSolution = true;
-            return createRandomizedSolution();
-        }
-        return null;
+        return createRandomizedSolution();
+
 
     }
 
@@ -48,7 +45,7 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
 
         for (int i= 0; i< instance.getNumVertices(); i++){
             ordering[i] = i;
-            System.out.println("Degree of vertex " + i + " is " + getDegree(i));
+      //      System.out.println("Degree of vertex " + i + " is " + getDegree(i));
         }
 
         Arrays.sort(ordering, (int1, int2) -> {
@@ -58,7 +55,7 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
         });
 
         Integer[] copyOrdering = ordering.clone();
-        System.out.println("vertices "+ instance.getNumVertices());
+     //   System.out.println("vertices "+ instance.getNumVertices());
 
         // shift the highest values to the middle, by magic
         for (int i= 0; i< instance.getNumVertices(); i++) {
@@ -66,7 +63,7 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
             ordering[magic] = copyOrdering[i];
         }
 
-        System.out.println("Ordering done.");
+    //    System.out.println("Ordering done.");
 
         s = new KPMPSolution(instance.getNumVertices(), instance.getK(),ordering);
         ///

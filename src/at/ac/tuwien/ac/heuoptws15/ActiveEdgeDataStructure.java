@@ -36,8 +36,6 @@ public class ActiveEdgeDataStructure{
         int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
         Edge actualE = new Edge(start,end);
 
-        if(e.start == 5 && e.end == 4)
-            System.out.println("asdf");
 
         for (int i = start + 1; i < end; i++) {
              TreeMap<EdgePoint,Integer> currentFutureList = (TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i];

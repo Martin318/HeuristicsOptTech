@@ -89,7 +89,7 @@ public class KPMPSolution {
         if (solution == null )
             return 0;
         int crossingFound = 0;
-        System.out.println("Crossings found: ");
+//        System.out.println("Crossings found: ");
 //        for(Page page : solution.pages)
 //            for(Edge e1 : page.edges){
 //                List<Edge> crossed  = page.edges.stream()

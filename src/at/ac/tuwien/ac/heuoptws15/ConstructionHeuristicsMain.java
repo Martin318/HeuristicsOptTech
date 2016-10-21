@@ -50,22 +50,32 @@ public class ConstructionHeuristicsMain {
 
 
                 for(ConstructionHeuristic h : constructionHeuristics){
-                    System.out.println(h.getName());
-                    System.out.println("The heuristic returned the following solution(s):");
+           //         System.out.println(h.getName());
+           //         System.out.println("The heuristic returned the following solution(s):");
                     KPMPSolution s = h.getNextSolution();
 
-                    while(s != null){
+                    int bestSolutionValue = Integer.MAX_VALUE;
+
+                    while(s != null) {
+
+                        int crossings = KPMPSolution.crossings(s);
+                        if (crossings < bestSolutionValue) {
+
+                            bestSolutionValue = crossings;
+
+
+
                         System.out.println(s);
-                        System.out.println("With following No of crossings: " + KPMPSolution.crossings(s));
+                        System.out.println("With following No of crossings: " + crossings);
                         w = new KPMPSolutionWriter(instance.getK());
                         s.insertIntoWriter(w);
-                        try{
-                            w.write(args[0]+"_solution");
-                        }
-                        catch (IOException e){
+                        try {
+                            w.write(args[0] + "_solution");
+                        } catch (IOException e) {
                             System.out.println("Failed to  write file: " + e);
                         }
 
+                        }
 
                         s = h.getNextSolution();
                     }

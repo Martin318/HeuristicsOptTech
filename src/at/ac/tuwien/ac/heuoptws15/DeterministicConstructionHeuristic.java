@@ -40,13 +40,13 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
 
         for (int i= 0; i< instance.getNumVertices(); i++){
             ordering[i] = i;
-            System.out.println("Degree of vertex " + i + " is " + getDegree(i));
+        //    System.out.println("Degree of vertex " + i + " is " + getDegree(i));
         }
 
         Arrays.sort(ordering, (int1, int2) -> { return getDegree(int1).compareTo(getDegree(int2));});
 
         Integer[] copyOrdering = ordering.clone();
-        System.out.println("vertices "+ instance.getNumVertices());
+    //    System.out.println("vertices "+ instance.getNumVertices());
 
         // shift the highest values to the middle, by magic
         for (int i= 0; i< instance.getNumVertices(); i++) {
@@ -54,7 +54,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
             ordering[magic] = copyOrdering[i];
         }
 
-        System.out.println("Ordering done.");
+   //     System.out.println("Ordering done.");
 
         s = new KPMPSolution(instance.getNumVertices(), instance.getK(),ordering);
         ///
