@@ -62,13 +62,25 @@
 \thispagestyle{empty}
 
 \section{Summary}
-Our group consisting of Blöschl Martin and Okulmus Cem was given the task of finding a heuristic for the K Page Book Embedding Problem. The problem description will not be repeated for sake of brevity. We chose a simple two-step algorithm that constructs a greedy heuristic with no further local search. As for the randomization, we found ways to extends these steps to allow for a parameterized uncertainty factor (similar to the $\alpha$ factor in GRASP). 
+We chose a simple two-step algorithm that constructs an initial solution. First, the ordering is fixed by looking at the order of the vertices. We found out that the algorithm gives the best results when we place the vertices with the highest degree at the top and bottom of the spine. Then, the edges are one by one added to the page with the minimal new crossings.
+ As for the randomization, we found ways to extends these steps to allow for a parameterized uncertainty factor (similar to the $\alpha$ factor in GRASP). 
 Our results showed that randomization improved our results for almost all our test instances. 
 
 \section{Implementation}
 
+In the following subchapters we will describe details of the implementation.
+
 \subsection{Solution representation}
-Internally, we represent a solution as the order of its vertices, an integer array, and the lists of edges assigned to pages. We decided that our construction heuristic should first fix the vertex order and afterwards determine a good page partition for this ordering. This allowed us to find clear rules for the construction at each step, as we will explain in the following sections. A downside of this method is that it does not allow to avoid certain crossings encountered during the heuristic by changing the vertex order. This could be alleviated by adding a local search procedure, ideally searching for both changes in vertex ordering and page partition. 
+Internally, we represent a solution as the order of its vertices, an integer array, and the lists of edges assigned to pages. 
+
+Additionally, we developed a new data structure that stores the active edges at each vertex. For example, a edge (0,7) would be active at all vertices between the vertex 0 and vertex 7. Even though this increases space consumption, we are able to answer crossing-queries in very little time. If we want to add a new edge we only look at the active edges at the beginning and the end of the new edge and can get the number of newly introduced crossings in logarithmic time.
+
+\subsection{Two step algorithm}
+
+We decided that our construction heuristic should first fix the vertex order and afterwards determine a good page partition for this ordering. This allowed us to find clear rules for the construction at each step, as we will explain in the following sections. A downside of this method is that it does not allow to avoid certain crossings encountered during the heuristic by changing the vertex order. This could be alleviated by adding a local search procedure, ideally searching for both changes in vertex ordering and page partition. 
+
+Furthermore, fixing the vertices first allows us to create the active edge data structure (see above), and thus lets us very efficiently check whether adding an edge would introduce new crossings. We think that this operation is used very often (and also used in further extensions like local search) and therefore this approach seems to be the most promising.
+
 
 \subsection{Deterministic Construction}
 
