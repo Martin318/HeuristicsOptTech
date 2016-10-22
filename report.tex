@@ -100,9 +100,42 @@ For the vertex ordering, a random offset for the degree count is added. The vert
 As for the edges, we first collect all edges to be added and then shuffle the order in which the first fit procedure from above is considered. We experimented with also adding edges randomly (depending on $\alpha$), but the results proved not satisfiable. 
 
 \section{Evaluation}
-Our tests were run mostly on our private machines. For Cem Okulmus this is a laptop with a Intel i7-4500U @ 1.8 GHz and 8 GB of DDR3 @ 1333 Mhz. 
+Our tests were run mostly on our private machines. This is a laptop with an Intel i7-4500U @ 1.8 GHz and 8 GB of RAM running Ubuntu  16.04 x64  and a desktop PC with an Intel Core 2 Quad Q6600 and 6GB of RAM on Windows 10 x64. We used the Java Framework as a starting point and implemented it in Java 8. 
 
-Our best results can be seen on the tool provided to submit solutions. We found that the best results were almost always achieved by the randomized variant (except for instance 10, where our best result stems from the deterministic version).
+Our best results can be seen on the tool provided to submit solutions. We found that the best results were almost always achieved by the randomized variant (except for instance 10, where our best result stems from the deterministic version). When sampling for 10 values, however, it can be seen that the randomized construction usually is worse on average. The minimum is almost always lower, however.
+
+\begin{figure}[H]
+\centering
+  \begin{tabular}{| c | c | c | c |}
+\hline
+Instance name & Deterministic Construction & Randomized Mean & Randomized Std. Deviation \\
+\hline
+Instance 1 & 18 & 18.5 & 3.75 \\
+\hline 
+Instance 2 & 59 & 68.6 & 10.67 \\
+\hline 
+Instance 3 & 114 & 132.9 & 26.49 \\
+\hline 
+Instance 4 & 215 & 160.02 & 26.31 \\
+\hline 
+Instance 5 & 91 & 89.2  & 23.4 \\
+\hline 
+Instance 6 & 6732459 & 4498075 & 211133\\
+\hline 
+Instance 7 & 156906 & 157854 & 5740.4 \\
+\hline 
+Instance 8 & 915429 & 633363 & 19867 \\
+\hline 
+Instance 9 & 1529691 & 789895 & 71314 \\
+\hline 
+Instance 10 & 107333 & 121714 & 3317.5 \\
+\hline 
+\end{tabular}
+\caption{Test results of crossing counts.  10 samples were used for randomized part}
+\end{figure}
+
+
+
 
 We assume the most obvious way to improve our results would be the implementation of a local search. Since we implemented an incremental way to detect crossings (the most computationally expensive part of our heuristic), we could quickly introduce changes to the page partition (though not the vertex order) and check for improvements. 
 
