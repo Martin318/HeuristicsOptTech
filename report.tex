@@ -84,11 +84,13 @@ Furthermore, fixing the vertices first allows us to create the active edge data 
 
 \subsection{Deterministic Construction}
 
-Our deterministic construction looks at the degree of each vertex to determine its order. Initially, our idea was to have vertices with higher degree nearer the middle of the ``spine'', as shown in the graph below. 
+Our deterministic construction looks at the degree of each vertex to determine its order. Initially, our idea was to have vertices with higher degree nearer the middle of the ``spine''.
+
 \begin{center}
     \includegraphics[scale=0.6]{bilder/graph.pdf}
 \end{center}
-The idea was that since most edges will be incident to the vertices in the middle, there would be less crossings. However, as we tested the algorithm, we found out that that the reverse order, namely that the vertices with higher degree are on the top and bottom of the spine, results in less crossings. We are unable to explain this behavior, but in almost all test cases the reverse order leads to a better result. 
+
+The idea was that since most edges will be incident to the vertices in the middle, there would be less crossings. However, as we tested the algorithm, we found out that that the reverse order, namely that the vertices with higher degree are on the top and bottom of the spine, results in less crossings, as in the graph above.  We are unable to explain this behavior, but in almost all test cases the reverse order leads to a better result. 
 
 
 For the edge partitioning, we implemented a first fit algorithm that chooses the first page with which the new edge introduces no new crossings. If no such page exists, the one with the least introduced crossings is chosen. 
@@ -107,32 +109,32 @@ Our best results can be seen on the tool provided to submit solutions. We found 
 
 \begin{figure}[H]
 \centering
-  \begin{tabular}{| c | c | c | c |}
+  \begin{tabular}{| c | c | c | c | c |}
 \hline
-Instance name & Deterministic Construction & Randomized Mean & Randomized Std. Deviation \\
+Instance name & Det. Construction & Rand. Mean & Rand. Std. Deviation & Rand. Minimal\\
 \hline
-Instance 1 & 18 & 18.5 & 3.75 \\
+Instance 1 & 18 & 18.5 & 3.75 & 9\\
 \hline 
-Instance 2 & 59 & 68.6 & 10.67 \\
+Instance 2 & 59 & 68.6 & 10.67 &9\\
 \hline 
-Instance 3 & 114 & 132.9 & 26.49 \\
+Instance 3 & 114 & 132.9 & 26.49 &\\
 \hline 
-Instance 4 & 215 & 160.02 & 26.31 \\
+Instance 4 & 215 & 160.02 & 26.31 &\\
 \hline 
-Instance 5 & 91 & 89.2  & 23.4 \\
+Instance 5 & 91 & 89.2  & 23.4 &\\
 \hline 
-Instance 6 & 6732459 & 4498075 & 211133\\
+Instance 6 & 6732459 & 4498075 & 211133 &\\
 \hline 
-Instance 7 & 156906 & 157854 & 5740.4 \\
+Instance 7 & 156906 & 157854 & 5740.4 & \\
 \hline 
-Instance 8 & 915429 & 633363 & 19867 \\
+Instance 8 & 915429 & 633363 & 19867 & \\
 \hline 
-Instance 9 & 1529691 & 789895 & 71314 \\
+Instance 9 & 1529691 & 789895 & 71314 & \\
 \hline 
-Instance 10 & 107333 & 121714 & 3317.5 \\
+Instance 10 & 107333 & 121714 & 3317.5 &  \\
 \hline 
 \end{tabular}
-\caption{Test results of crossing counts.  10 samples were used for randomized part}
+\caption{Test results of crossing counts.  10 samples were used for mean and deviation}
 \end{figure}
 
 
