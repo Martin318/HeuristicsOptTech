@@ -73,7 +73,7 @@ In the following subchapters we will describe details of the implementation.
 \subsection{Solution representation}
 Internally, we represent a solution as the order of its vertices, an integer array, and the lists of edges assigned to pages. 
 
-Additionally, we developed a new data structure that stores the active edges at each vertex. For example, a edge (0,7) would be active at all vertices between the vertex 0 and vertex 7. Even though this increases space consumption, we are able to answer crossing-queries in very little time. If we want to add a new edge we only look at the active edges at the beginning and the end of the new edge and can get the number of newly introduced crossings in logarithmic time.
+Additionally, we developed a new data structure that stores the active edges at each vertex. For example, a edge (0,7) would be active at all vertices between the vertex 0 and vertex 7. Even though this increases space consumption, we are able to add a new edge by only checking the active edges at the two end points and can compute the number of newly introduced crossings in logarithmic time (since we ordered the active edges by their remaining ``length''). 
 
 \subsection{Two step algorithm}
 
@@ -100,10 +100,10 @@ For the randomization, we tried to find meaningful ways to introduced a controll
 
 For the vertex ordering, a random offset for the degree count is added. The vertices are then sorted by degree and offset together. 
 
-As for the edges, we first collect all edges to be added and then shuffle the order in which the first fit procedure from above is considered. We experimented with also adding edges randomly (depending on $\alpha$), but the results proved not satisfiable. 
+As for the edges, we first collect all edges to be added and then shuffle the order in which the first fit procedure from above is considered. We experimented with also adding edges randomly (depending on $\alpha$), but the results proved unsatisfactory. 
 
 \section{Evaluation}
-Our tests were run mostly on our private machines. This is a laptop with an Intel i7-4500U @ 1.8 GHz and 8 GB of RAM running Ubuntu  16.04 x64  and a desktop PC with an Intel Core 2 Quad Q6600 and 6GB of RAM on Windows 10 x64. We used the Java Framework as a starting point and implemented it in Java 8. 
+Our tests were run only on our private machines. We acquired the information for the cluster fairly late and by that time had already started testing. The testing was done on a laptop with an Intel i7-4500U @ 1.8 GHz and 8 GB of RAM running Ubuntu  16.04 x64  and a desktop PC with an Intel Core 2 Quad Q6600 and 6GB of RAM on Windows 10 x64. We used the Java framework from TUWEL as a starting point and implemented it in Java 8. 
 
 Our best results can be seen on the tool provided to submit solutions. We found that the best results were almost always achieved by the randomized variant (except for instance 10, where our best result stems from the deterministic version). When sampling for 10 values, however, it can be seen that the randomized construction usually is worse on average. The minimum is almost always lower, however.
 
