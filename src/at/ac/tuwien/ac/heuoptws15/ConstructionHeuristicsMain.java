@@ -1,5 +1,6 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import com.sun.security.auth.SolarisNumericUserPrincipal;
 import sun.java2d.pipe.SolidTextRenderer;
 
@@ -64,6 +65,9 @@ public class ConstructionHeuristicsMain {
                         int crossings = KPMPSolution.crossings(s);
 
                         System.out.println(crossings);
+                        System.out.println("Other Crossing count: " + s.crossings2());
+
+                        System.out.println();
 
                         if (crossings < bestSolutionValue) {
 

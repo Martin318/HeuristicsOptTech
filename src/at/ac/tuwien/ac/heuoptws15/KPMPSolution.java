@@ -17,6 +17,7 @@ public class KPMPSolution {
 
     private ActiveEdgeDataStructure[] activeEdge;
 
+
     public KPMPSolution(int numVertices, int numPages, Integer[] ordering){
 
         this.ordering = ordering;
@@ -27,6 +28,7 @@ public class KPMPSolution {
         for(int i = 0; i < numPages; i++){
             pages[i] = new Page();
             activeEdge[i] = new ActiveEdgeDataStructure(numVertices,ordering);
+
         }
 
     }
@@ -77,6 +79,23 @@ public class KPMPSolution {
 
         return orderingComp[a] < orderingComp[b];
     }
+
+
+
+    public int crossings2(){
+        CollisionDetection[] detection = new CollisionDetection[pages.length];
+
+        int count = 0;
+
+        for(int i = 0; i < pages.length; i++){
+            detection[i] = new CollisionDetection(ordering.length,ordering,pages[i].edges);
+            count =+ detection[i].getCrossings();
+        }
+
+        return count;
+    }
+
+
 
     /**
      * A bit slow since looking for edges itself takes linear time.
