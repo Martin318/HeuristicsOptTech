@@ -66,6 +66,10 @@ public class ConstructionHeuristicsMain {
 
                         System.out.println(crossings);
                         System.out.println("Other Crossing count: " + s.crossings2());
+                        if(s.crossings2() != crossings){
+                            s.crossings2();
+                        }
+
 
                         System.out.println();
 

@@ -89,7 +89,7 @@ public class KPMPSolution {
 
         for(int i = 0; i < pages.length; i++){
             detection[i] = new CollisionDetection(ordering.length,ordering,pages[i].edges);
-            count =+ detection[i].getCrossings();
+            count += detection[i].getCrossings();
         }
 
         return count;

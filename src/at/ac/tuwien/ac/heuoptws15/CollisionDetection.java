@@ -52,9 +52,9 @@ public class CollisionDetection {
             final int currentEndNode0 = ordering[currentEndNode];
 
             //Edges are added from left to right end node.
-            temp = sortedEdges.stream().filter( e1 -> e1.end != currentEndNode0).collect(Collectors.toList());
+            temp = sortedEdges.stream().filter( e1 -> e1.end == currentEndNode0).collect(Collectors.toList());
             for(Edge e : temp){
-                crossings =+ tempArray[orderingComp[e.start]] + tempArray[orderingComp[e.end]];
+                crossings += tempArray[orderingComp[e.start]] +  tempArray[orderingComp[e.end]];
                 for(int i = orderingComp[e.start]+1; i <= orderingComp[e.end]-1 && i < currentActive.length; ++i)
                     currentActive[i]++;
             }
