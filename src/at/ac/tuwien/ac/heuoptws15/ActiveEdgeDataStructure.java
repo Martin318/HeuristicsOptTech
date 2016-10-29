@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Martin on 17.10.2016.
  */
-public class ActiveEdgeDataStructure{
+public class ActiveEdgeDataStructure implements CollisionChecker{
     private Object[] futureActiveVertexPoints;
     private Object[] pastActiveVertexPoints;
     private Integer[] vertexOrdering;
@@ -80,7 +80,7 @@ public class ActiveEdgeDataStructure{
 
 
 
-    public  Integer getCrossing(){
+    public  int getCrossing(){
         return this.crosssings;
     }
 

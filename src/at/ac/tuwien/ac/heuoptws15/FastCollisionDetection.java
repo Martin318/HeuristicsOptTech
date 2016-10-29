@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 /**
  * Created by cem on 27/10/16.
  */
-public class CollisionDetection {
+public class FastCollisionDetection implements CollisionChecker{
     int crossings = 0;
     int[] currentActive;
     Integer[] ordering;
@@ -18,25 +18,30 @@ public class CollisionDetection {
      *
      * @param numVertices   Number of vertices
      * @param ordering      The current ordering
-     * @param edges         A list of edges (for a page)
      */
-    public CollisionDetection(int numVertices,  Integer[] ordering, List<Edge> edges){
+    public FastCollisionDetection(int numVertices, Integer[] ordering){
+        this.ordering = ordering;
+        this.sortedEdges = new ArrayList<>();
+        currentActive = new int[numVertices];
+        Arrays.fill(currentActive,0);
+
+        orderingComp = new Integer[this.ordering.length];
+        for (int i = 0; i < this.ordering.length; i++)
+            orderingComp[this.ordering[i]] = i;
+
+        // Compute the crossings count immediately
+        crossingCount();
+    }
+
+    public FastCollisionDetection(int numVertices, Integer[] ordering, List<Edge> edges){
         this.ordering = ordering;
         this.sortedEdges = edges;
         currentActive = new int[numVertices];
         Arrays.fill(currentActive,0);
 
-        // should be a speedup for large lists, slower on small lists
-        // maybe depending on size of lists, this should be skipped?
-        Collections.sort(sortedEdges, (Edge e1,Edge e2) -> {
-            if(e1.start != e2.start)
-                return (smallerInOrdering(e1.start,e2.start)?(-1):(1));
-            else if (e1.end != e2.end)
-                return (smallerInOrdering(e1.end,e2.end)?(-1):(1));
-            else
-                return 0;
-        });
-
+        orderingComp = new Integer[this.ordering.length];
+        for (int i = 0; i < this.ordering.length; i++)
+            orderingComp[this.ordering[i]] = i;
 
         // Compute the crossings count immediately
         crossingCount();
@@ -44,11 +49,13 @@ public class CollisionDetection {
 
 
     private void crossingCount(){
+        crossings = 0;
+        Arrays.fill(currentActive,0);
         int currentEndNode = 0;
         List<Edge> temp;
         int[] tempArray = currentActive.clone();
 
-        while ( currentEndNode < currentActive.length){
+        while ( currentEndNode < currentActive.length && !sortedEdges.isEmpty()){
             final int currentEndNode0 = ordering[currentEndNode];
 
             //Edges are added from left to right end node.
@@ -63,19 +70,27 @@ public class CollisionDetection {
         }
     }
 
-    public int getCrossings(){
+    public int getCrossing(){
         return crossings;
     }
 
 
-    public boolean smallerInOrdering(int a, int b){
-        if (orderingComp == null) {
-            orderingComp = new Integer[this.ordering.length];
-            for (int i = 0; i < this.ordering.length; i++)
-                orderingComp[this.ordering[i]] = i;
-        }
+    public void addEdge(Edge e){
 
-        return orderingComp[a] < orderingComp[b];
+        sortedEdges.add(e);
+        crossingCount();
+    }
+
+    public int countAllCrossingsWithNewEdge(Edge e){
+        sortedEdges.add(e);
+
+        int oldCrossing = crossings;
+        crossingCount();
+        int newCrossing = crossings;
+        crossings = oldCrossing;
+
+        sortedEdges.remove(e);
+        return newCrossing - oldCrossing;
     }
 
 }

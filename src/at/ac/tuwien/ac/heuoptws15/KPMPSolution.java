@@ -1,8 +1,6 @@
 package at.ac.tuwien.ac.heuoptws15;
 
-import java.security.spec.ECGenParameterSpec;
 import java.util.*;
-import java.util.stream.*;
 
 /**
  * Created by Martin on 14.10.2016.
@@ -10,12 +8,9 @@ import java.util.stream.*;
 public class KPMPSolution {
 
     public Integer[] ordering;
-
     private Integer[] orderingComp;
-
     private Page[] pages;
-
-    private ActiveEdgeDataStructure[] activeEdge;
+    private CollisionChecker[] activeEdge;
 
 
     public KPMPSolution(int numVertices, int numPages, Integer[] ordering){
@@ -23,11 +18,11 @@ public class KPMPSolution {
         this.ordering = ordering;
 
         pages = new Page[numPages];
-        activeEdge = new ActiveEdgeDataStructure[numPages];
+        activeEdge = new FastCollisionDetection[numPages];
 
         for(int i = 0; i < numPages; i++){
             pages[i] = new Page();
-            activeEdge[i] = new ActiveEdgeDataStructure(numVertices,ordering);
+            activeEdge[i] = new FastCollisionDetection(numVertices,ordering);
 
         }
 
@@ -83,13 +78,13 @@ public class KPMPSolution {
 
 
     public int crossings2(){
-        CollisionDetection[] detection = new CollisionDetection[pages.length];
+        FastCollisionDetection[] detection = new FastCollisionDetection[pages.length];
 
         int count = 0;
 
         for(int i = 0; i < pages.length; i++){
-            detection[i] = new CollisionDetection(ordering.length,ordering,pages[i].edges);
-            count += detection[i].getCrossings();
+            detection[i] = new FastCollisionDetection(ordering.length,ordering,pages[i].edges);
+            count += detection[i].getCrossing();
         }
 
         return count;
@@ -108,24 +103,8 @@ public class KPMPSolution {
         if (solution == null )
             return 0;
         int crossingFound = 0;
-//        System.out.println("Crossings found: ");
-//        for(Page page : solution.pages)
-//            for(Edge e1 : page.edges){
-//                List<Edge> crossed  = page.edges.stream()
-//                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
-//                                      solution.smallerInOrdering(e2.start,e1.end)   &&
-//                                      solution.smallerInOrdering(e1.end,e2.end ) )
-//                        .collect(Collectors.toList());
-////                for(Edge e : crossed){
-////                    if( e.start < e1.start)
-////                        System.out.println("(" + e.start +" " + e.end + ") hat ein Crossing mit "+ "(" + e1.start +" " + e1.end + ")" );
-////                    else
-////                        System.out.println("(" + e1.start +" " + e1.end + ") hat ein Crossing mit "+ "(" + e.start +" " + e.end + ")" );
-////                }
-//                crossingFound += crossed.size();
-//            }
 
-       for(ActiveEdgeDataStructure active : solution.activeEdge){
+       for(CollisionChecker active : solution.activeEdge){
             crossingFound += active.getCrossing();
         }
 
@@ -142,56 +121,19 @@ public class KPMPSolution {
 
 
         for(int i = 0; i < this.pages.length; i++){
-
-
             currentCrossings = activeEdge[i].countAllCrossingsWithNewEdge(edge);
 
-            if(currentCrossings == 0){
+            if(currentCrossings == 0)
                 return i;
-            }
+
 
             if(currentCrossings < crossingsMinValue){
                 crossingsMinValue = currentCrossings;
                 crossingsMinIndex = i;
             }
-
-
         }
 
         return crossingsMinIndex;
-
-    }
-
-    /**
-     *  Returns the index of the first page in which this edge fits,
-     *  if not such page exists, returns the page with least edges
-     *
-     * @param edge
-     * @return
-     */
-    public int nextFreePage_old( Edge edge){
-        int pageMinSize = this.pages[0].edges.size();
-        int pageMinIndex = 0;
-        for(int i = 0; i < this.pages.length; i++){
-                if( this.pages[i].edges.size() < pageMinSize){
-                    pageMinSize = this.pages[i].edges.size();
-                    pageMinIndex = i;
-                }
-
-                Boolean NoneBefore = this.pages[i].edges.stream()
-                        .noneMatch(e2 ->    this.smallerInOrdering(e2.start,edge.start) &&
-                                            this.smallerInOrdering(edge.start,e2.end)   &&
-                                            this.smallerInOrdering(e2.end,edge.end ) );
-
-                Boolean NoneAfter = this.pages[i].edges.stream()
-                        .noneMatch(e2 ->    this.smallerInOrdering(edge.start,e2.start) &&
-                                            this.smallerInOrdering(e2.start,edge.end)   &&
-                                            this.smallerInOrdering(edge.end,e2.end ) );
-                if (NoneBefore && NoneAfter)
-                    return i;
-        }
-
-        return pageMinIndex;
     }
 
 
@@ -216,6 +158,8 @@ public class KPMPSolution {
         }
 
     }
+
+
 
 
 
