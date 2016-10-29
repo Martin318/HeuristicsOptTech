@@ -61,6 +61,41 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
         }
     }
 
+    public void removeEdge(Edge e) {
+        // Get  start and end indices, respecting the vertex ordering.
+        int start = Math.min(vertexOrdering[e.start], vertexOrdering[e.end]);
+        int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
+        Edge actualE = new Edge(start,end);
+
+        int OthersFront = 0;
+        int OthersBack = 0;
+        for (int i = start + 1; i < end; i++) {
+            TreeMap<EdgePoint,Integer> currentFutureList = (TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i];
+            TreeMap<EdgePoint,Integer> currentPastList = (TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i];
+
+            EdgePoint current_forward = new EdgePoint(actualE,end, i);
+            EdgePoint current_backward = new EdgePoint(actualE,start, i);
+
+            OthersBack += countCrossingsWithOthers(current_backward,(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i]);
+            OthersFront += countCrossingsWithOthers(current_forward,(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i]);
+
+            currentFutureList.remove(current_forward,current_forward.getRemainingLength());
+            currentPastList.remove(current_backward,current_backward.getRemainingLength());
+        }
+        crosssings -= OthersBack + OthersFront;
+
+        // Count the new crossings introduced
+        if(start+1 != end){
+            int front = 0;
+            int back = 0;
+
+            front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
+            back = countCrossings(new EdgePoint(actualE,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
+
+            crosssings -= back + front;
+        }
+    }
+
     public int countAllCrossingsWithNewEdge(Edge e){
         int start = Math.min( vertexOrdering[e.start],vertexOrdering[e.end]);
         int end = Math.max(vertexOrdering[e.end],vertexOrdering[e.start]);
@@ -76,6 +111,11 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
     private Integer countCrossings(EdgePoint e, TreeMap<EdgePoint,Integer> map){
           SortedMap<EdgePoint,Integer> crossings = map.headMap(e,true);
           return  crossings.keySet().stream().filter( e2 -> e2.e.end != e.e.end && e2.e.start != e.e.start).collect(Collectors.toList()).size();
+    }
+
+    private Integer countCrossingsWithOthers(EdgePoint e, TreeMap<EdgePoint,Integer> map){
+        SortedMap<EdgePoint,Integer> crossings = map.tailMap(e,true);
+        return  crossings.keySet().stream().filter( e2 -> e2.e.end != e.e.end && e2.e.start != e.e.start).collect(Collectors.toList()).size();
     }
 
 

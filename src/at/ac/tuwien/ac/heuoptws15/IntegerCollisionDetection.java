@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 /**
  * Created by cem on 27/10/16.
  */
-public class FastCollisionDetection implements CollisionChecker{
+public class IntegerCollisionDetection implements CollisionChecker{
     int crossings = 0;
     int[] currentActive;
     Integer[] ordering;
@@ -19,7 +19,7 @@ public class FastCollisionDetection implements CollisionChecker{
      * @param numVertices   Number of vertices
      * @param ordering      The current ordering
      */
-    public FastCollisionDetection(int numVertices, Integer[] ordering){
+    public IntegerCollisionDetection(int numVertices, Integer[] ordering){
         this.ordering = ordering;
         this.sortedEdges = new ArrayList<>();
         currentActive = new int[numVertices];
@@ -33,7 +33,7 @@ public class FastCollisionDetection implements CollisionChecker{
         crossingCount();
     }
 
-    public FastCollisionDetection(int numVertices, Integer[] ordering, List<Edge> edges){
+    public IntegerCollisionDetection(int numVertices, Integer[] ordering, List<Edge> edges){
         this.ordering = ordering;
         this.sortedEdges = edges;
         currentActive = new int[numVertices];
@@ -78,6 +78,11 @@ public class FastCollisionDetection implements CollisionChecker{
     public void addEdge(Edge e){
 
         sortedEdges.add(e);
+        crossingCount();
+    }
+
+    public void removeEdge(Edge  e){
+        sortedEdges.remove(e);
         crossingCount();
     }
 

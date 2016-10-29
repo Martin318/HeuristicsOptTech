@@ -1,16 +1,18 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import sun.java2d.pipe.SolidTextRenderer;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Created by Martin on 14.10.2016.
  */
-public class KPMPSolution {
+public class KPMPSolution implements Cloneable{
 
     public Integer[] ordering;
     private Integer[] orderingComp;
-    private Page[] pages;
+    Page[] pages;
     private CollisionChecker[] activeEdge;
 
 
@@ -27,6 +29,13 @@ public class KPMPSolution {
 
         }
 
+    }
+
+    public KPMPSolution clone(){
+        KPMPSolution clone = new KPMPSolution(this.ordering.length,this.pages.length,this.ordering);
+        clone.pages = this.pages.clone();
+        clone.orderingComp = this.orderingComp.clone();
+        return clone;
     }
 
     @Override
@@ -79,12 +88,12 @@ public class KPMPSolution {
 
 
     public int crossings2(){
-        FastCollisionDetection[] detection = new FastCollisionDetection[pages.length];
+        IntegerCollisionDetection[] detection = new IntegerCollisionDetection[pages.length];
 
         int count = 0;
 
         for(int i = 0; i < pages.length; i++){
-            detection[i] = new FastCollisionDetection(ordering.length,ordering,pages[i].edges);
+            detection[i] = new IntegerCollisionDetection(ordering.length,ordering,pages[i].edges);
             count += detection[i].getCrossing();
         }
 
@@ -160,6 +169,11 @@ public class KPMPSolution {
     public void addEdge(Edge e, int page){
         pages[page].edges.add(e);
         activeEdge[page].addEdge(e);
+    }
+
+    public void removeEdge(Edge e, int page){
+        pages[page].edges.remove(e);
+        activeEdge[page].removeEdge(e);
     }
 
 
