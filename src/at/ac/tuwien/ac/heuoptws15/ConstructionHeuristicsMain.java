@@ -45,7 +45,7 @@ public class ConstructionHeuristicsMain {
         ArrayList<ConstructionHeuristic> constructionHeuristics = new ArrayList<ConstructionHeuristic>();
 
         constructionHeuristics.add(new DeterministicConstructionHeuristic());
-        constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
+      //  constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
 
 
         long start = System.currentTimeMillis();
@@ -65,13 +65,14 @@ public class ConstructionHeuristicsMain {
             int bestSolutionValue = Integer.MAX_VALUE;
             int counter = 0;
 
-            while(s != null && counter < 10) {
+            while(s != null && counter < 1) {
                 counter ++;
 
                 int crossings = KPMPSolution.crossings(s);
 
                 System.out.println(crossings);
                 System.out.println("Other Crossing count: " + s.crossings2());
+               // System.out.println("Actual crossing: " + KPMPSolution.ActualCrossings(s));
                 if(s.crossings2() != crossings){
                     s.crossings2();
                 }

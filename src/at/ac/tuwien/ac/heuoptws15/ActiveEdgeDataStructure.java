@@ -63,7 +63,7 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
 
     public int countAllCrossingsWithNewEdge(Edge e){
         int start = Math.min( vertexOrdering[e.start],vertexOrdering[e.end]);
-        int end = Math.max(vertexOrdering[e.end],vertexOrdering[start]);
+        int end = Math.max(vertexOrdering[e.end],vertexOrdering[e.start]);
         Edge actualE = new Edge(start,end);
 
         int front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);

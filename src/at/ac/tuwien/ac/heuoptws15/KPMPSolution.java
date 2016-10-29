@@ -1,6 +1,7 @@
 package at.ac.tuwien.ac.heuoptws15;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Martin on 14.10.2016.
@@ -18,11 +19,11 @@ public class KPMPSolution {
         this.ordering = ordering;
 
         pages = new Page[numPages];
-        activeEdge = new FastCollisionDetection[numPages];
+        activeEdge = new ActiveEdgeDataStructure[numPages];
 
         for(int i = 0; i < numPages; i++){
             pages[i] = new Page();
-            activeEdge[i] = new FastCollisionDetection(numVertices,ordering);
+            activeEdge[i] = new ActiveEdgeDataStructure(numVertices,ordering);
 
         }
 
@@ -90,6 +91,25 @@ public class KPMPSolution {
         return count;
     }
 
+
+    public static int ActualCrossings(KPMPSolution solution){
+        if (solution == null )
+            return 0;
+        int crossingFound = 0;
+
+        for(Page page : solution.pages)
+            for(Edge e1 : page.edges){
+                List<Edge> crossed  = page.edges.stream()
+                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
+                                solution.smallerInOrdering(e2.start,e1.end)   &&
+                                solution.smallerInOrdering(e1.end,e2.end ) )
+                        .collect(Collectors.toList());
+                crossingFound += crossed.size();
+            }
+
+
+        return crossingFound;
+    }
 
 
     /**
