@@ -10,4 +10,6 @@ public interface CollisionChecker {
     void removeEdge(Edge edge);
     int getCrossing();
 
+    CollisionChecker clone();
+
 }

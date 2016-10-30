@@ -14,4 +14,11 @@ public class Page{
         this.edges = new ArrayList<Edge>();
     }
 
+    @Override
+    public Page clone(){
+        Page p = new Page();
+        p.edges = (ArrayList<Edge>)this.edges.clone();
+        return p;
+    }
+
 }

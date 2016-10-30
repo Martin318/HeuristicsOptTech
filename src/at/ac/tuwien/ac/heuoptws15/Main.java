@@ -12,7 +12,7 @@ import java.util.concurrent.SynchronousQueue;
 /**
  * Created by Martin on 14.10.2016.
  */
-public class ConstructionHeuristicsMain {
+public class Main {
 
     public static void main(String[] args){
 
@@ -45,7 +45,7 @@ public class ConstructionHeuristicsMain {
         ArrayList<ConstructionHeuristic> constructionHeuristics = new ArrayList<ConstructionHeuristic>();
 
         constructionHeuristics.add(new DeterministicConstructionHeuristic());
-      //  constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
+        constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
 
 
         long start = System.currentTimeMillis();
@@ -54,51 +54,78 @@ public class ConstructionHeuristicsMain {
             h.initialize(instance);
         }
 
-        KPMPSolutionWriter w;
-
-
+        KPMPSolution bestSol = null;
+        int bestSolutionValue = Integer.MAX_VALUE;
 
         for(ConstructionHeuristic h : constructionHeuristics){
             System.out.println(h.getName());
             KPMPSolution s = h.getNextSolution();
 
-            int bestSolutionValue = Integer.MAX_VALUE;
             int counter = 0;
 
-            while(s != null && counter < 1) {
+            while(s != null && counter < 10) {
                 counter ++;
 
-                int crossings = KPMPSolution.crossings(s);
+                int crossings = s.crossings();
 
                 System.out.println(crossings);
-                System.out.println("Other Crossing count: " + s.crossings2());
-               // System.out.println("Actual crossing: " + KPMPSolution.ActualCrossings(s));
-                if(s.crossings2() != crossings){
-                    s.crossings2();
-                }
-
 
                 System.out.println();
 
                 if (crossings < bestSolutionValue) {
                     bestSolutionValue = crossings;
+                    bestSol = s;
 
-                    // System.out.println(s);
-                    // System.out.println("With following No of crossings: " + crossings);
-                    w = new KPMPSolutionWriter(instance.getK());
-                    s.insertIntoWriter(w);
-                    try {
-                        w.write(args[0] + "_solution");
-                    } catch (IOException e) {
-                        System.out.println("Failed to  write file: " + e);
-                    }
                }
 
                s = h.getNextSolution();
             }
 
-            System.out.println("--------------------");
         }
+
+        // BEST initial solution found!
+
+        System.out.println("--------------------");
+        System.out.println("Best initial solution");
+        System.out.println(bestSolutionValue);
+        System.out.println("--------------------");
+
+
+
+        SearchConfiguration s = new SearchConfiguration();
+
+        s.setInitialSolution(bestSol);
+        s.setNeighbourhood(new OneEdgeFlipNeighbourhood());
+        s.setStepFunction(new BestImprovementStepFunction(bestSol,bestSolutionValue ));
+
+
+        KPMPSolution sol = s.getNextSolution();
+        bestSol = null;
+        bestSolutionValue = Integer.MAX_VALUE;
+
+
+        while(sol != null){
+            int crossings = sol.crossings();
+            if(crossings < bestSolutionValue){
+                bestSol = sol;
+                bestSolutionValue = crossings;
+
+                System.out.println("Local Search improved solution:");
+                System.out.println(bestSolutionValue);
+
+                KPMPSolutionWriter w;
+                w = new KPMPSolutionWriter(instance.getK());
+                bestSol.insertIntoWriter(w);
+                try {
+                    w.write(args[0] + "_solution");
+                } catch (IOException e) {
+                    System.out.println("Failed to  write file: " + e);
+                }
+
+            }
+
+        }
+
 
 
         System.out.println("Progamm finished in " + (System.currentTimeMillis() - start) + " Milliseconds." );

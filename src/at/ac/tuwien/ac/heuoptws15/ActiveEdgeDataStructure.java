@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
  * Created by Martin on 17.10.2016.
  */
 public class ActiveEdgeDataStructure implements CollisionChecker{
-    private Object[] futureActiveVertexPoints;
-    private Object[] pastActiveVertexPoints;
-    private Integer[] vertexOrdering;
-    private Integer crosssings = 0;
+    public Object[] futureActiveVertexPoints;
+    public Object[] pastActiveVertexPoints;
+    public Integer[] vertexOrdering;
+    public Integer crosssings = 0;
 
     public ActiveEdgeDataStructure(int numVertices, Integer[] vertexOrdering) {
         this.futureActiveVertexPoints = new Object[numVertices];
@@ -152,6 +152,17 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
             else
                 return this.e.end - other.e.end;
         }
+    }
+
+    @Override public ActiveEdgeDataStructure clone(){
+        ActiveEdgeDataStructure clone = new ActiveEdgeDataStructure(futureActiveVertexPoints.length, vertexOrdering.clone());
+
+        clone.futureActiveVertexPoints = futureActiveVertexPoints.clone();
+        clone.pastActiveVertexPoints = pastActiveVertexPoints.clone();
+        clone.crosssings = crosssings;
+
+        return clone;
+
     }
 
 

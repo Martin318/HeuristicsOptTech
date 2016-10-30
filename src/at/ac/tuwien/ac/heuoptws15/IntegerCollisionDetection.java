@@ -98,4 +98,9 @@ public class IntegerCollisionDetection implements CollisionChecker{
         return newCrossing - oldCrossing;
     }
 
+    @Override
+    public IntegerCollisionDetection clone(){
+        throw new RuntimeException("Not Implemented");
+    }
+
 }

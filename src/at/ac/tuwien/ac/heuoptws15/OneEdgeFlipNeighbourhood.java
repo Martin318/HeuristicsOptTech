@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by cem on 29/10/16.
  */
-public class OneEdgeFlipNeighbourhood implements Neighbourhood {
+public class OneEdgeFlipNeighbourhood extends Neighbourhood {
     @Override
     public List<KPMPSolution> getNeighbours(KPMPSolution solution) {
         List<KPMPSolution> neighbours = new ArrayList<KPMPSolution>();

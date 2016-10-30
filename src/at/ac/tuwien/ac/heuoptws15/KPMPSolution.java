@@ -13,7 +13,7 @@ public class KPMPSolution implements Cloneable{
     public Integer[] ordering;
     private Integer[] orderingComp;
     Page[] pages;
-    private CollisionChecker[] activeEdge;
+    public CollisionChecker[] activeEdge;
 
 
     public KPMPSolution(int numVertices, int numPages, Integer[] ordering){
@@ -33,8 +33,11 @@ public class KPMPSolution implements Cloneable{
 
     public KPMPSolution clone(){
         KPMPSolution clone = new KPMPSolution(this.ordering.length,this.pages.length,this.ordering);
-        clone.pages = this.pages.clone();
+        clone.pages = new Page[pages.length];
+        for(int i = 0; i< pages.length; i++) clone.pages[i] = pages[i].clone();
         clone.orderingComp = this.orderingComp.clone();
+        clone.activeEdge = activeEdge.clone();
+        for(int i = 0; i< activeEdge.length; i++) clone.activeEdge[i] = activeEdge[i].clone();
         return clone;
     }
 
@@ -86,39 +89,39 @@ public class KPMPSolution implements Cloneable{
     }
 
 
-
-    public int crossings2(){
-        IntegerCollisionDetection[] detection = new IntegerCollisionDetection[pages.length];
-
-        int count = 0;
-
-        for(int i = 0; i < pages.length; i++){
-            detection[i] = new IntegerCollisionDetection(ordering.length,ordering,pages[i].edges);
-            count += detection[i].getCrossing();
-        }
-
-        return count;
-    }
-
-
-    public static int ActualCrossings(KPMPSolution solution){
-        if (solution == null )
-            return 0;
-        int crossingFound = 0;
-
-        for(Page page : solution.pages)
-            for(Edge e1 : page.edges){
-                List<Edge> crossed  = page.edges.stream()
-                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
-                                solution.smallerInOrdering(e2.start,e1.end)   &&
-                                solution.smallerInOrdering(e1.end,e2.end ) )
-                        .collect(Collectors.toList());
-                crossingFound += crossed.size();
-            }
+//
+//    public int crossings2(){
+//        IntegerCollisionDetection[] detection = new IntegerCollisionDetection[pages.length];
+//
+//        int count = 0;
+//
+//        for(int i = 0; i < pages.length; i++){
+//            detection[i] = new IntegerCollisionDetection(ordering.length,ordering,pages[i].edges);
+//            count += detection[i].getCrossing();
+//        }
+//
+//        return count;
+//    }
 
 
-        return crossingFound;
-    }
+//    public static int ActualCrossings(KPMPSolution solution){
+//        if (solution == null )
+//            return 0;
+//        int crossingFound = 0;
+//
+//        for(Page page : solution.pages)
+//            for(Edge e1 : page.edges){
+//                List<Edge> crossed  = page.edges.stream()
+//                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
+//                                solution.smallerInOrdering(e2.start,e1.end)   &&
+//                                solution.smallerInOrdering(e1.end,e2.end ) )
+//                        .collect(Collectors.toList());
+//                crossingFound += crossed.size();
+//            }
+//
+//
+//        return crossingFound;
+//    }
 
 
     /**
@@ -128,12 +131,11 @@ public class KPMPSolution implements Cloneable{
      * @param solution A possible solution
      * @return Number of crossings found
      */
-    public static int crossings(KPMPSolution solution){
-        if (solution == null )
-            return 0;
+    public int crossings(){
+
         int crossingFound = 0;
 
-       for(CollisionChecker active : solution.activeEdge){
+       for(CollisionChecker active : activeEdge){
             crossingFound += active.getCrossing();
         }
 
