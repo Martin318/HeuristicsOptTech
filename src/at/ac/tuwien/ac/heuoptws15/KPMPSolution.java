@@ -2,6 +2,7 @@ package at.ac.tuwien.ac.heuoptws15;
 
 import sun.java2d.pipe.SolidTextRenderer;
 
+import javax.swing.plaf.ActionMapUIResource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -128,7 +129,6 @@ public class KPMPSolution implements Cloneable{
      * A bit slow since looking for edges itself takes linear time.
      * If possible in constant time (use of actual arrays?) this would run in linear time
      *
-     * @param solution A possible solution
      * @return Number of crossings found
      */
     public int crossings(){

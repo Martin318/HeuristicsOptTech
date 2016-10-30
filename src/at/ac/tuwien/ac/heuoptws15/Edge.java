@@ -1,5 +1,7 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import java.util.Objects;
+
 /**
  * Created by Martin on 14.10.2016.
  */
@@ -18,6 +20,14 @@ public class Edge{
     @Override
     public String toString(){
         return "(" + start + "," + end + ")";
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Edge)) return false;
+        Edge o = (Edge) obj;
+
+        return (o.start == this.start) && (o.end == this.end);
     }
 
 

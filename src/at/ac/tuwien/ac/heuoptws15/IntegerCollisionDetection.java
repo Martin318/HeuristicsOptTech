@@ -71,6 +71,7 @@ public class IntegerCollisionDetection implements CollisionChecker{
     }
 
     public int getCrossing(){
+        crossingCount();
         return crossings;
     }
 
@@ -100,7 +101,11 @@ public class IntegerCollisionDetection implements CollisionChecker{
 
     @Override
     public IntegerCollisionDetection clone(){
-        throw new RuntimeException("Not Implemented");
+        IntegerCollisionDetection clone = new IntegerCollisionDetection(ordering.length, ordering);
+
+        clone.sortedEdges = new ArrayList<>(sortedEdges);
+
+        return clone;
     }
 
 }

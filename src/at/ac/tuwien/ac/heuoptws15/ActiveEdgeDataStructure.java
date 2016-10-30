@@ -1,6 +1,7 @@
 package at.ac.tuwien.ac.heuoptws15;
 
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -36,7 +37,6 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
         int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
         Edge actualE = new Edge(start,end);
 
-
         for (int i = start + 1; i < end; i++) {
              TreeMap<EdgePoint,Integer> currentFutureList = (TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i];
              TreeMap<EdgePoint,Integer> currentPastList = (TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i];
@@ -59,7 +59,10 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
 
             crosssings += back + front;
         }
+
     }
+
+
 
     public void removeEdge(Edge e) {
         // Get  start and end indices, respecting the vertex ordering.
@@ -67,8 +70,16 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
         int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
         Edge actualE = new Edge(start,end);
 
-        int OthersFront = 0;
-        int OthersBack = 0;
+        if(start+1 != end){
+            int front;
+            int  back;
+
+            front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
+            back = countCrossings(new EdgePoint(actualE,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
+
+            crosssings -= front + back;
+        }
+
         for (int i = start + 1; i < end; i++) {
             TreeMap<EdgePoint,Integer> currentFutureList = (TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i];
             TreeMap<EdgePoint,Integer> currentPastList = (TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i];
@@ -76,24 +87,11 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
             EdgePoint current_forward = new EdgePoint(actualE,end, i);
             EdgePoint current_backward = new EdgePoint(actualE,start, i);
 
-            OthersBack += countCrossingsWithOthers(current_backward,(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i]);
-            OthersFront += countCrossingsWithOthers(current_forward,(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i]);
-
             currentFutureList.remove(current_forward,current_forward.getRemainingLength());
             currentPastList.remove(current_backward,current_backward.getRemainingLength());
         }
-        crosssings -= OthersBack + OthersFront;
 
-        // Count the new crossings introduced
-        if(start+1 != end){
-            int front = 0;
-            int back = 0;
 
-            front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
-            back = countCrossings(new EdgePoint(actualE,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
-
-            crosssings -= back + front;
-        }
     }
 
     public int countAllCrossingsWithNewEdge(Edge e){
@@ -111,11 +109,6 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
     private Integer countCrossings(EdgePoint e, TreeMap<EdgePoint,Integer> map){
           SortedMap<EdgePoint,Integer> crossings = map.headMap(e,true);
           return  crossings.keySet().stream().filter( e2 -> e2.e.end != e.e.end && e2.e.start != e.e.start).collect(Collectors.toList()).size();
-    }
-
-    private Integer countCrossingsWithOthers(EdgePoint e, TreeMap<EdgePoint,Integer> map){
-        SortedMap<EdgePoint,Integer> crossings = map.tailMap(e,true);
-        return  crossings.keySet().stream().filter( e2 -> e2.e.end != e.e.end && e2.e.start != e.e.start).collect(Collectors.toList()).size();
     }
 
 
@@ -151,6 +144,14 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
                 return this.e.start - other.e.start;
             else
                 return this.e.end - other.e.end;
+        }
+
+        public boolean equals(Object obj) {
+            if (obj == null) return false;
+            if (!(obj instanceof EdgePoint)) return false;
+            EdgePoint o = (EdgePoint) obj;
+
+            return (o.e.equals(this.e)) && (o.index_end == this.index_end) && (o.current_index == this.current_index);
         }
     }
 

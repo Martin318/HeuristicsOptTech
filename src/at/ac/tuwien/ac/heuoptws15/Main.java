@@ -92,26 +92,23 @@ public class Main {
 
 
 
-        SearchConfiguration s = new SearchConfiguration();
+        SearchConfiguration search = new SearchConfiguration();
 
-        s.setInitialSolution(bestSol);
-        s.setNeighbourhood(new OneEdgeFlipNeighbourhood());
-        s.setStepFunction(new BestImprovementStepFunction(bestSol,bestSolutionValue ));
+        search.setInitialSolution(bestSol);
+        search.setNeighbourhood(new OneEdgeFlipNeighbourhood());
+        search.setStepFunction(new BestImprovementStepFunction(bestSol,bestSolutionValue ));
 
-
-        KPMPSolution sol = s.getNextSolution();
-        bestSol = null;
         bestSolutionValue = Integer.MAX_VALUE;
+        KPMPSolution currentSol = search.getNextSolution();
 
-
-        while(sol != null){
-            int crossings = sol.crossings();
+        while(currentSol.crossings() !=  bestSol.crossings()){
+            int crossings = currentSol.crossings();
             if(crossings < bestSolutionValue){
-                bestSol = sol;
+                bestSol = currentSol;
                 bestSolutionValue = crossings;
 
                 System.out.println("Local Search improved solution:");
-                System.out.println(bestSolutionValue);
+                System.out.println(bestSol.crossings());
 
                 KPMPSolutionWriter w;
                 w = new KPMPSolutionWriter(instance.getK());
@@ -123,7 +120,7 @@ public class Main {
                 }
 
             }
-
+           currentSol = search.getNextSolution();
         }
 
 
