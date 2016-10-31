@@ -37,10 +37,7 @@ public class Edge{
         c = orderingComp[this.end];
         d = orderingComp[other.end];                
 
-        if( a < b && b < c && c < d )
-            return true;
-        else
-            return false;
+        return ( a < b && b < c && c < d );
     }
 
 
