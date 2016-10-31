@@ -96,31 +96,31 @@ public class Main {
 
         search.setInitialSolution(bestSol);
         search.setNeighbourhood(new OneEdgeFlipNeighbourhood());
-        search.setStepFunction(new BestImprovementStepFunction(bestSol,bestSolutionValue ));
+        search.setStepFunction(new BestImprovementStepFunction(bestSol,bestSolutionValue));
 
-        bestSolutionValue = Integer.MAX_VALUE;
         KPMPSolution currentSol = search.getNextSolution();
 
-        while(currentSol.crossings() !=  bestSol.crossings()){
-            int crossings = currentSol.crossings();
-            if(crossings < bestSolutionValue){
-                bestSol = currentSol;
-                bestSolutionValue = crossings;
+        int currentSolCrossings = currentSol.crossings();
 
-                System.out.println("Local Search improved solution:");
-                System.out.println(bestSol.crossings());
+        while(currentSolCrossings < bestSolutionValue){
 
-                KPMPSolutionWriter w;
-                w = new KPMPSolutionWriter(instance.getK());
-                bestSol.insertIntoWriter(w);
-                try {
-                    w.write(args[0] + "_solution");
-                } catch (IOException e) {
-                    System.out.println("Failed to  write file: " + e);
-                }
+            bestSol = currentSol;
+            bestSolutionValue = currentSolCrossings;
 
+            System.out.println("Local Search improved solution:");
+            System.out.println(bestSolutionValue);
+
+            KPMPSolutionWriter w;
+            w = new KPMPSolutionWriter(instance.getK());
+            bestSol.insertIntoWriter(w);
+            try {
+                w.write(args[0] + "_solution");
+            } catch (IOException e) {
+                System.out.println("Failed to  write file: " + e);
             }
-           currentSol = search.getNextSolution();
+
+            currentSol = search.getNextSolution();
+            currentSolCrossings = currentSol.crossings();
         }
 
 

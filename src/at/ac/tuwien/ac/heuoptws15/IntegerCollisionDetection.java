@@ -11,7 +11,7 @@ public class IntegerCollisionDetection implements CollisionChecker{
     int[] currentActive;
     Integer[] ordering;
     Integer[] orderingComp;
-    List<Edge> sortedEdges;
+    List<Edge> edges;
 
     /**
      * Uses a simple counting of active edges to quickly count the number of crossings
@@ -21,7 +21,7 @@ public class IntegerCollisionDetection implements CollisionChecker{
      */
     public IntegerCollisionDetection(int numVertices, Integer[] ordering){
         this.ordering = ordering;
-        this.sortedEdges = new ArrayList<>();
+        this.edges = new ArrayList<>();
         currentActive = new int[numVertices];
         Arrays.fill(currentActive,0);
 
@@ -35,7 +35,7 @@ public class IntegerCollisionDetection implements CollisionChecker{
 
     public IntegerCollisionDetection(int numVertices, Integer[] ordering, List<Edge> edges){
         this.ordering = ordering;
-        this.sortedEdges = edges;
+        this.edges = edges;
         currentActive = new int[numVertices];
         Arrays.fill(currentActive,0);
 
@@ -55,11 +55,11 @@ public class IntegerCollisionDetection implements CollisionChecker{
         List<Edge> temp;
         int[] tempArray = currentActive.clone();
 
-        while ( currentEndNode < currentActive.length && !sortedEdges.isEmpty()){
+        while ( currentEndNode < currentActive.length && !edges.isEmpty()){
             final int currentEndNode0 = ordering[currentEndNode];
 
             //Edges are added from left to right end node.
-            temp = sortedEdges.stream().filter( e1 -> e1.end == currentEndNode0).collect(Collectors.toList());
+            temp = edges.stream().filter(e1 -> e1.end == currentEndNode0).collect(Collectors.toList());
             for(Edge e : temp){
                 crossings += tempArray[orderingComp[e.start]] +  tempArray[orderingComp[e.end]];
                 for(int i = orderingComp[e.start]+1; i <= orderingComp[e.end]-1 && i < currentActive.length; ++i)
@@ -78,32 +78,31 @@ public class IntegerCollisionDetection implements CollisionChecker{
 
     public void addEdge(Edge e){
 
-        sortedEdges.add(e);
-        crossingCount();
+        edges.add(e);
     }
 
     public void removeEdge(Edge  e){
-        sortedEdges.remove(e);
-        crossingCount();
+        edges.remove(e);
     }
 
     public int countAllCrossingsWithNewEdge(Edge e){
-        sortedEdges.add(e);
 
-        int oldCrossing = crossings;
-        crossingCount();
-        int newCrossing = crossings;
-        crossings = oldCrossing;
+        int crosses = 0;
 
-        sortedEdges.remove(e);
-        return newCrossing - oldCrossing;
+        for(Edge old : edges){
+            if(e.crosses(old,orderingComp)){
+                crosses++;
+            }
+        }
+        return crosses;
+
     }
 
     @Override
     public IntegerCollisionDetection clone(){
         IntegerCollisionDetection clone = new IntegerCollisionDetection(ordering.length, ordering);
 
-        clone.sortedEdges = new ArrayList<>(sortedEdges);
+        clone.edges = new ArrayList<>(edges);
 
         return clone;
     }

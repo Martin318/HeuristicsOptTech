@@ -22,11 +22,11 @@ public class KPMPSolution implements Cloneable{
         this.ordering = ordering;
 
         pages = new Page[numPages];
-        activeEdge = new ActiveEdgeDataStructure[numPages];
+        activeEdge = new IntegerCollisionDetection[numPages];
 
         for(int i = 0; i < numPages; i++){
             pages[i] = new Page();
-            activeEdge[i] = new ActiveEdgeDataStructure(numVertices,ordering);
+            activeEdge[i] = new IntegerCollisionDetection(numVertices,ordering);
 
         }
 

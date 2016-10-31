@@ -30,7 +30,11 @@ public class SearchConfiguration {
         List<KPMPSolution> neighbours = n.getNeighbours(s);
 
         for(KPMPSolution k: neighbours) {
-            if (f.acceptSolution(k, k.crossings())) {
+
+            int crossings = k.crossings();
+        //    System.out.println("Trying neighbour with " + crossings + " crossings.");
+
+            if (f.acceptSolution(k, crossings)) {
                 return k;
             }
         }

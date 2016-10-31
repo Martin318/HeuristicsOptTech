@@ -30,5 +30,14 @@ public class Edge{
         return (o.start == this.start) && (o.end == this.end);
     }
 
+    public boolean crosses(Edge e, Integer[] orderingComp){
+
+        if(orderingComp[this.start] < orderingComp[e.start] && orderingComp[e.start] < orderingComp[this.end]) return true;
+        if(orderingComp[e.start] < orderingComp[this.start] && orderingComp[this.start] < orderingComp[e.end]) return true;
+
+        return false;
+
+    }
+
 
 }

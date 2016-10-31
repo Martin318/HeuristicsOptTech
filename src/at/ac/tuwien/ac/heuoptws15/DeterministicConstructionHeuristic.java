@@ -69,7 +69,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
                     else
                         temp = new Edge(y, x);
 
-                   s.addEdge(temp,s.nextFreePage(temp));
+                    s.addEdge(temp,s.nextFreePage(temp));
                 }
         }
 
