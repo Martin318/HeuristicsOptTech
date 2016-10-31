@@ -30,13 +30,17 @@ public class Edge{
         return (o.start == this.start) && (o.end == this.end);
     }
 
-    public boolean crosses(Edge e, Integer[] orderingComp){
+    public boolean crosses(Edge other, Integer[] orderingComp){
+        int a,b,c,d;
+        a = orderingComp[this.start];
+        b = orderingComp[other.start];
+        c = orderingComp[this.end];
+        d = orderingComp[other.end];                
 
-        if(orderingComp[this.start] < orderingComp[e.start] && orderingComp[e.start] < orderingComp[this.end]) return true;
-        if(orderingComp[e.start] < orderingComp[this.start] && orderingComp[this.start] < orderingComp[e.end]) return true;
-
-        return false;
-
+        if( a < b && b < c && c < d )
+            return true;
+        else
+            return false;
     }
 
 
