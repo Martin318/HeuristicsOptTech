@@ -6,6 +6,8 @@ import java.util.List;
  * Created by cem on 27/10/16.
  */
 public abstract class Neighbourhood {
-    public abstract List<KPMPSolution> getNeighbours(KPMPSolution solution);
+    public abstract KPMPSolution getNextNeighbour();
+
+    public abstract void setSolution(KPMPSolution sol);
 
 }

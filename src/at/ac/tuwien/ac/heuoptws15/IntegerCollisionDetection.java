@@ -12,6 +12,7 @@ public class IntegerCollisionDetection implements CollisionChecker{
     Integer[] ordering;
     Integer[] orderingComp;
     List<Edge> edges;
+    boolean changed = true;
 
     /**
      * Uses a simple counting of active edges to quickly count the number of crossings
@@ -68,10 +69,11 @@ public class IntegerCollisionDetection implements CollisionChecker{
             tempArray = currentActive.clone();
             currentEndNode++;
         }
+        changed = false;
     }
 
     public int getCrossing(){
-        crossingCount();
+        if(changed) crossingCount();
         return crossings;
     }
 
@@ -79,10 +81,12 @@ public class IntegerCollisionDetection implements CollisionChecker{
     public void addEdge(Edge e){
 
         edges.add(e);
+        changed = true;
     }
 
     public void removeEdge(Edge  e){
         edges.remove(e);
+        changed = true;
     }
 
     public int countAllCrossingsWithNewEdge(Edge e){
@@ -100,11 +104,7 @@ public class IntegerCollisionDetection implements CollisionChecker{
 
     @Override
     public IntegerCollisionDetection clone(){
-        IntegerCollisionDetection clone = new IntegerCollisionDetection(ordering.length, ordering);
-
-        clone.edges = new ArrayList<>(edges);
-
-        return clone;
+        throw new IllegalAccessError("Do not use clone!");
     }
 
 }

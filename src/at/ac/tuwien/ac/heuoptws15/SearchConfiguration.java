@@ -27,16 +27,24 @@ public class SearchConfiguration {
 
     public  KPMPSolution getNextSolution(){
 
-        List<KPMPSolution> neighbours = n.getNeighbours(s);
+        n.setSolution(s);
 
-        for(KPMPSolution k: neighbours) {
+        KPMPSolution k = n.getNextNeighbour();
+
+        while(k != null) {
 
             int crossings = k.crossings();
-        //    System.out.println("Trying neighbour with " + crossings + " crossings.");
 
             if (f.acceptSolution(k, crossings)) {
+                System.out.println("//////////////////");
+                System.out.println("Accepting neighbour with " + crossings + " crossings.");
+                System.out.println("//////////////////");
                 return k;
             }
+            else{
+                System.out.println("Not accepting neighbour with " + crossings + " crossings.");
+            }
+            k= n.getNextNeighbour();
         }
 
         return f.bestSolution();

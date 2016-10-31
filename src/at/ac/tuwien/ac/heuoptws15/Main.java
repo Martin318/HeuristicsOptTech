@@ -63,14 +63,13 @@ public class Main {
 
             int counter = 0;
 
-            while(s != null && counter < 10) {
+            while(s != null && (counter < 10 || System.currentTimeMillis() - start < 4000)) {
                 counter ++;
 
                 int crossings = s.crossings();
 
                 System.out.println(crossings);
 
-                System.out.println();
 
                 if (crossings < bestSolutionValue) {
                     bestSolutionValue = crossings;
@@ -96,7 +95,7 @@ public class Main {
 
         search.setInitialSolution(bestSol);
         search.setNeighbourhood(new OneEdgeFlipNeighbourhood());
-        search.setStepFunction(new BestImprovementStepFunction(bestSol,bestSolutionValue));
+        search.setStepFunction(new FirstImprovementStepFunction(bestSol,bestSolutionValue));
 
         KPMPSolution currentSol = search.getNextSolution();
 
