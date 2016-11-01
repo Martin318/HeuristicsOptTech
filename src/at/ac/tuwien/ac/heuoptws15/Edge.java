@@ -32,10 +32,10 @@ public class Edge{
 
     public boolean crosses(Edge other, Integer[] orderingComp){
         int a,b,c,d;
-        a = orderingComp[this.start];
-        b = orderingComp[other.start];
-        c = orderingComp[this.end];
-        d = orderingComp[other.end];                
+        a = Math.min(orderingComp[this.start],orderingComp[other.start]);
+        b = Math.max(orderingComp[this.start],orderingComp[other.start]);
+        c = Math.min(orderingComp[this.end],orderingComp[other.end]);
+        d = Math.max(orderingComp[this.end],orderingComp[other.end]);
 
         return ( a < b && b < c && c < d );
     }
