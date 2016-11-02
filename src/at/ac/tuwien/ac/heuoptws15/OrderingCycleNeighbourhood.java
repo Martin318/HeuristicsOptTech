@@ -19,7 +19,7 @@ public class OrderingCycleNeighbourhood extends Neighbourhood {
 
         // TERMINATION criterium
 
-        if (cycleIndex == orig_sol.ordering.length) {
+        if (cycleIndex > 1) {
             return null;
         }
 
@@ -29,6 +29,7 @@ public class OrderingCycleNeighbourhood extends Neighbourhood {
 
         for (int i = 0; i < orig_sol.ordering.length; i++) {
             newOrdering[i] = orig_sol.ordering[(i + cycleIndex) % orig_sol.ordering.length];
+          //    newOrdering[i] = orig_sol.ordering[i];
         }
 
         System.out.println("Generated neighbour. Cycled ordering positively by " + cycleIndex + " places");
