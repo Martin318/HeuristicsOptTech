@@ -30,6 +30,13 @@ public class OneNodeSwapNeighbourhood extends Neighbourhood {
 
 
         KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
+
+
+        System.out.println("Generated neighbour. Swapped edge " + nodeIndex + " with " + transferIndex);
+
+
+        // UPDATE INDICES
+
         transferIndex++;
 
         if (transferIndex >= orig_sol.ordering.length){
@@ -38,7 +45,6 @@ public class OneNodeSwapNeighbourhood extends Neighbourhood {
         }
 
 
-        System.out.println("Generated neighbour. Swapped edge " + nodeIndex + " with " + transferIndex);
 
 
         // DUPLICATE SOLUTION
