@@ -19,7 +19,7 @@ public class OrderingCycleNeighbourhood extends Neighbourhood {
 
         // TERMINATION criterium
 
-        if (cycleIndex > 1) {
+        if (cycleIndex == orig_sol.ordering.length) {
             return null;
         }
 

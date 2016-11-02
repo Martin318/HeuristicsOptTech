@@ -97,12 +97,13 @@ public class Main {
 
         SearchConfiguration search = new SearchConfiguration();
 
-        search.setNeighbourhood(new OrderingCycleNeighbourhood());
+        search.setNeighbourhood(new OneNodeSwapNeighbourhood());
         search.setStepFunction(new BestImprovementStepFunction(bestSol,bestSolutionValue));
 
         KPMPSolution currentSol = search.getNextSolution(bestSol);
 
         int currentSolCrossings = currentSol.crossings();
+        System.out.println(" first search result " + currentSolCrossings + ", actual value" + KPMPSolution.ActualCrossings(currentSol));
 
         while(currentSolCrossings < bestSolutionValue){
 
@@ -123,6 +124,8 @@ public class Main {
 
             currentSol = search.getNextSolution(bestSol);
             currentSolCrossings = currentSol.crossings();
+
+            System.out.println("search result " + currentSolCrossings + ", actual value" + KPMPSolution.ActualCrossings(currentSol));
         }
 
 

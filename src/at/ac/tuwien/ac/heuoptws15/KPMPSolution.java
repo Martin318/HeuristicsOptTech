@@ -104,24 +104,24 @@ public class KPMPSolution implements Cloneable{
 //    }
 
 
-//    public static int ActualCrossings(KPMPSolution solution){
-//        if (solution == null )
-//            return 0;
-//        int crossingFound = 0;
-//
-//        for(Page page : solution.pages)
-//            for(Edge e1 : page.edges){
-//                List<Edge> crossed  = page.edges.stream()
-//                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
-//                                solution.smallerInOrdering(e2.start,e1.end)   &&
-//                                solution.smallerInOrdering(e1.end,e2.end ) )
-//                        .collect(Collectors.toList());
-//                crossingFound += crossed.size();
-//            }
-//
-//
-//        return crossingFound;
-//    }
+    public static int ActualCrossings(KPMPSolution solution){
+        if (solution == null )
+            return 0;
+        int crossingFound = 0;
+
+        for(Page page : solution.pages)
+            for(Edge e1 : page.edges){
+                List<Edge> crossed  = page.edges.stream()
+                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
+                                solution.smallerInOrdering(e2.start,e1.end)   &&
+                                solution.smallerInOrdering(e1.end,e2.end ) )
+                        .collect(Collectors.toList());
+                crossingFound += crossed.size();
+            }
+
+
+        return crossingFound;
+    }
 
 
     /**

@@ -62,8 +62,7 @@ public class IntegerCollisionDetection implements CollisionChecker{
             //Edges are added from left to right end node.
             temp = edges.stream().filter(e1 -> e1.end == currentEndNode0).collect(Collectors.toList());
             for(Edge e : temp){
-                if ( ! (orderingComp[e.start] < orderingComp[e.end]))
-                     e = new Edge(e.end,e.start);
+
                 crossings += tempArray[orderingComp[e.start]] +  tempArray[orderingComp[e.end]];
                 for(int i = orderingComp[e.start]+1; i <= orderingComp[e.end]-1 && i < currentActive.length; ++i)
                     currentActive[i]++;
@@ -81,7 +80,8 @@ public class IntegerCollisionDetection implements CollisionChecker{
 
 
     public void addEdge(Edge e){
-
+        if ( ! (orderingComp[e.start] < orderingComp[e.end]))
+            e = new Edge(e.end,e.start);
         edges.add(e);
         changed = true;
     }
