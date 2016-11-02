@@ -13,9 +13,6 @@ public class SearchConfiguration {
     Neighbourhood n;
     StepFunction f;
 
-    public  void setInitialSolution(KPMPSolution s){
-        this.s = s;
-    }
 
     public  void setNeighbourhood(Neighbourhood n){
         this.n = n;
@@ -25,9 +22,9 @@ public class SearchConfiguration {
         this.f = f;
     }
 
-    public  KPMPSolution getNextSolution(){
+    public  KPMPSolution getNextSolution(KPMPSolution initialSolution){
 
-        n.setSolution(s);
+        n.setSolution(initialSolution);
 
         KPMPSolution k = n.getNextNeighbour();
 
@@ -42,10 +39,11 @@ public class SearchConfiguration {
                 return k;
             }
             else{
-                System.out.println("Not accepting neighbour with " + crossings + " crossings.");
+                //System.out.println("Not accepting neighbour with " + crossings + " crossings.");
             }
             k= n.getNextNeighbour();
         }
+
 
         return f.bestSolution();
 

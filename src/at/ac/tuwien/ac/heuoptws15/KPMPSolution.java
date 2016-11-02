@@ -30,9 +30,13 @@ public class KPMPSolution implements Cloneable{
 
         }
 
+        orderingComp = new Integer[this.ordering.length];
+        for (int i = 0; i < this.ordering.length; i++)
+            orderingComp[this.ordering[i]] = i;
+
     }
 
-    public KPMPSolution clone(){
+  /*  public KPMPSolution clone(){
         KPMPSolution clone = new KPMPSolution(this.ordering.length,this.pages.length,this.ordering);
         clone.pages = new Page[pages.length];
         for(int i = 0; i< pages.length; i++) clone.pages[i] = pages[i].clone();
@@ -40,7 +44,7 @@ public class KPMPSolution implements Cloneable{
         clone.activeEdge = activeEdge.clone();
         for(int i = 0; i< activeEdge.length; i++) clone.activeEdge[i] = activeEdge[i].clone();
         return clone;
-    }
+    }*/
 
     @Override
     public String toString(){
@@ -80,11 +84,6 @@ public class KPMPSolution implements Cloneable{
      * @return  an exception if a or b are too large
      */
     public boolean smallerInOrdering(int a, int b){
-        if (orderingComp == null) {
-            orderingComp = new Integer[this.ordering.length];
-            for (int i = 0; i < this.ordering.length; i++)
-                orderingComp[this.ordering[i]] = i;
-        }
 
         return orderingComp[a] < orderingComp[b];
     }

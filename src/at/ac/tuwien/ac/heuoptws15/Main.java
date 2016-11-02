@@ -63,12 +63,12 @@ public class Main {
 
             int counter = 0;
 
-            while(s != null && (counter < 10 || System.currentTimeMillis() - start < 4000)) {
+            while(s != null && (counter < 10 || System.currentTimeMillis() - start < 2000)) {
                 counter ++;
 
                 int crossings = s.crossings();
 
-                System.out.println(crossings);
+                //System.out.println(crossings);
 
 
                 if (crossings < bestSolutionValue) {
@@ -91,13 +91,16 @@ public class Main {
 
 
 
+        // STAGE 1  //
+
+        // CYCLE NEIGHBOURHOOD //
+
         SearchConfiguration search = new SearchConfiguration();
 
-        search.setInitialSolution(bestSol);
-        search.setNeighbourhood(new OneEdgeFlipNeighbourhood());
-        search.setStepFunction(new FirstImprovementStepFunction(bestSol,bestSolutionValue));
+        search.setNeighbourhood(new OrderingCycleNeighbourhood());
+        search.setStepFunction(new BestImprovementStepFunction(bestSol,bestSolutionValue));
 
-        KPMPSolution currentSol = search.getNextSolution();
+        KPMPSolution currentSol = search.getNextSolution(bestSol);
 
         int currentSolCrossings = currentSol.crossings();
 
@@ -118,9 +121,12 @@ public class Main {
                 System.out.println("Failed to  write file: " + e);
             }
 
-            currentSol = search.getNextSolution();
+            currentSol = search.getNextSolution(bestSol);
             currentSolCrossings = currentSol.crossings();
         }
+
+
+
 
 
 

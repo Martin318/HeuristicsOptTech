@@ -14,7 +14,11 @@ public class OneEdgeFlipNeighbourhood extends Neighbourhood {
     int transferIndex = 1;
 
     public void setSolution(KPMPSolution sol){
-        this.orig_sol = sol;
+        orig_sol = sol;
+        pageindex = 0;
+        edgeindex = 0;
+        transferIndex = 1;
+
     }
 
     public KPMPSolution getNextNeighbour() {
@@ -48,7 +52,7 @@ public class OneEdgeFlipNeighbourhood extends Neighbourhood {
         solution.removeEdge(e,pageindex);
         solution.addEdge(e,transferIndex);
 
-        System.out.println("Generated neighbour. Moved edge " + e + " from page " + pageindex + " to " + transferIndex);
+        //System.out.println("Generated neighbour. Moved edge " + e + " from page " + pageindex + " to " + transferIndex);
 
 
 
