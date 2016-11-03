@@ -125,7 +125,7 @@ public class Main {
             currentSol = search.getNextSolution(bestSol);
             currentSolCrossings = currentSol.crossings();
 
-            System.out.println("search result " + currentSolCrossings + ", actual value" + KPMPSolution.ActualCrossings(currentSol));
+            System.out.println("search result " + currentSolCrossings + ", actual value " + KPMPSolution.ActualCrossings(currentSol));
         }
 
 
