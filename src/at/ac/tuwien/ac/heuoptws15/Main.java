@@ -42,9 +42,9 @@ public class Main {
 
             constructionHeuristics.add(new DeterministicConstructionHeuristic());
             constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
+            constructionHeuristics.add(new RandomConstructionHeuristic());
 
 
-            long start = System.currentTimeMillis();
 
             for (ConstructionHeuristic h : constructionHeuristics) {
                 h.initialize(instance);
@@ -54,17 +54,18 @@ public class Main {
             int bestSolutionValue = Integer.MAX_VALUE;
 
             for (ConstructionHeuristic h : constructionHeuristics) {
+                long start = System.currentTimeMillis();
                 System.out.println(h.getName());
                 KPMPSolution s = h.getNextSolution();
 
                 int counter = 0;
 
-                while (s != null && (counter < 10 || System.currentTimeMillis() - start < 2000)) {
+                while (s != null && (counter < 10 || System.currentTimeMillis() - start < 5000)) {
                     counter++;
 
                     int crossings = s.crossings();
 
-                    //System.out.println(crossings);
+                    System.out.println(h.getName() + " " + crossings);
 
 
                     if (crossings < bestSolutionValue) {
@@ -133,7 +134,6 @@ public class Main {
 
 
 
-//        System.out.println("Progamm finished in " + (System.currentTimeMillis() - start) + " Milliseconds." );
     }
 
 }

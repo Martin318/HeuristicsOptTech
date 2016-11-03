@@ -3,6 +3,7 @@ package at.ac.tuwien.ac.heuoptws15;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Martin on 14.10.2016.
@@ -121,7 +122,7 @@ public class RandomizedConstructionHeuristic extends ConstructionHeuristic {
         int lower = Math.min(a,b);
         int higher = Math.max(a,b);
 
-        return (int) (lower + Math.random()*(higher - lower));
+        return ThreadLocalRandom.current().nextInt(lower, higher + 1);
     }
 
     public String getName(){
