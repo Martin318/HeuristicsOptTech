@@ -31,13 +31,16 @@ public class Edge{
     }
 
     public boolean crosses(Edge other, Integer[] orderingComp){
-        int a,b,c,d;
-        a = Math.min(orderingComp[this.start],orderingComp[other.start]);
-        b = Math.max(orderingComp[this.start],orderingComp[other.start]);
-        c = Math.min(orderingComp[this.end],orderingComp[other.end]);
-        d = Math.max(orderingComp[this.end],orderingComp[other.end]);
+        int thisSmaller = Math.min(orderingComp[this.start],orderingComp[this.end]);
+        int thisBigger = Math.max(orderingComp[this.start],orderingComp[this.end]);
 
-        return ( a < b && b < c && c < d );
+        int otherSmaller = Math.min(orderingComp[other.start],orderingComp[other.end]);
+        int otherBigger = Math.max(orderingComp[other.start],orderingComp[other.end]);
+
+        if(thisSmaller < otherSmaller)
+            return (otherSmaller < thisBigger) && (thisBigger < otherBigger);
+        else
+            return (otherSmaller < thisSmaller) && (thisSmaller < otherBigger) && (otherBigger  < thisBigger);
     }
 
 
