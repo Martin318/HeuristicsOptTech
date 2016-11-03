@@ -1,7 +1,6 @@
 package at.ac.tuwien.ac.heuoptws15;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
 public class ActiveEdgeDataStructure implements CollisionChecker{
     public Object[] futureActiveVertexPoints;
     public Object[] pastActiveVertexPoints;
-    public Integer[] vertexOrdering;
+    public Integer[] orderingComp;
     public Integer crosssings = 0;
 
     public ActiveEdgeDataStructure(int numVertices, Integer[] vertexOrdering) {
@@ -18,9 +17,9 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
         this.pastActiveVertexPoints = new Object[numVertices];
 
         // Compute the index of each id value
-        this.vertexOrdering = new Integer[vertexOrdering.length];
+        this.orderingComp = new Integer[vertexOrdering.length];
         for (int i = 0; i < vertexOrdering.length; i++)
-            this.vertexOrdering[vertexOrdering[i]] = i;
+            this.orderingComp[vertexOrdering[i]] = i;
 
         for (int i = 0; i < numVertices; i++) {
             futureActiveVertexPoints[i] = new TreeMap<EdgePoint,Integer>();
@@ -33,29 +32,27 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
 
     public void addEdge(Edge e) {
         // Get  start and end indices, respecting the vertex ordering.
-        int start = Math.min(vertexOrdering[e.start], vertexOrdering[e.end]);
-        int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
-        Edge actualE = new Edge(start,end);
+        int alpha = e.theSmallerEndPointwithRespectTo(orderingComp);
+        int omega = e.theLargerEndPointwithRespectTo(orderingComp);
 
-        for (int i = start + 1; i < end; i++) {
+        for (int i = alpha + 1; i < omega; i++) {
              TreeMap<EdgePoint,Integer> currentFutureList = (TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i];
              TreeMap<EdgePoint,Integer> currentPastList = (TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i];
 
-             EdgePoint current_forward = new EdgePoint(actualE,end, i);
-             EdgePoint current_backward = new EdgePoint(actualE,start, i);
-
+             EdgePoint current_forward = new EdgePoint(e,omega, i);
+             EdgePoint current_backward = new EdgePoint(e,alpha, i);
 
              currentFutureList.put(current_forward,current_forward.getRemainingLength());
              currentPastList.put(current_backward,current_backward.getRemainingLength());
         }
 
         // Count the new crossings introduced
-        if(start+1 != end){
+        if(alpha+1 != omega){
             int front = 0;
             int back = 0;
 
-            front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
-            back = countCrossings(new EdgePoint(actualE,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
+            front = countCrossings(new EdgePoint(e,omega,alpha),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[alpha]);
+            back = countCrossings(new EdgePoint(e,alpha,omega),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[omega]);
 
             crosssings += back + front;
         }
@@ -66,26 +63,25 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
 
     public void removeEdge(Edge e) {
         // Get  start and end indices, respecting the vertex ordering.
-        int start = Math.min(vertexOrdering[e.start], vertexOrdering[e.end]);
-        int end = Math.max(vertexOrdering[e.start], vertexOrdering[e.end]);
-        Edge actualE = new Edge(start,end);
+        int alpha = e.theSmallerEndPointwithRespectTo(orderingComp);
+        int omega = e.theLargerEndPointwithRespectTo(orderingComp);
 
-        if(start+1 != end){
+        if(alpha+1 != omega){
             int front;
             int  back;
 
-            front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
-            back = countCrossings(new EdgePoint(actualE,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
+            front = countCrossings(new EdgePoint(e,omega,alpha),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[alpha]);
+            back = countCrossings(new EdgePoint(e,alpha,omega),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[omega]);
 
             crosssings -= front + back;
         }
 
-        for (int i = start + 1; i < end; i++) {
+        for (int i = alpha + 1; i < omega; i++) {
             TreeMap<EdgePoint,Integer> currentFutureList = (TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[i];
             TreeMap<EdgePoint,Integer> currentPastList = (TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[i];
 
-            EdgePoint current_forward = new EdgePoint(actualE,end, i);
-            EdgePoint current_backward = new EdgePoint(actualE,start, i);
+            EdgePoint current_forward = new EdgePoint(e,omega, i);
+            EdgePoint current_backward = new EdgePoint(e,alpha, i);
 
             currentFutureList.remove(current_forward,current_forward.getRemainingLength());
             currentPastList.remove(current_backward,current_backward.getRemainingLength());
@@ -95,12 +91,12 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
     }
 
     public int countAllCrossingsWithNewEdge(Edge e){
-        int start = Math.min( vertexOrdering[e.start],vertexOrdering[e.end]);
-        int end = Math.max(vertexOrdering[e.end],vertexOrdering[e.start]);
-        Edge actualE = new Edge(start,end);
+        int alpha = e.theSmallerEndPointwithRespectTo(orderingComp);
+        int omega = e.theLargerEndPointwithRespectTo(orderingComp);
 
-        int front = countCrossings(new EdgePoint(actualE,end,start),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[start]);
-        int back = countCrossings(new EdgePoint(actualE,start,end),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[end]);
+
+        int front = countCrossings(new EdgePoint(e,omega,alpha),(TreeMap<EdgePoint,Integer>) futureActiveVertexPoints[alpha]);
+        int back = countCrossings(new EdgePoint(e,alpha,omega),(TreeMap<EdgePoint,Integer>) pastActiveVertexPoints[omega]);
         return front+back;
     }
 
@@ -108,7 +104,7 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
 
     private Integer countCrossings(EdgePoint e, TreeMap<EdgePoint,Integer> map){
           SortedMap<EdgePoint,Integer> crossings = map.headMap(e,true);
-          return  crossings.keySet().stream().filter( e2 -> e2.e.end != e.e.end && e2.e.start != e.e.start).collect(Collectors.toList()).size();
+          return  crossings.keySet().stream().filter( e2 -> e2.e.theLargerEndPointwithRespectTo(orderingComp) != e.e.theLargerEndPointwithRespectTo(orderingComp) && e2.e.theSmallerEndPointwithRespectTo(orderingComp) != e.e.theSmallerEndPointwithRespectTo(orderingComp)).collect(Collectors.toList()).size();
     }
 
 
@@ -138,12 +134,17 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
 
 
         public int compareTo(EdgePoint other){
+            int thisAlpha = this.e.theSmallerEndPointwithRespectTo(orderingComp);
+            int thisOmega = this.e.theLargerEndPointwithRespectTo(orderingComp);
+            int otherAlpha = other.e.theSmallerEndPointwithRespectTo(orderingComp);
+            int otherOmega = other.e.theLargerEndPointwithRespectTo(orderingComp);
+
             if ( this.getRemainingLength() != other.getRemainingLength())
                 return this.getRemainingLength() - other.getRemainingLength();
-            else if (this.e.start != other.e.start)
-                return this.e.start - other.e.start;
+            else if (thisAlpha != otherAlpha)
+                return thisAlpha - otherAlpha;
             else
-                return this.e.end - other.e.end;
+                return thisOmega - otherOmega;
         }
 
         public boolean equals(Object obj) {
@@ -156,7 +157,7 @@ public class ActiveEdgeDataStructure implements CollisionChecker{
     }
 
     @Override public ActiveEdgeDataStructure clone(){
-        ActiveEdgeDataStructure clone = new ActiveEdgeDataStructure(futureActiveVertexPoints.length, vertexOrdering.clone());
+        ActiveEdgeDataStructure clone = new ActiveEdgeDataStructure(futureActiveVertexPoints.length, orderingComp.clone());
 
         clone.futureActiveVertexPoints = futureActiveVertexPoints.clone();
         clone.pastActiveVertexPoints = pastActiveVertexPoints.clone();

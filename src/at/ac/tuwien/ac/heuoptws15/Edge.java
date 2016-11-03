@@ -8,13 +8,22 @@ import java.util.Objects;
 
 public class Edge{
 
-    public int start;
-    public int end;
+    private int start;
+    private int end;
 
     public Edge(int start, int end){
 
         this.start = start;
         this.end = end;
+    }
+
+    public int theSmallerEndPointwithRespectTo(Integer[] orderingComp){
+        return Math.min(orderingComp[start],orderingComp[end]);
+    }
+
+
+    public int theLargerEndPointwithRespectTo(Integer[] orderingComp){
+        return Math.max(orderingComp[start],orderingComp[end]);
     }
 
     @Override

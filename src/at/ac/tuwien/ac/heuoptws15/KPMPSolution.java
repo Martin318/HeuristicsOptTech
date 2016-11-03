@@ -75,19 +75,6 @@ public class KPMPSolution implements Cloneable{
         return s;
     }
 
-    /**
-     * To check if the indices are smaller in the order,
-     * otherwise changing spine order would not matter
-     *
-     * @param a must be smaller numVertex (not checked)
-     * @param b must be smaller numVertex (not checked)
-     * @return  an exception if a or b are too large
-     */
-    public boolean smallerInOrdering(int a, int b){
-
-        return orderingComp[a] < orderingComp[b];
-    }
-
 
 //
 //    public int crossings2(){
@@ -103,24 +90,30 @@ public class KPMPSolution implements Cloneable{
 //        return count;
 //    }
 
-
-    public static int ActualCrossings(KPMPSolution solution){
+    /**
+     * Really dumb method, computes every crossing twice.
+     * Quadratic runtime
+     *
+     * @param solution
+     * @return
+     */
+    public static int actualCrossings(KPMPSolution solution){
         if (solution == null )
             return 0;
         int crossingFound = 0;
+        List<Edge> involved = new ArrayList<>();
 
         for(Page page : solution.pages)
-            for(Edge e1 : page.edges){
-                List<Edge> crossed  = page.edges.stream()
-                        .filter(e2 -> solution.smallerInOrdering(e1.start,e2.start) &&
-                                solution.smallerInOrdering(e2.start,e1.end)   &&
-                                solution.smallerInOrdering(e1.end,e2.end ) )
+            for (Edge e1 : page.edges) {
+                List<Edge> crossed = page.edges.stream()
+                        .filter(e2 -> e1.crosses(e2, solution.orderingComp))
                         .collect(Collectors.toList());
+                if(!crossed.isEmpty() && !involved.contains(e1))
+                    involved.add(e1);
                 crossingFound += crossed.size();
             }
 
-
-        return crossingFound;
+        return crossingFound / 2;
     }
 
 
@@ -136,6 +129,7 @@ public class KPMPSolution implements Cloneable{
 
        for(CollisionChecker active : activeEdge){
             crossingFound += active.getCrossing();
+
         }
 
         return crossingFound;
@@ -186,7 +180,7 @@ public class KPMPSolution implements Cloneable{
         for(int i = 0; i< pages.length; i++){
 
             for(Edge e : pages[i].edges){
-                w.addEdgeOnPage(e.start,e.end,i);
+                w.addEdgeOnPage(e.theSmallerEndPointwithRespectTo(orderingComp),e.theLargerEndPointwithRespectTo(orderingComp),i);
             }
 
 

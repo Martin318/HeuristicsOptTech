@@ -32,7 +32,7 @@ public class OneNodeSwapNeighbourhood extends Neighbourhood {
         KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
 
 
-        System.out.println("Generated neighbour. Swapped node " + nodeIndex + " with " + transferIndex);
+//        System.out.println("Generated neighbour. Swapped edge " + nodeIndex + " with " + transferIndex);
 
 
         // UPDATE INDICES
@@ -53,11 +53,10 @@ public class OneNodeSwapNeighbourhood extends Neighbourhood {
             for (Edge e : orig_sol.pages[i].edges){
 
                 solution.addEdge(e,i);
-
             }
         }
 
-        System.out.println("Actual crossings " + KPMPSolution.ActualCrossings(solution));
+
 
 
 

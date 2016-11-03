@@ -34,20 +34,6 @@ public class IntegerCollisionDetection implements CollisionChecker{
         crossingCount();
     }
 
-    public IntegerCollisionDetection(int numVertices, Integer[] ordering, List<Edge> edges){
-        this.ordering = ordering;
-        this.edges = edges;
-        currentActive = new int[numVertices];
-        Arrays.fill(currentActive,0);
-
-        orderingComp = new Integer[this.ordering.length];
-        for (int i = 0; i < this.ordering.length; i++)
-            orderingComp[this.ordering[i]] = i;
-
-        // Compute the crossings count immediately
-        crossingCount();
-    }
-
 
     private void crossingCount(){
         crossings = 0;
@@ -57,15 +43,15 @@ public class IntegerCollisionDetection implements CollisionChecker{
         int[] tempArray = currentActive.clone();
 
         while ( currentEndNode < currentActive.length && !edges.isEmpty()){
-            final int currentEndNode0 = ordering[currentEndNode];
+            final int currentEndNode0 = currentEndNode;
 
             //Edges are added from left to right end node.
-            temp = edges.stream().filter(e1 -> e1.end == currentEndNode0).collect(Collectors.toList());
+            temp = edges.stream().filter(e1 -> e1.theLargerEndPointwithRespectTo(orderingComp) == currentEndNode0).collect(Collectors.toList());
             for(Edge e : temp){
-                if ( ! (orderingComp[e.start] < orderingComp[e.end]))
-                    e = new Edge(e.end,e.start);
-                crossings += tempArray[orderingComp[e.start]] +  tempArray[orderingComp[e.end]];
-                for(int i = orderingComp[e.start]+1; i <= orderingComp[e.end]-1 && i < currentActive.length; ++i)
+                int alpha = e.theSmallerEndPointwithRespectTo(orderingComp);
+                int omega = e.theLargerEndPointwithRespectTo(orderingComp);
+                crossings += tempArray[alpha] +  tempArray[omega];
+                for(int i = alpha+1; i <= omega-1 && i < currentActive.length; ++i)
                     currentActive[i]++;
             }
             tempArray = currentActive.clone();

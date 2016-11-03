@@ -63,12 +63,7 @@ public class DeterministicConstructionHeuristic extends ConstructionHeuristic {
         for (int x = 0; x < instance.getNumVertices(); x++) {
             for (int y = x; y < instance.getNumVertices(); y++)
                 if (instance.getAdjacencyMatrix()[x][y] == true) {
-                    Edge temp;
-                    if (s.smallerInOrdering(x, y))
-                        temp = new Edge(x, y);
-                    else
-                        temp = new Edge(y, x);
-
+                    Edge temp = new Edge(x, y);
                     s.addEdge(temp,s.nextFreePage(temp));
                 }
         }
