@@ -39,7 +39,7 @@ public class SearchConfiguration {
                 return k;
             }
             else{
-                System.out.println("Not accepting neighbour with " + crossings + " crossings.");
+                //System.out.println("Not accepting neighbour with " + crossings + " crossings.");
             }
             k= n.getNextNeighbour();
         }

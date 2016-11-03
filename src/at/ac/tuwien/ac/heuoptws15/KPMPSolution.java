@@ -180,7 +180,7 @@ public class KPMPSolution implements Cloneable{
         for(int i = 0; i< pages.length; i++){
 
             for(Edge e : pages[i].edges){
-                w.addEdgeOnPage(ordering[e.theSmallerEndPointwithRespectTo(orderingComp)],ordering[e.theLargerEndPointwithRespectTo(orderingComp)],i);
+                w.addEdgeOnPage(e.getNameOfFirstVertex(),e.getNameOfSecondVertex(),i);
             }
 
 

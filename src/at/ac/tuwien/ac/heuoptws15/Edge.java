@@ -8,27 +8,27 @@ import java.util.Objects;
 
 public class Edge{
 
-    private int start;
-    private int end;
+    private final int nameOfFirstVertex;
+    private final int nameOfSecondVertex;
 
-    public Edge(int start, int end){
+    public Edge(int nameOfFirstVertex, int nameOfSecondVertex){
 
-        this.start = start;
-        this.end = end;
+        this.nameOfFirstVertex = nameOfFirstVertex;
+        this.nameOfSecondVertex = nameOfSecondVertex;
     }
 
     public int theSmallerEndPointwithRespectTo(Integer[] orderingComp){
-        return Math.min(orderingComp[start],orderingComp[end]);
+        return Math.min(orderingComp[nameOfFirstVertex],orderingComp[nameOfSecondVertex]);
     }
 
 
     public int theLargerEndPointwithRespectTo(Integer[] orderingComp){
-        return Math.max(orderingComp[start],orderingComp[end]);
+        return Math.max(orderingComp[nameOfFirstVertex],orderingComp[nameOfSecondVertex]);
     }
 
     @Override
     public String toString(){
-        return "(" + start + "," + end + ")";
+        return "(" + nameOfFirstVertex + "," + nameOfSecondVertex + ")";
     }
 
     public boolean equals(Object obj) {
@@ -36,20 +36,29 @@ public class Edge{
         if (!(obj instanceof Edge)) return false;
         Edge o = (Edge) obj;
 
-        return (o.start == this.start) && (o.end == this.end);
+        return (o.nameOfFirstVertex == this.nameOfFirstVertex) && (o.nameOfSecondVertex == this.nameOfSecondVertex);
     }
 
     public boolean crosses(Edge other, Integer[] orderingComp){
-        int thisSmaller = Math.min(orderingComp[this.start],orderingComp[this.end]);
-        int thisBigger = Math.max(orderingComp[this.start],orderingComp[this.end]);
+        int thisSmaller = Math.min(orderingComp[this.nameOfFirstVertex],orderingComp[this.nameOfSecondVertex]);
+        int thisBigger = Math.max(orderingComp[this.nameOfFirstVertex],orderingComp[this.nameOfSecondVertex]);
 
-        int otherSmaller = Math.min(orderingComp[other.start],orderingComp[other.end]);
-        int otherBigger = Math.max(orderingComp[other.start],orderingComp[other.end]);
+        int otherSmaller = Math.min(orderingComp[other.nameOfFirstVertex],orderingComp[other.nameOfSecondVertex]);
+        int otherBigger = Math.max(orderingComp[other.nameOfFirstVertex],orderingComp[other.nameOfSecondVertex]);
 
         if(thisSmaller < otherSmaller)
             return (otherSmaller < thisBigger) && (thisBigger < otherBigger);
         else
             return (otherSmaller < thisSmaller) && (thisSmaller < otherBigger) && (otherBigger  < thisBigger);
+    }
+
+
+    public int getNameOfFirstVertex(){
+        return nameOfFirstVertex;
+    }
+
+    public int getNameOfSecondVertex(){
+        return  nameOfSecondVertex;
     }
 
 
