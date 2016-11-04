@@ -35,22 +35,22 @@ public class Main {
             System.out.println("Adjacency List: " + instance.getAdjacencyList());
             System.out.println("--------------------");
 
-
-
-
-            ArrayList<ConstructionHeuristic> constructionHeuristics = new ArrayList<ConstructionHeuristic>();
+            ArrayList<ConstructionHeuristic> constructionHeuristics = new ArrayList<>();
 
             constructionHeuristics.add(new DeterministicConstructionHeuristic());
             constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
             constructionHeuristics.add(new RandomConstructionHeuristic());
 
+            KPMPSolution bestSolGlobal = null;
+            int bestSolutionValueGlobal = Integer.MAX_VALUE;
+            String bestSolname = "";
 
 
             for (ConstructionHeuristic h : constructionHeuristics){
                 h.initialize(instance);
 
-                KPMPSolution bestSol = null;
-                int bestSolutionValue = Integer.MAX_VALUE;
+                KPMPSolution bestSolConstruction = null;
+                int bestSolutionValueConstruction = Integer.MAX_VALUE;
 
 
                System.out.println(h.getName());
@@ -62,9 +62,9 @@ public class Main {
                do{
                    counter++;
                    int crossings = s.crossings();
-                   if (crossings < bestSolutionValue) {
-                        bestSolutionValue = crossings;
-                        bestSol = s;
+                   if (crossings < bestSolutionValueConstruction) {
+                        bestSolutionValueConstruction = crossings;
+                        bestSolConstruction = s;
                    }
 
                    s = h.getNextSolution();
@@ -75,30 +75,38 @@ public class Main {
 
                System.out.println("--------------------");
                System.out.println("Best initial solution");
-               System.out.println(bestSolutionValue + " " + KPMPSolution.actualCrossings(bestSol));
+               System.out.println(bestSolutionValueConstruction);
                System.out.println("--------------------");
 
-               ArrayList<StepFunction> stepFunctions = new ArrayList<StepFunction>();
+               ArrayList<StepFunction> stepFunctions = new ArrayList<>();
 
-               stepFunctions.add(new FirstImprovementStepFunction(bestSol,bestSolutionValue));
-               stepFunctions.add(new BestImprovementStepFunction(bestSol,bestSolutionValue));
+               stepFunctions.add(new FirstImprovementStepFunction(bestSolConstruction,bestSolutionValueConstruction));
+               stepFunctions.add(new BestImprovementStepFunction(bestSolConstruction,bestSolutionValueConstruction));
                stepFunctions.add(new RandomStepFunction());
 
                for( StepFunction step : stepFunctions){
 
-                   KPMPSolution bestSolStep = bestSol;
-                   int bestSolutionValueStep = bestSolutionValue;
+                   KPMPSolution bestSolStep = bestSolConstruction;
+                   int bestSolutionValueStep = bestSolutionValueConstruction;
 
-                   ArrayList<Neighbourhood> neighbourhoods = new ArrayList<Neighbourhood>();
+                   ArrayList<Neighbourhood> neighbourhoods = new ArrayList<>();
 
                    neighbourhoods.add(new NodeNeighbourSwapNeighbourhood());
                    neighbourhoods.add(new OneNodeSwapNeighbourhood());
                    neighbourhoods.add(new OneEdgeFlipNeighbourhood());
 
                    for (Neighbourhood hood : neighbourhoods){
+                       String currentName = h.getName() + step.getName() + hood.getName();
 
                        KPMPSolution bestSolHood = bestSolStep;
                        int bestSolutionValueHood = bestSolutionValueStep;
+
+
+                       if(bestSolutionValueHood < bestSolutionValueGlobal){
+                           bestSolGlobal = bestSolHood;
+                           bestSolutionValueGlobal = bestSolutionValueHood;
+                           bestSolname = currentName;
+                       }
 
                        // STAGE 1  //
 
@@ -114,52 +122,37 @@ public class Main {
                        int currentSolCrossings = currentSol.crossings();
 
                        while (currentSolCrossings < bestSolutionValueHood) {
+                           if(currentSolCrossings < bestSolutionValueGlobal){
+                               bestSolGlobal = currentSol;
+                               bestSolutionValueGlobal = currentSolCrossings;
+                               bestSolname = currentName;
+                           }
+
                            bestSolHood = currentSol;
                            bestSolutionValueHood = currentSolCrossings;
 
 //                         System.out.println("Local Search improved solution:");
 //                         System.out.println(bestSolutionValue);
 
-                           currentSol = search.getNextSolution(bestSol);
+                           currentSol = search.getNextSolution(bestSolConstruction);
                            currentSolCrossings = currentSol.crossings();
                        }
 
-                       String currentName = h.getName() + step.getName() + hood.getName();
+
                        System.out.println( currentName + " result: " + bestSolutionValueHood);
-
-                       KPMPSolutionWriter w;
-                       w = new KPMPSolutionWriter(instance.getK());
-                       bestSolHood.insertIntoWriter(w);
-                       try {
-                           w.write(args[0] + "_" +currentName);
-                       } catch (IOException e) {
-                           System.out.println("Failed to  write file: " + e);
-                       }
-
                    }
-
                }
-
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            KPMPSolutionWriter w;
+            w = new KPMPSolutionWriter(instance.getK());
+            bestSolGlobal.insertIntoWriter(w);
+            try {
+                w.write(args[0] + "_" + bestSolname);
+            } catch (IOException e) {
+                System.out.println("Failed to  write file: " + e);
+            }
 
     }
 

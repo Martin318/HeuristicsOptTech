@@ -56,7 +56,7 @@ public class NodeNeighbourSwapNeighbourhood extends Neighbourhood{
     public KPMPSolution getRandomNeighbour() {
         // DO A CHANGE
 
-        int tempNodeIndex = RandomStuff.between(0,orig_sol.ordering.length-1);
+        int tempNodeIndex = RandomStuff.between(1,orig_sol.ordering.length-1);
 
         Integer[] newOrdering = new Integer[orig_sol.ordering.length];
 

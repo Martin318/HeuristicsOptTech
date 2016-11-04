@@ -90,31 +90,31 @@ public class KPMPSolution implements Cloneable{
 //        return count;
 //    }
 
-    /**
-     * Really dumb method, computes every crossing twice.
-     * Quadratic runtime
-     *
-     * @param solution
-     * @return
-     */
-    public static int actualCrossings(KPMPSolution solution){
-        if (solution == null )
-            return 0;
-        int crossingFound = 0;
-        List<Edge> involved = new ArrayList<>();
-
-        for(Page page : solution.pages)
-            for (Edge e1 : page.edges) {
-                List<Edge> crossed = page.edges.stream()
-                        .filter(e2 -> e1.crosses(e2, solution.orderingComp))
-                        .collect(Collectors.toList());
-                if(!crossed.isEmpty() && !involved.contains(e1))
-                    involved.add(e1);
-                crossingFound += crossed.size();
-            }
-
-        return crossingFound / 2;
-    }
+//    /**
+//     * Really dumb method, computes every crossing twice.
+//     * Quadratic runtime
+//     *
+//     * @param solution
+//     * @return
+//     */
+//    public static int actualCrossings(KPMPSolution solution){
+//        if (solution == null )
+//            return 0;
+//        int crossingFound = 0;
+//        List<Edge> involved = new ArrayList<>();
+//
+//        for(Page page : solution.pages)
+//            for (Edge e1 : page.edges) {
+//                List<Edge> crossed = page.edges.stream()
+//                        .filter(e2 -> e1.crosses(e2, solution.orderingComp))
+//                        .collect(Collectors.toList());
+//                if(!crossed.isEmpty() && !involved.contains(e1))
+//                    involved.add(e1);
+//                crossingFound += crossed.size();
+//            }
+//
+//        return crossingFound / 2;
+//    }
 
 
     /**
