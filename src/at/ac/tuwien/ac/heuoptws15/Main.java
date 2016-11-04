@@ -42,7 +42,7 @@ public class Main {
 
             constructionHeuristics.add(new DeterministicConstructionHeuristic());
             constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
-            constructionHeuristics.add(new RandomConstructionHeuristic());
+            //constructionHeuristics.add(new RandomConstructionHeuristic());
 
 
 
@@ -93,8 +93,8 @@ public class Main {
 
             SearchConfiguration search = new SearchConfiguration();
 
-            search.setNeighbourhood(new OneNodeSwapNeighbourhood());
-            search.setStepFunction(new BestImprovementStepFunction(bestSol, bestSolutionValue));
+            search.setNeighbourhood(new NodeNeighbourSwapNeighbourhood());
+            search.setStepFunction(new FirstImprovementStepFunction(bestSol, bestSolutionValue));
 
             KPMPSolution currentSol = search.getNextSolution(bestSol);
 
