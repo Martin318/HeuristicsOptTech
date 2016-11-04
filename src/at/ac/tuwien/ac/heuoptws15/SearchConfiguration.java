@@ -23,8 +23,10 @@ public class SearchConfiguration {
     }
 
     public  KPMPSolution getNextSolution(KPMPSolution initialSolution){
-
         n.setSolution(initialSolution);
+
+        if(f.getClass() == RandomStepFunction.class)
+            return n.getRandomNeighbour();
 
         KPMPSolution k = n.getNextNeighbour();
 
@@ -33,23 +35,19 @@ public class SearchConfiguration {
             int crossings = k.crossings();
 
             if (f.acceptSolution(k, crossings)) {
-                System.out.println("//////////////////");
-                System.out.println("Accepting neighbour with " + crossings + " crossings.");
-                System.out.println("//////////////////");
+//                System.out.println("//////////////////");
+//                System.out.println("Accepting neighbour with " + crossings + " crossings.");
+//                System.out.println("//////////////////");
                 return k;
             }
             else{
-                System.out.println("Not accepting neighbour with " + crossings + " crossings.");
+//                System.out.println("Not accepting neighbour with " + crossings + " crossings.");
             }
             k= n.getNextNeighbour();
         }
 
 
         return f.bestSolution();
-
-
-
-
     }
 
 

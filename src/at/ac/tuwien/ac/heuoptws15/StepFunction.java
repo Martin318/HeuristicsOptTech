@@ -10,4 +10,6 @@ public abstract class StepFunction {
 
 
     public abstract KPMPSolution bestSolution();
+
+    public abstract String getName();
 }

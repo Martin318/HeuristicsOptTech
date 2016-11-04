@@ -29,4 +29,10 @@ public class BestImprovementStepFunction extends StepFunction {
     public KPMPSolution bestSolution(){
         return bestSol;
     }
+
+
+    @Override
+    public String getName() {
+        return "BestImprovement";
+    }
 }

@@ -11,8 +11,6 @@ public class NodeNeighbourSwapNeighbourhood extends Neighbourhood{
 
     @Override
     public KPMPSolution getNextNeighbour() {
-
-
         // TERMINATION criterium
         if(nodeIndex >= orig_sol.ordering.length)
             return null;
@@ -39,20 +37,11 @@ public class NodeNeighbourSwapNeighbourhood extends Neighbourhood{
         nodeIndex++;
 
 
-
-
         // DUPLICATE SOLUTION
 
-        for (int i = 0; i < orig_sol.pages.length; i++){
-            for (Edge e : orig_sol.pages[i].edges){
-
+        for (int i = 0; i < orig_sol.pages.length; i++)
+            for (Edge e : orig_sol.pages[i].edges)
                 solution.addEdge(e,i);
-            }
-        }
-
-
-
-
 
         return solution;
     }
@@ -61,5 +50,39 @@ public class NodeNeighbourSwapNeighbourhood extends Neighbourhood{
     public void setSolution(KPMPSolution sol) {
         orig_sol = sol;
         nodeIndex = 1;
+    }
+
+    @Override
+    public KPMPSolution getRandomNeighbour() {
+        // DO A CHANGE
+
+        int tempNodeIndex = RandomStuff.between(0,orig_sol.ordering.length-1);
+
+        Integer[] newOrdering = new Integer[orig_sol.ordering.length];
+
+        for (int i = 0; i < orig_sol.ordering.length; i++)
+            newOrdering[i] = orig_sol.ordering[i];
+
+        newOrdering[tempNodeIndex-1] = orig_sol.ordering[tempNodeIndex];
+        newOrdering[tempNodeIndex] = orig_sol.ordering[tempNodeIndex-1];
+
+
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
+
+
+        // UPDATE INDICES
+
+        // DUPLICATE SOLUTION
+        for (int i = 0; i < orig_sol.pages.length; i++)
+            for (Edge e : orig_sol.pages[i].edges)
+                solution.addEdge(e,i);
+
+
+        return solution;
+    }
+
+    @Override
+    public String getName() {
+        return "NodeNeighbourSwap";
     }
 }

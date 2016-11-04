@@ -10,4 +10,8 @@ public abstract class Neighbourhood {
 
     public abstract void setSolution(KPMPSolution sol);
 
+    public abstract KPMPSolution getRandomNeighbour();
+
+    public abstract String getName();
+
 }

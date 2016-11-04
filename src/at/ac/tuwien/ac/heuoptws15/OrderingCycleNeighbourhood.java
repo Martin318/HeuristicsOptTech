@@ -7,12 +7,22 @@ import java.util.Arrays;
  */
 public class OrderingCycleNeighbourhood extends Neighbourhood {
 
+    @Override
+    public String getName() {
+        return "OrderCycle";
+    }
+
     KPMPSolution orig_sol;
     int cycleIndex;
 
     public void setSolution(KPMPSolution sol) {
         this.orig_sol = sol;
         cycleIndex = 1;
+    }
+
+    @Override
+    public KPMPSolution getRandomNeighbour() {
+        return null;
     }
 
     public KPMPSolution getNextNeighbour() {

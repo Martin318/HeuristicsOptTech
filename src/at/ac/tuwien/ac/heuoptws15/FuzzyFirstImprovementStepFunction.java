@@ -32,4 +32,9 @@ public class FuzzyFirstImprovementStepFunction extends StepFunction {
     public KPMPSolution bestSolution(){
         return bestSol;
     }
+
+    @Override
+    public String getName() {
+        return "FuzzyImprovement .. or is it?";
+    }
 }

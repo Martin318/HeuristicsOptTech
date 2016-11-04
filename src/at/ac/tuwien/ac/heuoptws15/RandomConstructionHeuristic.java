@@ -60,8 +60,7 @@ public class RandomConstructionHeuristic extends ConstructionHeuristic {
             for (int y = x; y < instance.getNumVertices(); y++)
                 if (instance.getAdjacencyMatrix()[x][y] == true) {
                     Edge temp = new Edge(x, y);
-                    s.addEdge(temp, x % s.pages.length);
-
+                    s.addEdge(temp, RandomStuff.between(0, instance.getK()-1));
                 }
 
         return s;
@@ -78,7 +77,7 @@ public class RandomConstructionHeuristic extends ConstructionHeuristic {
 
 
     public String getName(){
-        return "Random Construction Heuristic";
+        return "RandomConstructionHeuristic";
     }
 
 
