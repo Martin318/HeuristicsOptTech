@@ -37,8 +37,8 @@ public class Main {
 
             ArrayList<ConstructionHeuristic> constructionHeuristics = new ArrayList<>();
 
-            constructionHeuristics.add(new DeterministicConstructionHeuristic());
-            constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
+//            constructionHeuristics.add(new DeterministicConstructionHeuristic());
+//            constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
             constructionHeuristics.add(new RandomConstructionHeuristic());
 
             KPMPSolution bestSolGlobal = null;
@@ -69,7 +69,7 @@ public class Main {
 
                    s = h.getNextSolution();
                } while (h.getName() == "Randomized Construction Heuristic" &&
-                       (counter < 10 || System.currentTimeMillis() - start < 5000) );
+                       (counter < 10 || System.currentTimeMillis() - start < 60000) );
 
                // BEST initial solution found!
 
@@ -81,8 +81,8 @@ public class Main {
                ArrayList<StepFunction> stepFunctions = new ArrayList<>();
 
                stepFunctions.add(new FirstImprovementStepFunction(bestSolConstruction,bestSolutionValueConstruction));
-               stepFunctions.add(new BestImprovementStepFunction(bestSolConstruction,bestSolutionValueConstruction));
-               stepFunctions.add(new RandomStepFunction());
+//               stepFunctions.add(new BestImprovementStepFunction(bestSolConstruction,bestSolutionValueConstruction));
+//               stepFunctions.add(new RandomStepFunction());
 
                for( StepFunction step : stepFunctions){
 
@@ -93,7 +93,7 @@ public class Main {
 
                    neighbourhoods.add(new NodeNeighbourSwapNeighbourhood());
                    neighbourhoods.add(new OneNodeSwapNeighbourhood());
-                   neighbourhoods.add(new OneEdgeFlipNeighbourhood());
+                       neighbourhoods.add(new OneEdgeFlipNeighbourhood());
 
                    for (Neighbourhood hood : neighbourhoods){
                        String currentName = h.getName() + step.getName() + hood.getName();
@@ -120,8 +120,9 @@ public class Main {
                        KPMPSolution currentSol = search.getNextSolution(bestSolHood);
 
                        int currentSolCrossings = currentSol.crossings();
+                       start = System.currentTimeMillis();
 
-                       while (currentSolCrossings < bestSolutionValueHood) {
+                       while (currentSolCrossings < bestSolutionValueHood  && System.currentTimeMillis() - start < 60000) {
                            if(currentSolCrossings < bestSolutionValueGlobal){
                                bestSolGlobal = currentSol;
                                bestSolutionValueGlobal = currentSolCrossings;
@@ -129,10 +130,22 @@ public class Main {
                            }
 
                            bestSolHood = currentSol;
+                           int diff = bestSolutionValueHood - currentSolCrossings;
                            bestSolutionValueHood = currentSolCrossings;
 
-//                         System.out.println("Local Search improved solution:");
-//                         System.out.println(bestSolutionValue);
+                           System.out.println("Local Search improved solution:");
+                           System.out.print(bestSolutionValueHood);
+                           System.out.println( " (- " + diff + ")");
+
+                           KPMPSolutionWriter w;
+                           w = new KPMPSolutionWriter(instance.getK());
+                           bestSolHood.insertIntoWriter(w);
+                           try {
+                               w.write(args[0] + currentName);
+                           } catch (IOException e) {
+                               System.out.println("Failed to  write file: " + e);
+                           }
+
 
                            currentSol = search.getNextSolution(bestSolConstruction);
                            currentSolCrossings = currentSol.crossings();
@@ -144,12 +157,11 @@ public class Main {
                }
             }
 
-
             KPMPSolutionWriter w;
             w = new KPMPSolutionWriter(instance.getK());
             bestSolGlobal.insertIntoWriter(w);
             try {
-                w.write(args[0] + "_" + bestSolname);
+                w.write(args[0] + "_Global_" + bestSolname);
             } catch (IOException e) {
                 System.out.println("Failed to  write file: " + e);
             }

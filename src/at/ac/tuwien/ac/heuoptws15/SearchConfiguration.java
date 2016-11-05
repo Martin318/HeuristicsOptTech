@@ -29,8 +29,9 @@ public class SearchConfiguration {
             return n.getRandomNeighbour();
 
         KPMPSolution k = n.getNextNeighbour();
-
+        int rejected = 0;
         while(k != null) {
+
 
             int crossings = k.crossings();
 
@@ -41,6 +42,9 @@ public class SearchConfiguration {
                 return k;
             }
             else{
+//                rejected++;
+//                if(rejected % 100 == 0)
+//                    System.out.println(rejected +" rejected so far");
 //                System.out.println("Not accepting neighbour with " + crossings + " crossings.");
             }
             k= n.getNextNeighbour();
