@@ -71,9 +71,9 @@ To build a framework that can use different neighbourhood structures and differe
 
 \begin{itemize}
   \item \textbf{One Edge Swap} \\
-  This neighbourhood provides all solutions that differ to our solution in only one edge swap - i.e one edge is moved to a different page.
+  This neighbourhood provides all solutions that differ to the current solution in only one edge swap - i.e one edge is moved to a different page.
   \item \textbf{One Node Swap} \\ 
-  This neighbourhood provides all solutions that differ to our solution in one swapped node in the spine order - i.e one node swaps place with one other node in the spine order.
+  This neighbourhood provides all solutions that differ to the current solution in one pair of nodes swapped in the spine order - i.e two nodes swap places another in the spine order.
   \item \textbf{Node Neighbour Swap} \\
   This neighbourhood provides all solutions where the order of the nodes differs in one swap of two neighbouring nodes, i.e nodes that are next to each other in the spine order.  
   This is essentially a smaller neighbourhood of the One Node Swap neighbourhood which is thus faster, but has less potential to escape local optima.
