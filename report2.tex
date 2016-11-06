@@ -116,7 +116,7 @@ The results can be seen in the table below. Each entry is the best (lowest) resu
 \section{Observations}
 We observerd, that using random solutions did not yield a gain, in any of the instances. Our construction heuristics preform much better than just random initial solutions. Since the construction heuristics are relatively cheap, they should be used over just random initial solutions.
 
-To measure how many iterations it took to find local optima, we run a specific test for the smaller instances (automatic-1 to automatic-5), while also keeping track of iteration count. The averages for the neighbourhoods are as follows:  \textbf{TODO}
+To measure how many iterations it took to find local optima, we run a specific test for the smaller instances (automatic-1 to automatic-5), while also keeping track of iteration count. Here the average is 1, with a few outliers to 5 and 8. On the other hand, the larger instances, took up to 10 or 20 iterations before the timeout hit. Since we couldn't find optimal solutions on the smaller ones, but had plenty of time to spare, it might be a good idea to use larger neighbourhoods for them. 
 
 We believe the next logical improvement of our approach would be a combination of separate neighbourhoods, such in a Variable Neighbourhood Search (VNS). 
 
