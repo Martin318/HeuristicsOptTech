@@ -89,9 +89,11 @@ None of these neighbours (on its own) is complete, in the sense that all possibl
   This step function is quite trivial. Every neighbour is evaluated and only the best improvement (if any!) is accepted. 
   \item \textbf{ First Improvement} \\
   This step function accepts the first neighbour with a lower crossing count than the original solution (where we created our neighbours from).
-   \item \textbf{ Best Improvement} \\
-  This step function accepts a random neighbour. To implement this, we actually instruct the neighbourhood itself to generate a random, but valid, neighbour for the given initial solution. 
+   \item \textbf{ Random Choice} \\
+  This step function chooses a random instance from the neighbourhood. To implement this, we actually instruct the neighbourhood itself to generate a random, but valid, neighbour for the given initial solution. To make this still sensible, we 
 \end{itemize}
+
+
 
 Furthermore, to increase the performance of our crossing counting, we implemented a new mechanism altogether, and extended the existing mechanism from our last assignment. 
 
@@ -114,49 +116,47 @@ The results can be seen in the table below. Each entry is the best (lowest) resu
 \section{Observations}
 We observerd, that using random solutions did not yield a gain, in any of the instances. Our construction heuristics preform much better than just random initial solutions. Since the construction heuristics are relatively cheap, they should be used over just random initial solutions.
 
+To measure how many iterations it took to find local optima, we run a specific test for the smaller instances (automatic-1 to automatic-5), while also keeping track of iteration count. The averages for the neighbourhoods are as follows:  \textbf{TODO}
 
-• How many iterations does it take to reach local optima? What does this
-say about your neighbourhood(s)?
-
-Measure this!
+We believe the next logical improvement of our approach would be a combination of separate neighbourhoods, such in a Variable Neighbourhood Search (VNS). 
 
 \begin{sidewaystable}
-  \scriptsize
+\small
   \everyrow{\hline}
-  \begin{tabu} {| c |c | c |c |c |c |c |c |c |c |c |c |}
-  Scenario  &automatic-1 & automatic-2  &automatic-3  &automatic-4  & automatic-5&  automatic-5 & automatic-6  & automatic-7  &  automatic-8 & automatic-9 & automatic-10 \\
-  DFE  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  DFN  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  DFNE  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  DBE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  DBN  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  DBNE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  DRE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  DRN  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  DRNE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R1FE  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  R1FN  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  R1FNE  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  R1BE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R1BN  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R1BNE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R1RE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R1RN  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R1RNE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R2FE  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  R2FN  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  R2FNE  & 156 & 156  & 513  & 1453 &  1560 &  56610 & 156651  & 12156016  &  561563 & 66568 & 2163516 \\ 
-  R2BE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  -  &    - &   - &   - \\ 
-  R2BN  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R2BNE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R2RE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R2RN  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\ 
-  R2RNE  & 156 & 156  & 513  & 1453 &  1560 &  - &   -  &   -  &    - &   - &   - \\
+  \begin{tabu} {| l |r | r |r |r |r |r |r |r |r |r |}
+  Scenario    &automatic-1   & automatic-2    &automatic-3    &automatic-4    & automatic-5  & automatic-6    & automatic-7    &  automatic-8   & automatic-9   & automatic-10 \\
+  DFE    & 18   & 40    & 108    & 148   &  71   &  7326516   & 139578    & 576106    &  1401287   & 54087    \\ 
+  DFN    & 21   & 40    & 112    & 148   &  71   &  7523974   & 139604    & 571005    &  1377295   & 54151   \\ 
+  DFNE   & 21   & 50    & 112    & 193   &  89   &   753489   & 140553    & 364272    &  1400563   & 54157    \\ 
+  DBE    & 18   & 40    & 108    & 148   &  71   &  -   &   -    &   -    &    -   &   -   \\ 
+  DBN    & 21   & 40    & 112    & 148   &  71   &  -   &   -    &   -    &    -   &   -   \\ 
+  DBNE    & 21  & 50    & 112    & 193   &  89   &  -   &   -    &   -    &    -   &   -    \\ 
+  DRE    & 21   & 51    & 112    & 193   &  93   &  -   &   -    &   -    &    -   &   -   \\ 
+  DRN    & 21   & 50    & 112    & 196   &  93   &  -   &   -    &   -    &    -   &   -   \\ 
+  DRNE   & 21   & 54    & 112    & 197   &  93   &  -   &   -    &   -    &    -   &   -    \\ 
+  R1FE   & 9   & 5   & 51   & 44 &  25  &   1915515  & 127389   & 246871   &  358671  & 44290 \\ 
+  R1FN    & 9  & 5   & 52   & 44 &  25  &   1943905  & 128023   & 250084   &  352748  & 44305   \\ 
+  R1FNE    &9   &5    &52    &50  & 27   & 1975210   &127853    &239841    & 364272   &44309    \\ 
+  R1BE    & 9  & 5   & 51   & 44 &  25  &  -   &   -    &   -    &    -   &   -    \\ 
+  R1BN    & 9  & 5   & 52   & 44 &  25  &  -   &   -    &   -    &    -   &   -    \\ 
+  R1BNE    &9   &5    &52    &50  & 27   &  -   &   -    &   -    &    -   &   -    \\ 
+  R1RE    & 9  & 7   & 53   & 51 &  28  &  -   &   -    &   -    &    -   &   -    \\ 
+  R1RN    & 9  & 7   & 53   & 51 &  28  &  -   &   -    &   -    &    -   &   -    \\ 
+  R1RNE    &9   &7    &53    &50  & 28   &  -   &   -    &   -    &    -   &   -    \\ 
+  R2FE    & 25  &  78   & 293   & 133  &  143  &  8596350  &  1205472   & 12156016    &  1790171  & 233865   \\ 
+  R2FN    & 26  &  78   & 293   & 133  &  143  &  8588458  &  1143775   & 12156016    &  1682728  & 234061   \\ 
+  R2FNE    &28   &104    &342    &182   & 177   & 8566426   & 1164516    & 12156016    & 1705438   &234257    \\ 
+  R2BE    & 25  &  78   & 293   & 133  &  143  &  -   &   -    &   -  -    &    -   &   -    \\ 
+  R2BN    & 26  &  78   & 293   & 133  &  143  &  -   &   -    &   -    &    -   &   -    \\ 
+  R2BNE    &28   &104    &342    &182   & 177   &  -   &   -    &   -    &    -   &   -    \\ 
+  R2RE    & 28  & 112   & 352   & 193  &  184  &  -   &   -    &   -    &    -   &   -    \\ 
+  R2RN    & 28  & 104   & 325   & 193  &  155  &  -   &   -    &   -    &    -   &   -    \\ 
+  R2RNE    &28   &108    &350    &193   & 184   &  -   &   -    &   -    &    -   &   -    \\
 \end{tabu}
 \caption{ Code for scenario name: [Construction name] + [Step function name ]  + [Neighbourhood name] \\ 
-          {[Construction name]} = [  D := Deterministic, R1 := Randomized, R2 := Random ]  \\
-          {[Step function name]} = [  B := Best Improvement, F := First Improvement, R := Random ] \\
-          {[Neighbourhood name]} = [  E := Edge Swap, N := Node Swap, NE := Node Neighbour ] } 
+          {[Construction name]} = $\{$  D := Deterministic, R1 := Randomized, R2 := Random $\}$  \\
+          {[Step function name]} = $\{$  B := Best Improvement, F := First Improvement, R := Random $\}$ \\
+          {[Neighbourhood name]} = $\{$  E := Edge Swap, N := Node Swap, NE := Node Neighbour $\}$ } 
 \end{sidewaystable}
 
 

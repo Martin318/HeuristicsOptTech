@@ -10,43 +10,43 @@ Deterministic Construction Heuristic
 Best initial solution
 21
 --------------------
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 21
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 21
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 18
-Deterministic Construction HeuristicBestImprovementNodeNeighbourSwap result: 21
-Deterministic Construction HeuristicBestImprovementOneNodeSwap result: 21
-Deterministic Construction HeuristicBestImprovementOneEdgeFlip result: 18
-Deterministic Construction HeuristicRandomStepNodeNeighbourSwap result: 21
-Deterministic Construction HeuristicRandomStepOneNodeSwap result: 21
-Deterministic Construction HeuristicRandomStepOneEdgeFlip result: 21
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 18
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 21
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 21
+Deterministic Construction Heuristic2BestImprovement1OneEdgeFliip result: 18
+Deterministic Construction Heuristic2BestImprovement2OneNodeSwap result: 21
+Deterministic Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 21
+Deterministic Construction HeuristicRandomStep1OneEdgeFliip result: 21
+Deterministic Construction HeuristicRandomStep2OneNodeSwap result: 21
+Deterministic Construction HeuristicRandomStep3NodeNeighbourSwap result: 21
 Randomized Construction Heuristic
 --------------------
 Best initial solution
 9
 --------------------
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 9
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 9
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 9
-Randomized Construction HeuristicBestImprovementNodeNeighbourSwap result: 9
-Randomized Construction HeuristicBestImprovementOneNodeSwap result: 9
-Randomized Construction HeuristicBestImprovementOneEdgeFlip result: 9
-Randomized Construction HeuristicRandomStepNodeNeighbourSwap result: 9
-Randomized Construction HeuristicRandomStepOneNodeSwap result: 9
-Randomized Construction HeuristicRandomStepOneEdgeFlip result: 9
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 
+Randomized Construction Heuristic2BestImprovement1OneEdgeFliip result: 
+Randomized Construction Heuristic2BestImprovement2OneNodeSwap result: 
+Randomized Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 
+Randomized Construction HeuristicRandomStep1OneEdgeFliip result: 
+Randomized Construction HeuristicRandomStep2OneNodeSwap result: 
+Randomized Construction HeuristicRandomStep3NodeNeighbourSwap result: 
 RandomConstructionHeuristic
 --------------------
 Best initial solution
 28
 --------------------
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 28
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 26
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 25
-RandomConstructionHeuristicBestImprovementNodeNeighbourSwap result: 28
-RandomConstructionHeuristicBestImprovementOneNodeSwap result: 26
-RandomConstructionHeuristicBestImprovementOneEdgeFlip result: 25
-RandomConstructionHeuristicRandomStepNodeNeighbourSwap result: 28
-RandomConstructionHeuristicRandomStepOneNodeSwap result: 28
-RandomConstructionHeuristicRandomStepOneEdgeFlip result: 28
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 25
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 26
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 28
+RandomConstructionHeuristic2BestImprovement1OneEdgeFliip result: 25
+RandomConstructionHeuristic2BestImprovement2OneNodeSwap result: 26
+RandomConstructionHeuristic2BestImprovement3NodeNeighbourSwap result: 28
+RandomConstructionHeuristicRandomStep1OneEdgeFliip result: 28
+RandomConstructionHeuristicRandomStep2OneNodeSwap result: 28
+RandomConstructionHeuristicRandomStep3NodeNeighbourSwap result: 28
 
 
 hot1215428@eowyn:~$ java -jar HeuristicOptProjects.jar instances/automatic-2.txt 
@@ -61,43 +61,43 @@ Deterministic Construction Heuristic
 Best initial solution
 54
 --------------------
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 50
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 40
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 40
-Deterministic Construction HeuristicBestImprovementNodeNeighbourSwap result: 50
-Deterministic Construction HeuristicBestImprovementOneNodeSwap result: 40
-Deterministic Construction HeuristicBestImprovementOneEdgeFlip result: 40
-Deterministic Construction HeuristicRandomStepNodeNeighbourSwap result: 54
-Deterministic Construction HeuristicRandomStepOneNodeSwap result: 50
-Deterministic Construction HeuristicRandomStepOneEdgeFlip result: 51
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 40
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 40
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 50
+Deterministic Construction Heuristic2BestImprovement1OneEdgeFliip result: 40
+Deterministic Construction Heuristic2BestImprovement2OneNodeSwap result: 40
+Deterministic Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 50
+Deterministic Construction HeuristicRandomStep1OneEdgeFliip result: 51
+Deterministic Construction HeuristicRandomStep2OneNodeSwap result: 50
+Deterministic Construction HeuristicRandomStep3NodeNeighbourSwap result: 54
 Randomized Construction Heuristic
 --------------------
 Best initial solution
 7
 --------------------
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 5
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 5
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 5
-Randomized Construction HeuristicBestImprovementNodeNeighbourSwap result: 5
-Randomized Construction HeuristicBestImprovementOneNodeSwap result: 5
-Randomized Construction HeuristicBestImprovementOneEdgeFlip result: 5
-Randomized Construction HeuristicRandomStepNodeNeighbourSwap result: 7
-Randomized Construction HeuristicRandomStepOneNodeSwap result: 7
-Randomized Construction HeuristicRandomStepOneEdgeFlip result: 7
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 5
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 5
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 5
+Randomized Construction Heuristic2BestImprovement1OneEdgeFliip result: 5
+Randomized Construction Heuristic2BestImprovement2OneNodeSwap result: 5
+Randomized Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 5
+Randomized Construction HeuristicRandomStep1OneEdgeFliip result: 7
+Randomized Construction HeuristicRandomStep2OneNodeSwap result: 7
+Randomized Construction HeuristicRandomStep3NodeNeighbourSwap result: 7
 RandomConstructionHeuristic
 --------------------
 Best initial solution
 112
 --------------------
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 104
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 78
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 78
-RandomConstructionHeuristicBestImprovementNodeNeighbourSwap result: 104
-RandomConstructionHeuristicBestImprovementOneNodeSwap result: 78
-RandomConstructionHeuristicBestImprovementOneEdgeFlip result: 78
-RandomConstructionHeuristicRandomStepNodeNeighbourSwap result: 108
-RandomConstructionHeuristicRandomStepOneNodeSwap result: 104
-RandomConstructionHeuristicRandomStepOneEdgeFlip result: 112
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 78
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 78
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 104
+RandomConstructionHeuristic2BestImprovement1OneEdgeFliip result: 78
+RandomConstructionHeuristic2BestImprovement2OneNodeSwap result: 78
+RandomConstructionHeuristic2BestImprovement3NodeNeighbourSwap result: 104
+RandomConstructionHeuristicRandomStep1OneEdgeFliip result: 112
+RandomConstructionHeuristicRandomStep2OneNodeSwap result: 104
+RandomConstructionHeuristicRandomStep3NodeNeighbourSwap result: 108
 
 
 hot1215428@eowyn:~$ java -jar HeuristicOptProjects.jar instances/automatic-3.txt 
@@ -112,43 +112,43 @@ Deterministic Construction Heuristic
 Best initial solution
 112
 --------------------
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 112
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 112
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 108
-Deterministic Construction HeuristicBestImprovementNodeNeighbourSwap result: 112
-Deterministic Construction HeuristicBestImprovementOneNodeSwap result: 112
-Deterministic Construction HeuristicBestImprovementOneEdgeFlip result: 108
-Deterministic Construction HeuristicRandomStepNodeNeighbourSwap result: 112
-Deterministic Construction HeuristicRandomStepOneNodeSwap result: 112
-Deterministic Construction HeuristicRandomStepOneEdgeFlip result: 112
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 108
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 112
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 112
+Deterministic Construction Heuristic2BestImprovement1OneEdgeFliip result: 108
+Deterministic Construction Heuristic2BestImprovement2OneNodeSwap result: 112
+Deterministic Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 112
+Deterministic Construction HeuristicRandomStep1OneEdgeFliip result: 112
+Deterministic Construction HeuristicRandomStep2OneNodeSwap result: 112
+Deterministic Construction HeuristicRandomStep3NodeNeighbourSwap result: 112
 Randomized Construction Heuristic
 --------------------
 Best initial solution
 53
 --------------------
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 52
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 52
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 51
-Randomized Construction HeuristicBestImprovementNodeNeighbourSwap result: 52
-Randomized Construction HeuristicBestImprovementOneNodeSwap result: 52
-Randomized Construction HeuristicBestImprovementOneEdgeFlip result: 51
-Randomized Construction HeuristicRandomStepNodeNeighbourSwap result: 53
-Randomized Construction HeuristicRandomStepOneNodeSwap result: 53
-Randomized Construction HeuristicRandomStepOneEdgeFlip result: 53
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 51
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 52
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 52
+Randomized Construction Heuristic2BestImprovement1OneEdgeFliip result: 51
+Randomized Construction Heuristic2BestImprovement2OneNodeSwap result: 52
+Randomized Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 52
+Randomized Construction HeuristicRandomStep1OneEdgeFliip result: 53
+Randomized Construction HeuristicRandomStep2OneNodeSwap result: 53
+Randomized Construction HeuristicRandomStep3NodeNeighbourSwap result: 53
 RandomConstructionHeuristic
 --------------------
 Best initial solution
 352
 --------------------
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 342
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 293
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 293
-RandomConstructionHeuristicBestImprovementNodeNeighbourSwap result: 342
-RandomConstructionHeuristicBestImprovementOneNodeSwap result: 293
-RandomConstructionHeuristicBestImprovementOneEdgeFlip result: 293
-RandomConstructionHeuristicRandomStepNodeNeighbourSwap result: 350
-RandomConstructionHeuristicRandomStepOneNodeSwap result: 325
-RandomConstructionHeuristicRandomStepOneEdgeFlip result: 352
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 293
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 293
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 342
+RandomConstructionHeuristic2BestImprovement1OneEdgeFliip result: 293
+RandomConstructionHeuristic2BestImprovement2OneNodeSwap result: 293
+RandomConstructionHeuristic2BestImprovement3NodeNeighbourSwap result: 342
+RandomConstructionHeuristicRandomStep1OneEdgeFliip result: 352
+RandomConstructionHeuristicRandomStep2OneNodeSwap result: 325
+RandomConstructionHeuristicRandomStep3NodeNeighbourSwap result: 350
 
 
 hot1215428@eowyn:~$ java -jar HeuristicOptProjects.jar instances/automatic-4.txt
@@ -163,43 +163,43 @@ Deterministic Construction Heuristic
 Best initial solution
 197
 --------------------
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 193
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 148
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 148
-Deterministic Construction HeuristicBestImprovementNodeNeighbourSwap result: 193
-Deterministic Construction HeuristicBestImprovementOneNodeSwap result: 148
-Deterministic Construction HeuristicBestImprovementOneEdgeFlip result: 148
-Deterministic Construction HeuristicRandomStepNodeNeighbourSwap result: 197
-Deterministic Construction HeuristicRandomStepOneNodeSwap result: 196
-Deterministic Construction HeuristicRandomStepOneEdgeFlip result: 193
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 148
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 148
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 193
+Deterministic Construction Heuristic2BestImprovement1OneEdgeFliip result: 148
+Deterministic Construction Heuristic2BestImprovement2OneNodeSwap result: 148
+Deterministic Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 193
+Deterministic Construction HeuristicRandomStep1OneEdgeFliip result: 193
+Deterministic Construction HeuristicRandomStep2OneNodeSwap result: 196
+Deterministic Construction HeuristicRandomStep3NodeNeighbourSwap result: 197
 Randomized Construction Heuristic
 --------------------
 Best initial solution
 51
 --------------------
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 50
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 44
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 44
-Randomized Construction HeuristicBestImprovementNodeNeighbourSwap result: 50
-Randomized Construction HeuristicBestImprovementOneNodeSwap result: 44
-Randomized Construction HeuristicBestImprovementOneEdgeFlip result: 44
-Randomized Construction HeuristicRandomStepNodeNeighbourSwap result: 50
-Randomized Construction HeuristicRandomStepOneNodeSwap result: 51
-Randomized Construction HeuristicRandomStepOneEdgeFlip result: 51
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 44
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 44
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 50
+Randomized Construction Heuristic2BestImprovement1OneEdgeFliip result: 44
+Randomized Construction Heuristic2BestImprovement2OneNodeSwap result: 44
+Randomized Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 50
+Randomized Construction HeuristicRandomStep1OneEdgeFliip result: 51
+Randomized Construction HeuristicRandomStep2OneNodeSwap result: 51
+Randomized Construction HeuristicRandomStep3NodeNeighbourSwap result: 50
 RandomConstructionHeuristic
 --------------------
 Best initial solution
 193
 --------------------
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 182
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 133
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 133
-RandomConstructionHeuristicBestImprovementNodeNeighbourSwap result: 182
-RandomConstructionHeuristicBestImprovementOneNodeSwap result: 133
-RandomConstructionHeuristicBestImprovementOneEdgeFlip result: 133
-RandomConstructionHeuristicRandomStepNodeNeighbourSwap result: 193
-RandomConstructionHeuristicRandomStepOneNodeSwap result: 193
-RandomConstructionHeuristicRandomStepOneEdgeFlip result: 193
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 133
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 133
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 182
+RandomConstructionHeuristic2BestImprovement1OneEdgeFliip result: 133
+RandomConstructionHeuristic2BestImprovement2OneNodeSwap result: 133
+RandomConstructionHeuristic2BestImprovement3NodeNeighbourSwap result: 182
+RandomConstructionHeuristicRandomStep1OneEdgeFliip result: 193
+RandomConstructionHeuristicRandomStep2OneNodeSwap result: 193
+RandomConstructionHeuristicRandomStep3NodeNeighbourSwap result: 193
 
 
 hot1215428@eowyn:~$ java -jar HeuristicOptProjects.jar instances/automatic-5.txt 
@@ -214,114 +214,114 @@ Deterministic Construction Heuristic
 Best initial solution
 93
 --------------------
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 89
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 71
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 71
-Deterministic Construction HeuristicBestImprovementNodeNeighbourSwap result: 89
-Deterministic Construction HeuristicBestImprovementOneNodeSwap result: 71
-Deterministic Construction HeuristicBestImprovementOneEdgeFlip result: 71
-Deterministic Construction HeuristicRandomStepNodeNeighbourSwap result: 93
-Deterministic Construction HeuristicRandomStepOneNodeSwap result: 93
-Deterministic Construction HeuristicRandomStepOneEdgeFlip result: 93
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 71
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 71
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 89
+Deterministic Construction Heuristic2BestImprovement1OneEdgeFliip result: 71
+Deterministic Construction Heuristic2BestImprovement2OneNodeSwap result: 71
+Deterministic Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 89
+Deterministic Construction HeuristicRandomStep1OneEdgeFliip result: 93
+Deterministic Construction HeuristicRandomStep2OneNodeSwap result: 93
+Deterministic Construction HeuristicRandomStep3NodeNeighbourSwap result: 93
 Randomized Construction Heuristic
 --------------------
 Best initial solution
 28
 --------------------
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 27
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 25
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 25
-Randomized Construction HeuristicBestImprovementNodeNeighbourSwap result: 27
-Randomized Construction HeuristicBestImprovementOneNodeSwap result: 25
-Randomized Construction HeuristicBestImprovementOneEdgeFlip result: 25
-Randomized Construction HeuristicRandomStepNodeNeighbourSwap result: 28
-Randomized Construction HeuristicRandomStepOneNodeSwap result: 28
-Randomized Construction HeuristicRandomStepOneEdgeFlip result: 28
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 25
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 25
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 27
+Randomized Construction Heuristic2BestImprovement1OneEdgeFliip result: 25
+Randomized Construction Heuristic2BestImprovement2OneNodeSwap result: 25
+Randomized Construction Heuristic2BestImprovement3NodeNeighbourSwap result: 27
+Randomized Construction HeuristicRandomStep1OneEdgeFliip result: 28
+Randomized Construction HeuristicRandomStep2OneNodeSwap result: 28
+Randomized Construction HeuristicRandomStep3NodeNeighbourSwap result: 28
 RandomConstructionHeuristic
 --------------------
 Best initial solution
 184
 --------------------
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 177
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 143
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 143
-RandomConstructionHeuristicBestImprovementNodeNeighbourSwap result: 177
-RandomConstructionHeuristicBestImprovementOneNodeSwap result: 143
-RandomConstructionHeuristicBestImprovementOneEdgeFlip result: 143
-RandomConstructionHeuristicRandomStepNodeNeighbourSwap result: 184
-RandomConstructionHeuristicRandomStepOneNodeSwap result: 155
-RandomConstructionHeuristicRandomStepOneEdgeFlip result: 184
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 143
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 143
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 177
+RandomConstructionHeuristic2BestImprovement1OneEdgeFliip result: 143
+RandomConstructionHeuristic2BestImprovement2OneNodeSwap result: 143
+RandomConstructionHeuristic2BestImprovement3NodeNeighbourSwap result: 177
+RandomConstructionHeuristicRandomStep1OneEdgeFliip result: 184
+RandomConstructionHeuristicRandomStep2OneNodeSwap result: 155
+RandomConstructionHeuristicRandomStep3NodeNeighbourSwap result: 184
 
 
  instances/automatic-6.txt
 
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 753489
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 7523974
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 7326516
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 7326516
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 7523974
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 753489
 
 
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 197521
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 1943905
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 1915515
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 1915515
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 1943905
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 1975210
 
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 8566426
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 8588458
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 8596350
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 8596350
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 8588458
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 8566426
 
  instances/automatic-7.txt
 
 
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 753489
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 7523974
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 7326516
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 139578
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 139604
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 140553
 
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 127853
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 128023
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 127389
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 127389
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 128023
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 127853
 
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 178652
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 185318
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 177002
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 177002
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 185318
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 178652
 
 
  instances/automatic-8.txt
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 364272
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 571005
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 576106
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 576106
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 571005
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 364272
 
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 239841
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 250084
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 246871
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 246871
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 250084
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 239841
 
 
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 1164516
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 1143775
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 1205472
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 1205472
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 1143775
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 1164516
 
  instances/automatic-9.txt
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 1400563
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 1377295
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 1401287
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 1401287
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 1377295
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 1400563
 
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 364272
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 352748
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 358671
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 358671
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 352748
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 364272
 
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 1705438
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 1682728
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 1790171
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 1790171
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 1682728
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 1705438
 
 
  instances/automatic-10.txt
 
-Deterministic Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 54157
-Deterministic Construction HeuristicFirstImprovmentOneNodeSwap result: 54151
-Deterministic Construction HeuristicFirstImprovmentOneEdgeFlip result: 54087
+Deterministic Construction Heuristic1FirstImprovment1OneEdgeFliip result: 54087
+Deterministic Construction Heuristic1FirstImprovment2OneNodeSwap result: 54151
+Deterministic Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 54157
 
-Randomized Construction HeuristicFirstImprovmentNodeNeighbourSwap result: 44309
-Randomized Construction HeuristicFirstImprovmentOneNodeSwap result: 44305
-Randomized Construction HeuristicFirstImprovmentOneEdgeFlip result: 44290
+Randomized Construction Heuristic1FirstImprovment1OneEdgeFliip result: 44290
+Randomized Construction Heuristic1FirstImprovment2OneNodeSwap result: 44305
+Randomized Construction Heuristic1FirstImprovment3NodeNeighbourSwap result: 44309
 
-RandomConstructionHeuristicFirstImprovmentNodeNeighbourSwap result: 234257
-RandomConstructionHeuristicFirstImprovmentOneNodeSwap result: 234061
-RandomConstructionHeuristicFirstImprovmentOneEdgeFlip result: 233865
+RandomConstructionHeuristic1FirstImprovment1OneEdgeFliip result: 233865
+RandomConstructionHeuristic1FirstImprovment2OneNodeSwap result: 234061
+RandomConstructionHeuristic1FirstImprovment3NodeNeighbourSwap result: 234257
