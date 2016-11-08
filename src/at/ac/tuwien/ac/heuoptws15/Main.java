@@ -155,7 +155,9 @@ public class Main {
                        System.out.println( currentName + " result: " + bestSolutionValueHood);
                    }
                }
+
             }
+
 
             KPMPSolutionWriter w;
             w = new KPMPSolutionWriter(instance.getK());

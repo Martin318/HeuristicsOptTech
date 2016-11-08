@@ -1,0 +1,74 @@
+package at.ac.tuwien.ac.heuoptws15;
+
+import java.util.List;
+
+/**
+ * Created by Martin on 08.11.2016.
+ */
+public class GVNS {
+
+    List<Neighbourhood> VND;
+    List<Neighbourhood> VNS;
+
+
+    public GVNS(List<Neighbourhood> VND, List<Neighbourhood> VNS){
+
+        this.VND = VND;
+        this.VNS = VNS;
+
+    }
+
+
+    public KPMPSolution search(KPMPSolution initial){
+
+        KPMPSolution bestSol = initial;
+
+        int k = 0;
+        while(k < VNS.size()){
+
+            VNS.get(k).setSolution(bestSol);
+            KPMPSolution randomNeighbour = VNS.get(k).getRandomNeighbour(); // SHAKING
+
+            randomNeighbour = vndSearch(randomNeighbour);
+
+            if(randomNeighbour.crossings() < bestSol.crossings()){
+
+                bestSol = randomNeighbour;
+                k=0;
+            }
+            else{
+                k++;
+            }
+        }
+
+        return bestSol;
+
+    }
+
+    private KPMPSolution vndSearch(KPMPSolution initial){
+
+        int i = 0;
+        KPMPSolution bestSol = initial;
+        KPMPSolution current;
+
+
+        while(i < VND.size()){
+
+            BestImprovementStepFunction s = new BestImprovementStepFunction(initial, initial.crossings());
+            SearchConfiguration config = new SearchConfiguration();
+            config.setStepFunction(s);
+            config.setNeighbourhood(VND.get(i));
+            current =  config.getNextSolution(initial);
+            if(bestSol.crossings() < current.crossings()){
+                bestSol = current;
+                i = 0;
+            }
+            else{
+                i++;
+            }
+        }
+
+        return bestSol;
+    }
+
+}
