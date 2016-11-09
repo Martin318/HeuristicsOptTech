@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Martin on 14.10.2016.
  */
-public class Main {
+public class Main_OLD {
 
     public static void main(String[] args){
 
