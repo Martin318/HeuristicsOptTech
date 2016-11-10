@@ -26,8 +26,9 @@ public class NNodeSwapNeighbourhood  extends Neighbourhood  {
             newOrdering[i] = orig_sol.ordering[i];
 
         for( int i = 0;  i < N-1; i++){
-            newOrdering[transferIndex[i]] = orig_sol.ordering[nodeIndex[i]];
-            newOrdering[nodeIndex[i]]     = orig_sol.ordering[transferIndex[i]];
+            int temp = newOrdering[transferIndex[i]];
+            newOrdering[transferIndex[i]] = newOrdering[nodeIndex[i]];
+            newOrdering[nodeIndex[i]]     =  temp;
         }
 
         KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
@@ -95,24 +96,10 @@ public class NNodeSwapNeighbourhood  extends Neighbourhood  {
             newOrdering[i] = orig_sol.ordering[i];
 
         for( int i = 0;  i < N-1; i++){
-            newOrdering[transferIndex[i]] = orig_sol.ordering[nodeIndex[i]];
-            newOrdering[nodeIndex[i]]     = orig_sol.ordering[transferIndex[i]];
+            int temp = newOrdering[transferIndex[i]];
+            newOrdering[transferIndex[i]] = newOrdering[nodeIndex[i]];
+            newOrdering[nodeIndex[i]]     =  temp;
         }
-
-        for(int i = 0; i < newOrdering.length; i++){
-            System.out.print(newOrdering[i] + " ");
-
-        }
-
-        System.out.println(" Ordering done");
-
-
-        for(int i = 0; i < newOrdering.length; i++){
-            System.out.print(orig_sol.ordering[i] + " ");
-
-        }
-
-        System.out.println(" Ordering done");
 
 
         KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
