@@ -54,7 +54,7 @@ public class GVNS {
 
         while(i < VND.size()){
 
-            BestImprovementStepFunction s = new BestImprovementStepFunction(initial, initial.crossings());
+            BestImprovementStepFunction s = new BestImprovementStepFunction(bestSol, bestSol.crossings());
             SearchConfiguration config = new SearchConfiguration();
             config.setStepFunction(s);
             config.setNeighbourhood(VND.get(i));
