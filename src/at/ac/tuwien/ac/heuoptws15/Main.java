@@ -37,8 +37,8 @@ public class Main {
 
             ArrayList<ConstructionHeuristic> constructionHeuristics = new ArrayList<>();
 
-//            constructionHeuristics.add(new DeterministicConstructionHeuristic());
-//            constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
+            constructionHeuristics.add(new DeterministicConstructionHeuristic());
+            constructionHeuristics.add(new RandomizedConstructionHeuristic(0.5));
             constructionHeuristics.add(new RandomConstructionHeuristic());
 
             KPMPSolution bestSolGlobal = null;
@@ -80,7 +80,7 @@ public class Main {
 
                ArrayList<StepFunction> stepFunctions = new ArrayList<>();
 
-               stepFunctions.add(new FirstImprovementStepFunction(bestSolConstruction,bestSolutionValueConstruction));
+              stepFunctions.add(new FirstImprovementStepFunction(bestSolConstruction,bestSolutionValueConstruction));
 //               stepFunctions.add(new BestImprovementStepFunction(bestSolConstruction,bestSolutionValueConstruction));
 //               stepFunctions.add(new RandomStepFunction());
 
@@ -93,7 +93,7 @@ public class Main {
 
                    neighbourhoods.add(new NodeNeighbourSwapNeighbourhood());
                    neighbourhoods.add(new OneNodeSwapNeighbourhood());
-                       neighbourhoods.add(new OneEdgeFlipNeighbourhood());
+                      neighbourhoods.add(new OneEdgeFlipNeighbourhood());
 
                    for (Neighbourhood hood : neighbourhoods){
                        String currentName = h.getName() + step.getName() + hood.getName();
@@ -121,8 +121,9 @@ public class Main {
 
                        int currentSolCrossings = currentSol.crossings();
                        start = System.currentTimeMillis();
+                       int iterations = 0;
 
-                       while (currentSolCrossings < bestSolutionValueHood  && System.currentTimeMillis() - start < 60000) {
+                       while (currentSolCrossings < bestSolutionValueHood  && System.currentTimeMillis() - start < 60000) {                 iterations++;
                            if(currentSolCrossings < bestSolutionValueGlobal){
                                bestSolGlobal = currentSol;
                                bestSolutionValueGlobal = currentSolCrossings;
@@ -152,7 +153,7 @@ public class Main {
                        }
 
 
-                       System.out.println( currentName + " result: " + bestSolutionValueHood);
+                       System.out.println( currentName + " result: " + bestSolutionValueHood + "( after "  + iterations + " iterations)");
                    }
                }
             }

@@ -114,48 +114,51 @@ For the larger instances (6 to 10), we only used the first improvement step func
 The results can be seen in the table below. Each entry has the following information: best value / difference to mean value / standard deviation using that combination of heuristic for initial solution, step function and search in the neighbourhood. 
 
 \section{Observations}
-We observerd, that using random solutions did not yield a gain, in any of the instances. Our construction heuristics preform much better than just random initial solutions. In all test runs our "intelligent" randomized construction heuristic was better then the completely random initial solution.  Since the construction heuristics are relatively cheap, they should be used over just random initial solutions.
+We observed, that using random solutions did not yield a gain, in any of the instances. Our construction heuristics preform much better than just random initial solutions. In all test runs our "intelligent" randomized construction heuristic was better then the completely random initial solution.  Since the construction heuristics are relatively cheap, they should be used over just random initial solutions.
 
 To measure how many iterations it took to find local optima, we run a specific test for the smaller instances (automatic-1 to automatic-5), while also keeping track of iteration count. Here the average is 1, with a few outliers to 5 and 8. On the other hand, the larger instances, took up to 10 or 20 iterations before the timeout hit. Since we couldn't find optimal solutions on the smaller ones, but had plenty of time to spare, it might be a good idea to use larger neighbourhoods for them. 
 
 
 \begin{sidewaystable}
-\small
+Entries as $X \slash Y \slash Z$ where $X = $ best value and $Y = $ absolute difference from mean and $Z = $ std. deviation (last two where applicable).  
+
+\tiny
   \everyrow{\hline}
   \begin{tabu} {| l |r | r |r |r |r |r |r |r |r |r |}
-  Scenario    &automatic-1   & automatic-2    &automatic-3    &automatic-4    & automatic-5  & automatic-6    & automatic-7    &  automatic-8   & automatic-9   & automatic-10 \\
-  DFE    & 18/0/0   & 40/0/0    & 108/0/0    & 148/0/0   &  71/0/0   &  7326516/0/0   & 139578/0/0    & 576106/0/0    &  1401287/0/0   & 54087/0/0    \\ 
-  DFN    & 21/0/0   & 40/0/0    & 112/0/0    & 148/0/0   &  71/0/0   &  7523974/0/0   & 139604/0/0    & 571005/0/0    &  1377295/0/0   & 54151/0/0   \\ 
-  DFNE   & 21/0/0   & 50/0/0    & 112/0/0    & 193/0/0   &  89/0/0   &   753489/0/0   & 140553/0/0    & 364272/0/0    &  1400563/0/0   & 54157/0/0    \\ 
-  DBE    & 18/0/0   & 40/0/0    & 108/0/0    & 148/0/0   &  71/0/0   &  -   &   -    &   -    &    -   &   -   \\ 
-  DBN    & 21/0/0   & 40/0/0    & 112/0/0    & 148/0/0   &  71/0/0   &  -   &   -    &   -    &    -   &   -   \\ 
-  DBNE    & 21/0/0  & 50/0/0    & 112/0/0    & 193/0/0   &  89/0/0   &  -   &   -    &   -    &    -   &   -    \\ 
-  DRE    & 21/3,25/3,40   & 51/4,50/3,14    & 112    & 193   &  93   &  -   &   -    &   -    &    -   &   -   \\ 
-  DRN    & 21/3,65/3,43   & 50/2,48/1,97    & 112    & 196   &  93   &  -   &   -    &   -    &    -   &   -   \\ 
-  DRNE   & 21/0/0   & 54/6,48/7,32    & 112    & 197   &  93   &  -   &   -    &   -    &    -   &   -    \\ 
-  R1FE   & 9/0/0   & 5/0/0   & 51   & 44 &  25  &   1880924  & 127389   & 246871   &  358671  & 44290 \\ 
-  R1FN    & 9/0/0  & 5/0/0   & 52   & 44 &  25  &   1880948  & 128023   & 250084   &  352748  & 44305   \\ 
-  R1FNE    &9/0/0   &5/0/0    &52    &50  & 27   & 1880948   &127853    &239841    & 364272   &44309    \\ 
-  R1BE    & 9/0/0  & 5/0/0   & 51   & 44 &  25  &  -   &   -    &   -    &    -   &   -    \\ 
-  R1BN    & 9/0/0  & 5/0/0   & 52   & 44 &  25  &  -   &   -    &   -    &    -   &   -    \\ 
-  R1BNE    &9/0/0   &5/0/0    &52    &50  & 27   &  -   &   -    &   -    &    -   &   -    \\ 
-  R1RE    & 9/0/0  & 7/3/2,91   & 53   & 51 &  28  &  -   &   -    &   -    &    -   &   -    \\ 
-  R1RN    & 9/0/0  & 7/1,54/1,12   & 53   & 51 &  28  &  -   &   -    &   -    &    -   &   -    \\ 
-  R1RNE    &9/0/0   &7/2,84/1,74    &53    &50  & 28   &  -   &   -    &   -    &    -   &   -    \\ 
-  R2FE    & 25/4,11/4,40  &  78/8,48/4,54   & 293   & 133  &  143  &  8596350  &  1205472   & 12156016    &  1790171  & 233865   \\ 
-  R2FN    & 26/2,04/1,37  &  78/4,45/3,48   & 293   & 133  &  143  &  8588458  &  1143775   & 12156016    &  1682728  & 234061   \\ 
-  R2FNE    &28/3,81/2,66   &104/8,78/9,64    &342    &182   & 177   & 8566426   & 1164516    & 12156016    & 1705438   &234257    \\ 
-  R2BE    & 25/3,45/3,78  &  78/2,45/1,87   & 293   & 133  &  143  &  -   &   -    &   -  -    &    -   &   -    \\ 
-  R2BN    & 26/2,00/1,41  &  78/5,48/3,54   & 293   & 133  &  143  &  -   &   -    &   -    &    -   &   -    \\ 
-  R2BNE    &28/0/0   &104/6,87/4,87    &342    &182   & 177   &  -   &   -    &   -    &    -   &   -    \\ 
-  R2RE    & 28/1,25/1,25  & 112/10,87/7,78   & 352   & 193  &  184  &  -   &   -    &   -    &    -   &   -    \\ 
-  R2RN    & 28/2,30/2,17  & 104/13,16/7,75   & 325   & 193  &  155  &  -   &   -    &   -    &    -   &   -    \\ 
-  R2RNE    &28/2,32/2,54   &108/4,49/6,97    &350    &193   & 184   &  -   &   -    &   -    &    -   &   -    \\
+  Scenario& automatic-1   & automatic-2       & automatic-3 & automatic-4 & automatic-5 & automatic-6     & automatic-7 & automatic-8 & automatic-9     & automatic-10 \\
+  DFE     & 18/0/0        & 40/0/0            & 108/0/0         & 115/0/0     &  71/0/0     &  7326516/0/0    & 139578/0/0  & 576106/0/0  &  1401287/0/0    & 54087/0/0    \\ 
+  DFN     & 21/0/0        & 40/0/0            & 112/0/0         & 116/0/0     &  71/0/0     &  7523974/0/0    & 139604/0/0  & 571005/0/0  &  1377295/0/0    & 54151/0/0   \\ 
+  DFNE    & 21/0/0        & 50/0/0            & 112/0/0         & 113/0/0     &  89/0/0     &  753489/0/0     & 140553/0/0  & 364272/0/0  &  1400563/0/0    & 54157/0/0    \\ 
+  DBE     & 18/0/0        & 40/0/0            & 108/0/0         & 107/0/0     &  71/0/0     &  -              &   -         &   -         &    -            &   -   \\ 
+  DBN     & 21/0/0        & 40/0/0            & 112/0/0         & 116/0/0     &  71/0/0     &  -              &   -         &   -         &    -            &   -   \\ 
+  DBNE    & 21/0/0        & 50/0/0            & 112/0/0         & 113/0/0     &  89/0/0     &  -              &   -         &   -         &    -            &   -    \\ 
+  DRE     & 21/3,25/3,40  & 51/4,50/3,14      & 112/0/0         & 113/0/0     &  93/0/0     &  -              &   -         &   -         &    -            &   -   \\ 
+  DRN     & 21/3,65/3,43  & 50/2,48/1,97      & 112/0/0         & 113/0/0     &  93/0/0     &  -              &   -         &   -         &    -            &   -   \\ 
+  DRNE    & 21/0/0        & 54/6,48/7,32      & 112/0/0         & 118/0/0     &  93/0/0     &  -              &   -         &   -         &    -            &   -    \\ 
+  R1FE    & 9/0/0         & 5/0/0             & 51/5,86/3,57    & 7/0/0       &  18/1,21/3,13          & 1880924/?/? \footnote[1]         & 127389/?/? \footnote[1]      & 246871/?/? \footnote[1]      & 358671/?/? \footnote[1] & 44290/?/? \footnote[1] \\ \\
+  R1FN    & 9/0/0         & 5/0/0             & 52/4,26/3,71    & 7/0/0       &  25/2,35/3,04          & 1880948/?/? \footnote[1]         & 128023/?/? \footnote[1]      & 250084/?/? \footnote[1]      & 352748/?/? \footnote[1]          & 44305/?/? \footnote[1] \\ \\
+  R1FNE   &9/0/0          & 5/0/0             & 52/4,14/3,68    & 7/0/0       &  25/2,24/3,92           & 1880948/?/? \footnote[1]         & 127853/?/? \footnote[1]       &239841/?/? \footnote[1]      & 364272/?/? \footnote[1]         & 44309/?/? \footnote[1] \\ \\
+  R1BE    & 9/0/0         & 5/0/0             & 51/5,66/3,84    & 7/0/0       &  13/1,58/3,85          &  -              &   -         &   -         &    -            &   -    \\ 
+  R1BN    & 9/0/0         & 5/0/0             & 52/3,26/2,15    & 7/0/0       &  20/2,61/3,71          &  -              &   -         &   -         &    -            &   -    \\ 
+  R1BNE   &9/0/0          & 5/0/0             & 52/3,66/3,25    & 7/0/0       &  27/2,84/3,69           &  -              &   -         &   -         &    -            &   -    \\ 
+  R1RE    & 9/0/0         & 7/3/2,91          & 53/2,76/3,14    & 7/0/0       &  18/1,91/3,54          &  -              &   -         &   -         &    -            &   -    \\ 
+  R1RN    & 9/0/0         & 7/1,54/1,12       & 53/2,36/2,91    & 7/0/0       &  26/2,31/3,47          &  -              &   -         &   -         &    -            &   -    \\ 
+  R1RNE   &9/0/0          & 7/2,84/1,74       & 53/2,41/3,51    & 7/0/0       &  28/2,38/2,49           &  -              &   -         &   -         &    -            &   -    \\ 
+  R2FE    & 25/4,11/4,40  &  78/8,48/4,54     & 293/23,1/36,3   & 133/18,48/4,54          &  143/13,35/16,37        &  8596350/?/? \footnote[1]       &  1205472/?/? \footnote[1]    & 12156016/?/? \footnote[1]    &  1790171/?/? \footnote[1]        & 233865/?/? \footnote[1]   \\ \\
+  R2FN    & 26/2,04/1,37  &  78/4,45/3,48     & 293/35,3/37,1   & 133/14,45/5,48          &  143/15,42/17,12        &  8588458/?/? \footnote[1]        &  1143775/?/? \footnote[1]    & 12156016/?/? \footnote[1]    &  1682728/?/? \footnote[1]        & 234061/?/? \footnote[1]   \\ \\
+  R2FNE   &28/3,81/2,66   & 104/8,78/9,64     & 342/23,1/31,4   & 182/18,89/9,64          &  177/13,17/11,44         &  8566426/?/? \footnote[1]        & 1164516/?/? \footnote[1]     & 12156016/?/? \footnote[1]    & 1705438/?/? \footnote[1]        & 234257/?/? \footnote[1]   \\ \\
+  R2BE    & 25/3,45/3,78  &  78/2,45/1,87     & 293/33,5/33,6   & 133/12,31/9,49          &  143/13,59/13,69        &  -              &   -         &   -         &    -            &   -    \\ 
+  R2BN    & 26/2,00/1,41  &  78/5,48/3,54     & 293/43,4/32,8   & 133/15,82/3,46          &  143/13,42/12,87        &  -              &   -         &   -         &    -            &   -    \\ 
+  R2BNE   &28/1,15/       & 104/6,87/4,87     & 342/53,3/34,7   & 182/16,87/4,87          &  177/13,35/14,74         &  -              &   -         &   -         &    -         &   -    \\ 
+  R2RE    & 28/1,25/1,25  & 112/10,87/7,78    & 352/39,7/35,9   & 193/10,77/7,17          &  184/19,77/15,95        &  -              &   -         &   -         &    -            &   -    \\ 
+  R2RN    & 28/2,30/2,17  & 104/13,16/7,75    & 345/28,5/36,1   & 193/13,66/7,36          &  155/18,59/16,16        &  -              &   -         &   -         &    -            &   -    \\ 
+  R2RNE   &28/2,32/2,54   & 108/4,49/6,97     & 350/32,4/36,0   & 193/14,49/10,97         &  184/12,44/16,07         &  -              &   -         &   -         &    -           &   -    \\
 \end{tabu}
 \caption{ Code for scenario name: [Construction name] + [Step function name ]  + [Neighbourhood name] \\ 
           {[Construction name]} = $\{$  D := Deterministic, R1 := Randomized, R2 := Completely Random $\}$  \\
           {[Step function name]} = $\{$  B := Best Improvement, F := First Improvement, R := Random Neighbour $\}$ \\
           {[Neighbourhood name]} = $\{$  E := Edge Swap, N := Node Swap, NE := Node Neighbour $\}$ } 
+\footnotetext[1]{Only one measurement here, since 15 timeout hit }
 \end{sidewaystable}
 
 
