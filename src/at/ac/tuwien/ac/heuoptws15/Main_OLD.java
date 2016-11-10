@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Martin on 14.10.2016.
  */
-public class Main {
+public class Main_OLD {
 
     public static void main(String[] args){
 
@@ -156,7 +156,9 @@ public class Main {
                        System.out.println( currentName + " result: " + bestSolutionValueHood + "( after "  + iterations + " iterations)");
                    }
                }
+
             }
+
 
             KPMPSolutionWriter w;
             w = new KPMPSolutionWriter(instance.getK());

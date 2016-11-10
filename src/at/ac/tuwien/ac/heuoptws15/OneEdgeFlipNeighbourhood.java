@@ -35,7 +35,7 @@ public class OneEdgeFlipNeighbourhood extends Neighbourhood {
             tempTransferIndex = RandomStuff.between(0,orig_sol.pages.length-1);
         } while ( tempPageIndex == tempTransferIndex);
 
-        int tempEdgeIndex = RandomStuff.between(0,orig_sol.pages[tempPageIndex].edges.size());
+        int tempEdgeIndex = RandomStuff.between(0,orig_sol.pages[tempPageIndex].edges.size()-1 );
 
         KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, orig_sol.ordering);
 
