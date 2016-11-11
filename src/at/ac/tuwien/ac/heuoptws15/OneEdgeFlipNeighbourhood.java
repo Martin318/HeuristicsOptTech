@@ -58,6 +58,15 @@ public class OneEdgeFlipNeighbourhood extends Neighbourhood {
 
     public KPMPSolution getNextNeighbour() {
 
+        while(pageindex < orig_sol.pages.length && orig_sol.pages[pageindex].edges.size() == 0){
+            pageindex++;
+        }
+
+        if(pageindex == orig_sol.pages.length){
+            return null;
+        }
+
+
         if(orig_sol.pages.length == 1)
             return null; // NO edge swap possible
 
@@ -77,15 +86,15 @@ public class OneEdgeFlipNeighbourhood extends Neighbourhood {
 
         // DO A CHANGE
 
-
         Edge e = solution.pages[pageindex].edges.get(edgeindex);
-        solution.removeEdge(e,pageindex);
-        solution.addEdge(e,transferIndex);
+        solution.removeEdge(e, pageindex);
+        solution.addEdge(e, transferIndex);
 
 
         // UPDATE pageIndices
 
         edgeindex++;
+
 
         if(edgeindex == orig_sol.pages[pageindex].edges.size()){
             edgeindex = 0;

@@ -45,6 +45,9 @@ public class GVNS {
 
             System.out.println("]");
 
+            System.out.println(initial);
+            System.out.println(randomNeighbour);
+
 
 
             randomNeighbour = vndSearch(randomNeighbour);
