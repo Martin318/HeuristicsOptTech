@@ -81,7 +81,7 @@ public class Main_GVNS {
         n1.add(new OneEdgeFlipNeighbourhood());
         n1.add(new OneNodeSwapNeighbourhood());
 
-        for(int n = 1; n<16; n++) {
+        for(int n = 1; n<100; n++) {
             n2.add(new MNFlipEdgeSwapNodeNeighbourhood(n, n));
             // n2.add(new OneNodeSwapNeighbourhood());
         }
