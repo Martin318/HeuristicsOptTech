@@ -29,6 +29,24 @@ public class GVNS {
             VNS.get(k).setSolution(bestSol);
             KPMPSolution randomNeighbour = VNS.get(k).getRandomNeighbour(); // SHAKING
 
+            System.out.print("[");
+
+            for(int i= 0; i< initial.ordering.length; i++){
+                System.out.print(initial.ordering[i] + " ");
+            }
+
+            System.out.println("]");
+
+            System.out.print("[");
+
+            for(int i= 0; i< initial.ordering.length; i++){
+                System.out.print(randomNeighbour.ordering[i] + " ");
+            }
+
+            System.out.println("]");
+
+
+
             randomNeighbour = vndSearch(randomNeighbour);
 
             if(randomNeighbour.crossings() < bestSol.crossings()){
