@@ -81,7 +81,7 @@ public class Main_GVNS {
         n1.add(new OneEdgeFlipNeighbourhood());
         n1.add(new NodeNeighbourSwapNeighbourhood());
 
-        n2.add(new MNFlipEdgeSwapNodeNeighbourhood(10,10));
+        n2.add(new MNFlipEdgeSwapNodeNeighbourhood(15,15));
        // n2.add(new OneNodeSwapNeighbourhood());
 
 
@@ -89,7 +89,7 @@ public class Main_GVNS {
 
         for(int i = 0; i< 100000; i++){
             bestSolution = g.search(bestSolution);
-            System.out.println("GVNS Result: " + bestSolution.crossings());
+//            System.out.println("GVNS Result: " + bestSolution.crossings());
 
         }
 

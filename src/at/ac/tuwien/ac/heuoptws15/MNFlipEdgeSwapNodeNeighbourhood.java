@@ -77,7 +77,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
 
         // SET WHICH NODES TO SWAP
 
-        int tempNodeTransferIndex[] = new int[N-1];
+        int tempNodeTransferIndex[] = new int[M-1];
 
         for( int i = 0;  i < N-1; i++)
             tempNodeTransferIndex[i] = RandomStuff.between(i+1,orig_sol.ordering.length-1);
@@ -92,13 +92,13 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         for (int i = 0; i < orig_sol.ordering.length; i++)
             newOrdering[i] = orig_sol.ordering[i];
 
-        for( int i = 0;  i < N-1; i++){
+        for( int i = 0;  i < M-1; i++){
             int temp = newOrdering[tempNodeTransferIndex[i]];
             newOrdering[tempNodeTransferIndex[i]] = newOrdering[i];
             newOrdering[i] = temp;
         }
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, orig_sol.ordering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
 
         // DUPLICATE SOLUTION
 
@@ -111,7 +111,8 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         // EDGE BIT
 
         for(int i = 0; i < N; i++){
-            Edge e = orig_sol.pages[pageindex[i]].edges.get(i);
+            Edge original = orig_sol.pages[pageindex[i]].edges.get(i);
+            Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
             solution.removeEdge(e,pageindex[i]);
             solution.addEdge(e,tempTransferIndex[i]);
         }
@@ -144,13 +145,13 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
             newOrdering[i] = orig_sol.ordering[i];
 
 
-        for( int i = 0;  i < N-1; i++) {
+        for( int i = 0;  i < M-1; i++) {
             int temp = newOrdering[nodeTransferIndex[i]];
             newOrdering[nodeTransferIndex[i]] = newOrdering[i];
         }
 
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, orig_sol.ordering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
 
         // DUPLICATE SOLUTION
 
@@ -162,7 +163,8 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         // EDGE BIT
 
         for(int i = 0; i < N; i++){
-            Edge e = orig_sol.pages[pageindex[i]].edges.get(i);
+            Edge original = orig_sol.pages[pageindex[i]].edges.get(i);
+            Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
             solution.removeEdge(e,pageindex[i]);
             solution.addEdge(e,transferIndex[i]);
         }

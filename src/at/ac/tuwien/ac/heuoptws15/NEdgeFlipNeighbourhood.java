@@ -68,7 +68,8 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
         // DO A CHANGE
 
         for(int i = 0; i < N; i++){
-            Edge e = orig_sol.pages[pageindex[i]].edges.get(i);
+            Edge original = orig_sol.pages[pageindex[i]].edges.get(i);
+            Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
             solution.removeEdge(e,pageindex[i]);
             solution.addEdge(e,tempTransferIndex[i]);
         }
@@ -99,7 +100,8 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
         // DO A CHANGE
 
         for(int i = 0; i < N; i++){
-            Edge e = orig_sol.pages[pageindex[i]].edges.get(i);
+            Edge original = orig_sol.pages[pageindex[i]].edges.get(i);
+            Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
             solution.removeEdge(e,pageindex[i]);
             solution.addEdge(e,transferIndex[i]);
         }
