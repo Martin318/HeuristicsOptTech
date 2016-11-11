@@ -8,6 +8,7 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
     int N;
     KPMPSolution orig_sol;
     int pageindex[];
+    int pagesizes[];
     int transferIndex[];
 
     public NEdgeFlipNeighbourhood( int N) {
@@ -18,7 +19,7 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
         orig_sol = sol;
 
         int edgeSize = 0;
-        int pagesizes[] = new int[orig_sol.pages.length];
+        pagesizes = new int[orig_sol.pages.length];
         int i = 0;
         for (Page p : orig_sol.pages){
             edgeSize += p.edges.size();
@@ -68,7 +69,12 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
         // DO A CHANGE
 
         for(int i = 0; i < N; i++){
-            Edge original = orig_sol.pages[pageindex[i]].edges.get(i);
+            int index;
+            if ( pageindex[i] > 0)
+                index = i - pagesizes[pageindex[i]-1];
+            else
+                index = i;
+            Edge original = orig_sol.pages[pageindex[i]].edges.get(index);
             Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
             solution.removeEdge(e,pageindex[i]);
             solution.addEdge(e,tempTransferIndex[i]);
