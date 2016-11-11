@@ -6,12 +6,10 @@ package at.ac.tuwien.ac.heuoptws15;
 public class NNodeSwapNeighbourhood  extends Neighbourhood  {
     int N;
     KPMPSolution orig_sol;
-    int nodeIndex[];
     int transferIndex[];
 
     public NNodeSwapNeighbourhood(int N){
         this.N = N;
-
     }
 
     @Override
@@ -27,8 +25,8 @@ public class NNodeSwapNeighbourhood  extends Neighbourhood  {
 
         for( int i = 0;  i < N-1; i++){
             int temp = newOrdering[transferIndex[i]];
-            newOrdering[transferIndex[i]] = newOrdering[nodeIndex[i]];
-            newOrdering[nodeIndex[i]]     =  temp;
+            newOrdering[transferIndex[i]] = newOrdering[i];
+            newOrdering[i]     =  temp;
         }
 
         KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
@@ -67,12 +65,10 @@ public class NNodeSwapNeighbourhood  extends Neighbourhood  {
 
         if (this.N >= orig_sol.ordering.length)
             N = orig_sol.ordering.length -1;
-        nodeIndex = new int[N-1];
         transferIndex = new int[N-1];
 
         for( int i = 0;  i < N-1; i++){
-            nodeIndex[i] = i;
-            transferIndex[i] = i+1;
+           transferIndex[i] = i+1;
         }
     }
 
@@ -81,13 +77,11 @@ public class NNodeSwapNeighbourhood  extends Neighbourhood  {
 
         // SET WHICH NODES TO SWAP
 
-        int tempNodeIndex[] = new int[N-1];
         int tempTransferIndex[] = new int[N-1];
 
-        for( int i = 0;  i < N-1; i++){
-            tempNodeIndex[i] = i;
+        for( int i = 0;  i < N-1; i++)
             tempTransferIndex[i] = RandomStuff.between(i+1,orig_sol.ordering.length-1);
-        }
+
 
         // DO A CHANGE
 
@@ -97,8 +91,8 @@ public class NNodeSwapNeighbourhood  extends Neighbourhood  {
 
         for( int i = 0;  i < N-1; i++){
             int temp = newOrdering[transferIndex[i]];
-            newOrdering[transferIndex[i]] = newOrdering[nodeIndex[i]];
-            newOrdering[nodeIndex[i]]     =  temp;
+            newOrdering[transferIndex[i]] = newOrdering[i];
+            newOrdering[i] = temp;
         }
 
 
