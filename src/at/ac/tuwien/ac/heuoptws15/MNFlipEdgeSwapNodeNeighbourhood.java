@@ -1,5 +1,7 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import java.util.ArrayList;
+
 /**
  * CREATED BY CEM ON 11/11/16.
  */
@@ -76,9 +78,13 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
 
         int tempSlotIndex[] = new int[N];
         int tempTransferIndex[] = new int[N];
+        ArrayList<Integer> previousValues = new ArrayList<>();
 
         for( int i = 0;  i < N; i++){
-            tempSlotIndex[i] = RandomStuff.between( 0,edgeSize -1);
+            do{
+                tempSlotIndex[i] = RandomStuff.between( 0,edgeSize -1);
+            } while( previousValues.contains(tempSlotIndex[i]));
+            previousValues.add(tempSlotIndex[i]);
             do{
                 tempTransferIndex[i] = RandomStuff.between( 0,orig_sol.pages.length-1);
             } while ( tempTransferIndex[i] == pageIndex[tempSlotIndex[i]]);
