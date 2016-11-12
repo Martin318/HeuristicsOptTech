@@ -66,7 +66,7 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
 
         for( int i = 0;  i < N; i++){
             do{
-                tempSlotIndex[i] = RandomStuff.between( i,edgeSize -1);
+                tempSlotIndex[i] = RandomStuff.between( 0,edgeSize -1);
             } while( previousValues.contains(tempSlotIndex[i]));
             previousValues.add(tempSlotIndex[i]);
             do{
