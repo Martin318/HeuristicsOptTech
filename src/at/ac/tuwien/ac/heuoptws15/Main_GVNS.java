@@ -84,7 +84,7 @@ public class Main_GVNS {
 
             while (noImprovementCounter < 200) {
                 bestSolution = g.search(bestSolution);
-              //  System.out.println("GVNS Result: " + bestSolution.crossings());
+                System.out.println("GVNS Result: " + bestSolution.crossings());
 
                 if(bestSolution.crossings() < globalBest.crossings()){
                     globalBest = bestSolution;
