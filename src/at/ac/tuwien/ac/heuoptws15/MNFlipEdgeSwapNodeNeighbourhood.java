@@ -225,7 +225,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
 
     @Override
     public String getName() {
-        return M + N + "FlipEdgeSwapNode";
+        return M + " " +  N + " FlipEdgeSwapNode";
     }
 
 

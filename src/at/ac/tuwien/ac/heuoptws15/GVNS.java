@@ -29,31 +29,34 @@ public class GVNS {
             VNS.get(k).setSolution(bestSol);
             KPMPSolution randomNeighbour = VNS.get(k).getRandomNeighbour(); // SHAKING
 
-            System.out.print("[");
+//            System.out.print("[");
+//
+//            for(int i= 0; i< initial.ordering.length; i++){
+//                System.out.print(initial.ordering[i] + " ");
+//            }
+//
+//            System.out.println("]");
+//
+//            System.out.print("[");
+//
+//            for(int i= 0; i< initial.ordering.length; i++){
+//                System.out.print(randomNeighbour.ordering[i] + " ");
+//            }
+//
+//            System.out.println("]");
+//
+//            System.out.println(initial);
+//            System.out.println(randomNeighbour);
 
-            for(int i= 0; i< initial.ordering.length; i++){
-                System.out.print(initial.ordering[i] + " ");
-            }
-
-            System.out.println("]");
-
-            System.out.print("[");
-
-            for(int i= 0; i< initial.ordering.length; i++){
-                System.out.print(randomNeighbour.ordering[i] + " ");
-            }
-
-            System.out.println("]");
-
-            System.out.println(initial);
-            System.out.println(randomNeighbour);
-
+         //   System.out.println("Non optimized neighbour: " + randomNeighbour.crossings() + " from neighbourhood " + VNS.get(k).getName());
 
 
             randomNeighbour = vndSearch(randomNeighbour);
 
-            if(randomNeighbour.crossings() < bestSol.crossings()){
+       //     System.out.println("Optimized neighbour: " + randomNeighbour.crossings() + " from neighbourhood " + VNS.get(k).getName());
 
+
+            if(randomNeighbour.crossings() < bestSol.crossings()){
                 bestSol = randomNeighbour;
                 k=0;
             }
@@ -80,7 +83,13 @@ public class GVNS {
             config.setStepFunction(s);
             config.setNeighbourhood(VND.get(i));
             current =  config.getNextSolution(initial);
-            if(bestSol.crossings() < current.crossings()){
+
+ //           System.out.println("Best crossings: " + bestSol.crossings());
+ //           System.out.println("Current crossings: " + current.crossings());
+
+
+            if(bestSol.crossings() > current.crossings()){
+ //               System.out.println("Improved solution in VND!!!");
                 bestSol = current;
                 i = 0;
             }
