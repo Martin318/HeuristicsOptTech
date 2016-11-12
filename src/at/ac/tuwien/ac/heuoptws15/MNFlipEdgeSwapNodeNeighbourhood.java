@@ -77,7 +77,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         int tempSlotIndex[] = new int[N];
         int tempTransferIndex[] = new int[N];
 
-        for( int i = 0;  i < N-1; i++){
+        for( int i = 0;  i < N; i++){
             tempSlotIndex[i] = RandomStuff.between( 0,edgeSize -1);
             do{
                 tempTransferIndex[i] = RandomStuff.between( 0,orig_sol.pages.length-1);
