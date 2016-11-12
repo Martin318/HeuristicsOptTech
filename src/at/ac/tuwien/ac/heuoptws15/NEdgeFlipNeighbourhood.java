@@ -61,7 +61,7 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
         int tempSlotIndex[] = new int[N];
         int tempTransferIndex[] = new int[N];
 
-        for( int i = 0;  i < N-1; i++){
+        for( int i = 0;  i < N; i++){
             tempSlotIndex[i] = RandomStuff.between( 0,edgeSize -1);
             do{
                 tempTransferIndex[i] = RandomStuff.between( 0,orig_sol.pages.length-1);
@@ -80,6 +80,7 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
 
         for(int i = 0; i < N; i++){
             int currentPage = pageIndex[tempSlotIndex[i]];
+
             int index = tempSlotIndex[i] - ((currentPage > 0)?pagesizes[currentPage-1]:0);
             Edge original = orig_sol.pages[currentPage].edges.get(index);
             Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
