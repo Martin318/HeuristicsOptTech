@@ -1,5 +1,7 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import java.util.ArrayList;
+
 /**
  * CREATED BY CEM ON 11/11/16.
  */
@@ -60,9 +62,13 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
 
         int tempSlotIndex[] = new int[N];
         int tempTransferIndex[] = new int[N];
+        ArrayList<Integer> previousValues = new ArrayList<>();
 
         for( int i = 0;  i < N; i++){
-            tempSlotIndex[i] = RandomStuff.between( 0,edgeSize -1);
+            do{
+                tempSlotIndex[i] = RandomStuff.between( i,edgeSize -1);
+            } while( previousValues.contains(tempSlotIndex[i]));
+            previousValues.add(tempSlotIndex[i]);
             do{
                 tempTransferIndex[i] = RandomStuff.between( 0,orig_sol.pages.length-1);
             } while ( tempTransferIndex[i] == pageIndex[tempSlotIndex[i]]);
@@ -80,10 +86,11 @@ public class NEdgeFlipNeighbourhood  extends Neighbourhood {
 
         for(int i = 0; i < N; i++){
             int currentPage = pageIndex[tempSlotIndex[i]];
-
             int index = tempSlotIndex[i] - ((currentPage > 0)?pagesizes[currentPage-1]:0);
             Edge original = orig_sol.pages[currentPage].edges.get(index);
             Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
+            System.out.println("Edge " + e + "von page " + currentPage + "auf page " + tempTransferIndex[i]);
+
             solution.removeEdge(e,currentPage);
             solution.addEdge(e,tempTransferIndex[i]);
         }
