@@ -100,6 +100,7 @@ public class Main_GVNS {
 
 
 
+
         KPMPSolutionWriter w;
         w = new KPMPSolutionWriter(instance.getK());
         bestSolution.insertIntoWriter(w);
