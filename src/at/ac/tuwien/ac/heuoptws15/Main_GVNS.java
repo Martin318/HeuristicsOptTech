@@ -49,7 +49,7 @@ public class Main_GVNS {
         n1.add(new OneEdgeFlipNeighbourhood());
         n1.add(new OneNodeSwapNeighbourhood());
 
-        for(int n = 1; n < instance.getNumVertices()-1; n++) {
+        for(int n = 1; n < Math.min(20,instance.getNumVertices()-1) ; n++) {
             n2.add(new MNFlipEdgeSwapNodeNeighbourhood(n,n));
             // n2.add(new OneNodeSwapNeighbourhood());
         }
@@ -65,6 +65,7 @@ public class Main_GVNS {
         do {
 
 
+
             System.out.println("Starting initial solution search!");
 
 
@@ -78,11 +79,14 @@ public class Main_GVNS {
 
             System.out.println("Best initial solution: " + bestSolutionValue);
 
+            System.out.println("Global is " + globalBest.crossings());
+
+
             System.out.println("Starting GVNS search!");
 
             noImprovementCounter = 0;
 
-            while (noImprovementCounter < 200) {
+            while (noImprovementCounter < 100) {
                 bestSolution = g.search(bestSolution);
                 System.out.println("GVNS Result: " + bestSolution.crossings());
 

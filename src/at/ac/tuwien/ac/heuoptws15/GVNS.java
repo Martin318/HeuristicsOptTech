@@ -89,8 +89,8 @@ public class GVNS {
 
 
             if(bestSol.crossings() > current.crossings()){
- //               System.out.println("Improved solution in VND!!!");
                 bestSol = current;
+         //       System.out.println("Improved solution in VND!!!" + bestSol.crossings());
                 i = 0;
             }
             else{
