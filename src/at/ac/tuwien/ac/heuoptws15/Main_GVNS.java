@@ -46,7 +46,8 @@ public class Main_GVNS {
         ArrayList<Neighbourhood> n1 = new ArrayList<Neighbourhood>();
         ArrayList<Neighbourhood> n2 = new ArrayList<Neighbourhood>();
 
-//        n1.add(new EdgeNeighbourNeighbourhood());
+        n1.add(new EdgeNeighbourNeighbourhood(true));
+        n1.add(new EdgeNeighbourNeighbourhood(false));
         n1.add(new NodeNeighbourSwapNeighbourhood());
 
         for(int n = 20; n < 21 ; n++) {

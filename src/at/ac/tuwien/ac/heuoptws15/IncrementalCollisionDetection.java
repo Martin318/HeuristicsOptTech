@@ -21,14 +21,11 @@ public class IncrementalCollisionDetection implements CollisionChecker{
      * @param ordering      The current ordering
      */
     public IncrementalCollisionDetection(int numVertices, Integer[] ordering){
-        this.ordering = ordering;
         this.edges = new ArrayList<>();
         currentActive = new int[numVertices][numVertices];
         Arrays.fill(currentActive,0);
 
-        orderingComp = new Integer[this.ordering.length];
-        for (int i = 0; i < this.ordering.length; i++)
-            orderingComp[this.ordering[i]] = i;
+        changeOrder(ordering);
 
         // Compute the crossings count immediately
         crossingCount();
@@ -60,6 +57,14 @@ public class IncrementalCollisionDetection implements CollisionChecker{
         }
         changed = false;
 
+    }
+
+    public void changeOrder(Integer[] ordering){
+        this.ordering = ordering;
+
+        orderingComp = new Integer[this.ordering.length];
+        for (int i = 0; i < this.ordering.length; i++)
+            orderingComp[this.ordering[i]] = i;
     }
 
     public int getCrossing(){

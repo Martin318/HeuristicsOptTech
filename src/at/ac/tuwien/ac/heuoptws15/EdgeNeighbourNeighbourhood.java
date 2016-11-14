@@ -16,6 +16,11 @@ public class EdgeNeighbourNeighbourhood extends Neighbourhood {
     KPMPSolution orig_sol;
     int pageindex = 0;
     int edgeindex = 0;
+    boolean type;
+
+    public EdgeNeighbourNeighbourhood(boolean type){
+        this.type = type;
+    }
 
     public void setSolution(KPMPSolution sol){
         orig_sol = sol;
@@ -48,7 +53,10 @@ public class EdgeNeighbourNeighbourhood extends Neighbourhood {
 
         Edge e = solution.pages[tempPageIndex].edges.get(tempEdgeIndex);
         solution.removeEdge(e,tempPageIndex);
-        solution.addEdge(e,(tempPageIndex + 1)  % solution.pages.length);
+        if (type)
+            solution.addEdge(e,(tempPageIndex + 1)  % solution.pages.length);
+        else
+            solution.addEdge(e,(pageindex - 1 + solution.pages.length)  % solution.pages.length);
 
 
         return solution;
@@ -86,7 +94,10 @@ public class EdgeNeighbourNeighbourhood extends Neighbourhood {
 
         Edge e = solution.pages[pageindex].edges.get(edgeindex);
         solution.removeEdge(e, pageindex);
-        solution.addEdge(e, (pageindex + 1) % solution.pages.length );
+        if (type)
+            solution.addEdge(e,(pageindex + 1)  % solution.pages.length);
+        else
+            solution.addEdge(e,(pageindex - 1 + solution.pages.length)  % solution.pages.length);
 
 
         // UPDATE pageIndices
