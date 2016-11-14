@@ -46,10 +46,10 @@ public class Main_GVNS {
         ArrayList<Neighbourhood> n1 = new ArrayList<Neighbourhood>();
         ArrayList<Neighbourhood> n2 = new ArrayList<Neighbourhood>();
 
-        n1.add(new OneEdgeFlipNeighbourhood());
-        n1.add(new OneNodeSwapNeighbourhood());
+//        n1.add(new EdgeNeighbourNeighbourhood());
+        n1.add(new NodeNeighbourSwapNeighbourhood());
 
-        for(int n = 1; n < Math.min(20,instance.getNumVertices()-1) ; n++) {
+        for(int n = 20; n < 21 ; n++) {
             n2.add(new MNFlipEdgeSwapNodeNeighbourhood(n,n));
             // n2.add(new OneNodeSwapNeighbourhood());
         }
@@ -58,15 +58,18 @@ public class Main_GVNS {
 
         int lastCrossings = Integer.MAX_VALUE;
         int noImprovementCounter = 0;
+        int maxOuterLoopIterations = 10;
 
         KPMPSolution globalBest = null;
 
+        int currentIterations = 0;
+        ArrayList<Integer> results = new ArrayList<>();
 
         do {
 
 
 
-            System.out.println("Starting initial solution search!");
+            System.out.println("Starting initial solution search! " + currentIterations + " of "  + maxOuterLoopIterations );
 
 
             KPMPSolution bestSolution = initialSolution(instance);
@@ -86,7 +89,7 @@ public class Main_GVNS {
 
             noImprovementCounter = 0;
 
-            while (noImprovementCounter < 100) {
+            while (noImprovementCounter < 20) {
                 bestSolution = g.search(bestSolution);
                 System.out.println("GVNS Result: " + bestSolution.crossings());
 
@@ -113,8 +116,32 @@ public class Main_GVNS {
             System.out.println("Ending GVNS search!");
 
 
+            results.add(bestSolution.crossings());
+            currentIterations++;
+        }while (currentIterations < maxOuterLoopIterations);
+        //while(System.currentTimeMillis() < System.currentTimeMillis() +1 && globalBest.crossings() > 0);
+        double mean = 0.0D;
+        double stddev = 0.0D;
 
-        }while(System.currentTimeMillis() < System.currentTimeMillis() +1 && globalBest.crossings() > 0); // TODO: Real termination criterium.
+        System.out.println("Results: ");
+        for(Integer i : results){
+            mean += i;
+            System.out.print(i + " " );
+        }
+
+        mean = mean / results.size();
+
+        for(Integer i : results)
+            stddev += (i - mean)*(i - mean); // ( x_i - mean)^2
+
+        stddev = stddev * (1 / results.size() -1);
+
+        stddev = Math.sqrt(Math.abs(stddev));
+
+        System.out.println(" Global best " + globalBest.crossings());
+        System.out.println(" Mean is " + mean);
+        System.out.println(" Sample standard deviation " + stddev);
+
 
 
 

@@ -48,12 +48,12 @@ public class GVNS {
 //            System.out.println(initial);
 //            System.out.println(randomNeighbour);
 
-         //   System.out.println("Non optimized neighbour: " + randomNeighbour.crossings() + " from neighbourhood " + VNS.get(k).getName());
+//            System.out.println("Non optimized neighbour: " + randomNeighbour.crossings() + " from neighbourhood " + VNS.get(k).getName());
 
 
             randomNeighbour = vndSearch(randomNeighbour);
 
-       //     System.out.println("Optimized neighbour: " + randomNeighbour.crossings() + " from neighbourhood " + VNS.get(k).getName());
+//            System.out.println("Optimized neighbour: " + randomNeighbour.crossings() + " from neighbourhood " + VNS.get(k).getName());
 
 
             if(randomNeighbour.crossings() < bestSol.crossings()){
@@ -78,19 +78,19 @@ public class GVNS {
 
         while(i < VND.size()){
 
-            BestImprovementStepFunction s = new BestImprovementStepFunction(bestSol, bestSol.crossings());
+            FirstImprovementStepFunction s = new FirstImprovementStepFunction(bestSol, bestSol.crossings());
             SearchConfiguration config = new SearchConfiguration();
             config.setStepFunction(s);
             config.setNeighbourhood(VND.get(i));
             current =  config.getNextSolution(initial);
-
- //           System.out.println("Best crossings: " + bestSol.crossings());
- //           System.out.println("Current crossings: " + current.crossings());
+//
+//            System.out.println("Best crossings: " + bestSol.crossings());
+//            System.out.println("Current crossings: " + current.crossings());
 
 
             if(bestSol.crossings() > current.crossings()){
                 bestSol = current;
-         //       System.out.println("Improved solution in VND!!!" + bestSol.crossings());
+//                System.out.println("Improved solution in VND!!!" + bestSol.crossings());
                 i = 0;
             }
             else{
