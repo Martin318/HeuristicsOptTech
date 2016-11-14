@@ -1,0 +1,97 @@
+\documentclass [11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{titling}
+\usepackage{lipsum}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{tabu}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{DejaVuSansMono}
+\usepackage[parfill]{parskip}
+\usepackage[autostyle=false, style=english]{csquotes}
+\MakeOuterQuote{"}
+\geometry{total={240mm,320mm},
+          left=25mm,right=25mm,%
+          bindingoffset=0mm, top=25mm,bottom=25mm}
+
+
+\floatstyle{boxed} 
+\restylefloat{figure} % Makes floats have a frame
+
+% \renewcommand{\ttdefault}{DejaVuSansMono-TLF}
+% \renewcommand{\rmdefault}{lmss}
+\linespread{1}
+\newcommand{\linia}{\rule{\linewidth}{0.2pt}}
+
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+\makeatletter
+\def\@maketitle{%
+\nopagebreak[4]
+  \vspace*{-\topskip}      % remove the initial space
+  \begingroup\centering    % instead of \begin{center}
+  \let \footnote \thanks
+  \hrule height \z@        % to avoid the insertion of lineskip glue
+    {\huge \@title \par}%
+    \vskip 0.5em 
+    {\large
+      \lineskip .5em 
+      \begin{tabular}[t]{c}%
+        \@author 
+      \end{tabular}\par}%
+    % \vskip 1em 
+    % {\large \@date}%
+  \par\endgroup            % instead of \end{center}
+  \let\endtitlepage\relax\let\endtitlepage\relax
+  \vskip 1.5em             % <--- modify this to adjust the separation
+\large}
+\makeatother
+
+
+\begin{document}
+\inputencoding{utf8}
+\title{ Heuristic Opt. Techniques - Assignment 3 Report}
+\author{ Martin Blöschl and Cem Okulmus }
+
+\maketitle
+\thispagestyle{empty}
+
+
+\section{Implementation}
+We decided to implement General Variable Neighbourhood Search (GVNS). For shaking, we implemented a parameterized neighbourhood N/M-swap, where n nodes are swapped with n other nodes and m edges are moved to a different page. Our set of neighbourhood structures for shaking is then a set of N/M-swap neighbourhoods with different parameters. The precise values used for n and m will be discussed in the evaluation part of this report.
+
+For the VND, we use different combinations of One Edge Move, One Node Swap , Node Neighbour Swap (these were discussed in the last report) and another neighbourhood called Edge Neighbour Move where we move an edge to the next page (with respect to page index). This Edge Neighbour Move neighbourhood is of course a lot smaller than all solutions where some edge is moved to any other edge. This is a big advantage in larger instances, where performance is critical.
+
+
+\subsection{Incremental evaluation}
+
+Like in the previous exercises, we used incremental evaluation when changing edges of a solution. In the first report we explained how the Active Edge Data structure works. Incremental evaluation is used in "One Edge Move" and "Edge Neighbour Move". If the ordering of the nodes changes, the complete solution must be recalculated. Thus we cannot use incremental evaluation in the other neighbourhood structures.
+
+
+
+
+\section{Evaluation}
+
+\subsection{Order of the neighbourhoods}
+
+To check if the order of the neighbourhoods is important, we reversed the set of shaking neighbourhoods, the set of VND neighbourhoods and both of them at the same time.
+
+All 4 combinations (original, shaking reversed, vnd reversed, both reversed) where then executed 10 times for the Problem instance 5. The test was executed on the eowyn cluster. Unsurprisingly, the execution time of all 40 tests did not vary significantly (1,48 seconds mean, 0,30 st. deviation). The outcome of the crossing count is similar, it does not vary significantly between the 40 test runs ( 16,33 mean, 3,19 st. deviation). We thus conclude that the ordering of the neighbourhoods does not matter.
+
+
+
+
+
+
+\section{Observations}
+
+
+
+\end{document}
