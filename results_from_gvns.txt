@@ -1,0 +1,63 @@
+automatic 1 
+
+Global best 9
+Mean is 9.0
+Sample standard deviation -0.0
+
+automatic 2
+
+Global best 1
+Mean is 5.5
+Sample standard deviation 3.566822427
+
+automatic 3
+
+Global best 45
+Mean is 49.6
+Sample standard deviation 2.633122354
+
+automatic 4
+
+Global best 3
+Mean is 9.9
+Sample standard deviation 6.100091074
+
+automatic 5
+
+Global best 7
+Mean is 18.7
+Sample standard deviation 6.481597883
+
+automatic 6
+
+Global best 1834647
+Mean is 1939006.4
+Sample standard deviation 66431.69
+
+automatic 7
+
+Global best 128777
+Mean is 130716.4
+Sample standard deviation 1138.15827839
+
+automatic 8
+
+Global best 237711
+Mean is 247064
+Sample standard deviation 16468.9
+
+automatic 9
+
+Global best 352161
+Mean is 359339
+Sample standard deviation 5061.8
+
+automatic 10
+
+Global best 43807
+Mean is 46241 
+Sample standard deviation 3477.7
+
+
+
+
