@@ -95,6 +95,8 @@ All 4 combinations (original, shaking reversed, vnd reversed, both reversed) whe
 \subsubsection{Test setup}
 As with last time, we ran our tests on the eowyn cluster. Our experiments showed that the best results so far were accomplished by using for the VNS multiple N-M-swap neighbourhoods, were we start with 1 and generate up to 20 variations with ever increasing parameters, thus ``jumping'' to ever farther points in the search space. The VND is done by using two smaller structures:  One Edge Move and One Node Swap. We ran into a performance issue with the larger instances. Therefore, for the larger instances (6 to 10), we restricted the VNS to 10 variations of increasing N-M-swap neighbourhoods, and the VND was simplified to Node Neighbour Swap and Edge Neighbour Move. This was done to stay under the time limit. 
 
+For the initial results, we found that while using completely random initial solutions showed the most relative improvement, the best results overall were achieved by starting from an already better solution from our randomized heuristics, which is explained in our first report. 
+
 To measure the possibly random results, we let each instance run 10 times and show the global best value that was found in any of the ten runs, the average and the sample standard deviation (computed as $ s = \sqrt{\frac{1}{N - 1} \sum_{1\leq i \leq N}{(x_i - \bar{x})}}$ where $\bar{x}$ is the mean). 
 
 The results can be seen in figure 1.
@@ -102,7 +104,6 @@ The results can be seen in figure 1.
 
 \section{Observations}
 The GVNS method allowed us to find very competitive (wrt. the solution for assignment 2) results for instances 1 to 5. While there were some improvements on the larger instances, it would first require an even more performant method of evaluation to use GNVS with larger neighbourhood structures (or simply wait for far longer than 15 minutes per instance per solution). 
-
 
 \newpage
 
