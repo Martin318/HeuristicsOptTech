@@ -23,6 +23,26 @@ public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m
 
     }
 
+
+    public static int maxCrossing(int edgeSize){
+        int maxCrossings = 0;
+
+        for(int i = 1; i <= edgeSize; i++)
+            maxCrossings += edgeSize -i;
+
+        return maxCrossings;
+    }
+
+
+    public static int fitness(KPMPSolution sol){
+        int edgeListSize = 0;
+
+        for (Page p : sol.pages)
+            edgeListSize += p.edges.size();
+
+        return maxCrossing(edgeListSize) - sol.crossings();
+    }
+
     public KPMPSolution execute(){
 
 
