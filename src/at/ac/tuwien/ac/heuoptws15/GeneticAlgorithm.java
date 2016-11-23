@@ -23,8 +23,14 @@ public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m
 
     }
 
-
+    /**
+     * Computes the maximally possible number of crossings for a given edge list size
+     *
+     * @param edgeSize  number of edges in a solution
+     * @return integer indicating the maximal number of possible crossings     *
+     */
     public static int maxCrossing(int edgeSize){
+        // If performance is a concern, memoisation could be used
         int maxCrossings = 0;
 
         for(int i = 1; i <= edgeSize; i++)
