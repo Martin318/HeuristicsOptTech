@@ -47,7 +47,7 @@ public class SwapRecombination extends  RecombinationOperator {
 
         HashMap<Edge,Integer> edgesTwo = new HashMap<>();
         counter = 0;
-        for (Page page : parentOne.pages){
+        for (Page page : parentTwo.pages){
             for (Edge edge : page.edges)
                 edgesTwo.put(edge,counter);
             counter++;
