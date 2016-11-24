@@ -30,13 +30,7 @@ public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m
      * @return integer indicating the maximal number of possible crossings     *
      */
     public static int maxCrossing(int edgeSize){
-        // If performance is a concern, memoisation could be used
-        int maxCrossings = 0;
-
-        for(int i = 1; i <= edgeSize; i++)
-            maxCrossings += edgeSize -i;
-
-        return maxCrossings;
+        return (edgeSize * (edgeSize - 1)) / 2;
     }
 
 
