@@ -1,9 +1,6 @@
 package at.ac.tuwien.ac.heuoptws15;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by cem on 24/11/16.
@@ -13,6 +10,8 @@ public class SwapRecombination extends  RecombinationOperator {
     @Override
     public List<KPMPSolution> recombine(List<KPMPSolution> population) {
         int length = population.size();
+
+        Collections.shuffle(population);
 
         List<KPMPSolution> first = population.subList(0,length / 2);
         List<KPMPSolution> second = population.subList(length / 2,length );
