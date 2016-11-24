@@ -61,8 +61,10 @@ public class SwapRecombination extends  RecombinationOperator {
             int page;
             if ( counter > halfwaypoint)
                 page = entry.getValue();
-            else
+            else{
                 page = edgesTwo.get(e);
+            }
+
 
             child.addEdge(new Edge(e.getNameOfFirstVertex(),e.getNameOfSecondVertex()),page);
             counter++;

@@ -66,7 +66,7 @@ public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m
 
             KPMPSolution currentBest = getBestSolution(currentPopulation);
 
-            if(currentBest.crossings() < globalBest.crossings()){
+            if(currentBest != null && currentBest.crossings() < globalBest.crossings()){
                 globalBest = currentBest;
             }
 

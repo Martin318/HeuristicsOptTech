@@ -61,5 +61,9 @@ public class Edge{
         return  nameOfSecondVertex;
     }
 
+    public  int hashCode(){
+        return Integer.parseInt(nameOfFirstVertex + "0000" + nameOfSecondVertex);
+    }
+
 
 }
