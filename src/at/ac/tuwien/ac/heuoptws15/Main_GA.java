@@ -39,7 +39,7 @@ public class Main_GA {
 
 
 
-        GeneticAlgorithm g = new GeneticAlgorithm(100, null,null,null, initialPopulation());
+        GeneticAlgorithm g = new GeneticAlgorithm(100, new FitnessProportionSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance));
 
 
         KPMPSolution globalBest = g.execute();
@@ -59,10 +59,22 @@ public class Main_GA {
     }
 
 
-    static List<KPMPSolution> initialPopulation(){
+    static List<KPMPSolution> initialPopulation(KPMPInstance instance){
 
-        // TODO: Use some combination of heuristics to generate a population.
 
-        return null;
+        List<KPMPSolution> initialPopulation = new ArrayList<KPMPSolution>();
+
+
+        ConstructionHeuristic h = new RandomizedConstructionHeuristic(0.5);
+
+        h.initialize(instance);
+
+        for(int i = 0; i< 50; i++){
+
+            initialPopulation.add(h.getNextSolution());
+
+        }
+
+        return initialPopulation;
     }
 }
