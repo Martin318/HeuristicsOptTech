@@ -9,14 +9,20 @@ public class SimpleMutate extends MutationOperator {
 
     public List<KPMPSolution> mutate(List<KPMPSolution> population){
 
-        // Mutate approx. 10% of the individuals.
+        // Mutate approx. 33% of the individuals.
 
-        for(int i = 0; i< population.size()/10; i++){
+        for(int i = 0; i< population.size()/3; i++){
 
             // The winner of the mutation lottery.
-            KPMPSolution s = population.get(RandomStuff.between(0,population.size()));
+            KPMPSolution s = population.get(RandomStuff.between(0,population.size()-1));
+
+            System.out.println("Doing mutation on individual with "+ s.crossings() + " crossings.");
 
             doMutation(s);
+
+            System.out.println("After mutation: "+ s.crossings() + " crossings.");
+
+
 
         }
 
@@ -28,12 +34,14 @@ public class SimpleMutate extends MutationOperator {
 
     private void doMutation(KPMPSolution s){
 
+        if(s.pages.length == 1 ) return; // NOTHING TO DO HERE.
+
 
         // Move an edge to one other edge.
 
-        int pageIndex = RandomStuff.between(0, s.pages.length);
+        int pageIndex = RandomStuff.between(0, s.pages.length-1);
 
-        int edgeIndex = RandomStuff.between(0, s.pages[pageIndex].edges.size());
+        int edgeIndex = RandomStuff.between(0, s.pages[pageIndex].edges.size()-1);
 
 
         if(s.pages[pageIndex].edges.size() != 0){
@@ -41,11 +49,17 @@ public class SimpleMutate extends MutationOperator {
 
             Edge e = s.pages[pageIndex].edges.get(edgeIndex);
 
-            s.pages[pageIndex].edges.remove(e);
+            s.removeEdge(e,pageIndex);
 
-            int moveIndex =  RandomStuff.between(0,s.pages.length-1);
 
-            s.pages[moveIndex].edges.add(e);
+
+            int moveIndex = pageIndex;
+
+            while(moveIndex == pageIndex) {
+                moveIndex = RandomStuff.between(0, s.pages.length - 1);
+            }
+
+            s.addEdge(e,moveIndex);
 
 
         }

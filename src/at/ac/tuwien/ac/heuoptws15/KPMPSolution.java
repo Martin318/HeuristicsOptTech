@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Martin on 14.10.2016.
  */
-public class KPMPSolution implements Cloneable{
+public class KPMPSolution implements Cloneable, Comparable<KPMPSolution>{
 
     public Integer[] ordering;
     private Integer[] orderingComp;
@@ -185,6 +185,14 @@ public class KPMPSolution implements Cloneable{
 
 
         }
+
+    }
+
+    public int compareTo(KPMPSolution other){
+
+
+        return Integer.signum(this.crossings() - other.crossings());
+
 
     }
 

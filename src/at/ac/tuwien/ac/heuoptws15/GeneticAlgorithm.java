@@ -53,6 +53,8 @@ public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m
 
         for(int i = 0; i< generations; i++){
 
+            System.out.println( "Generation " + i + " start!");
+
 
             List<KPMPSolution> selection = selectionOp.select(currentPopulation);
 
@@ -66,8 +68,11 @@ public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m
 
             KPMPSolution currentBest = getBestSolution(currentPopulation);
 
+            System.out.println("Best of this population: " + currentBest.crossings());
+
             if(currentBest != null && currentBest.crossings() < globalBest.crossings()){
                 globalBest = currentBest;
+                System.out.println("Global best improved to " + globalBest.crossings());
             }
 
         }

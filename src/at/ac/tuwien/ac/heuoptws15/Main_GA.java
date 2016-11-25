@@ -30,6 +30,8 @@ public class Main_GA {
         }
 
 
+
+
         System.out.println("--------------------");
         System.out.println("Sucessfully read instance:");
         System.out.println("Vertices: " + instance.getNumVertices());
@@ -39,10 +41,12 @@ public class Main_GA {
 
 
 
-        GeneticAlgorithm g = new GeneticAlgorithm(100, new FitnessProportionSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance));
+        GeneticAlgorithm g = new GeneticAlgorithm(100, new SimpleCrossingSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance));
 
 
         KPMPSolution globalBest = g.execute();
+
+        System.out.println("////// GLOBAL BEST ////////  " + globalBest.crossings() );
 
 
 
@@ -72,6 +76,8 @@ public class Main_GA {
         for(int i = 0; i< 50; i++){
 
             initialPopulation.add(h.getNextSolution());
+
+            System.out.println(i + " crossings: " + initialPopulation.get(i).crossings());
 
         }
 

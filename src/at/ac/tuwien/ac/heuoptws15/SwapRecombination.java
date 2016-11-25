@@ -19,9 +19,18 @@ public class SwapRecombination extends  RecombinationOperator {
         List<KPMPSolution> children = new ArrayList<>();
 
 
-        for( int i = 0; i < first.size();i++)
-            children.add(mating(first.get(i),second.get(i)));
+        for( int i = 0; i < first.size();i++) {
+            KPMPSolution s = mating(first.get(i), second.get(i));
+            children.add(s);
+            System.out.println("Created child with " + s.crossings() + " crossings");
 
+            s = mating(first.get(i), second.get(i));
+            children.add(s);
+            System.out.println("Created child with " + s.crossings() + " crossings");
+
+
+
+        }
         return children;
     }
 
