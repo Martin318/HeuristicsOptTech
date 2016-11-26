@@ -1,0 +1,85 @@
+\documentclass [11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{titling}
+\usepackage{lipsum}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{tabu}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{DejaVuSansMono}
+\usepackage[parfill]{parskip}
+\usepackage[autostyle=false, style=english]{csquotes}
+\MakeOuterQuote{"}
+\geometry{total={240mm,320mm},
+          left=25mm,right=25mm,%
+          bindingoffset=0mm, top=25mm,bottom=25mm}
+
+
+\floatstyle{boxed} 
+\restylefloat{figure} % Makes floats have a frame
+
+% \renewcommand{\ttdefault}{DejaVuSansMono-TLF}
+% \renewcommand{\rmdefault}{lmss}
+\linespread{1}
+\newcommand{\linia}{\rule{\linewidth}{0.2pt}}
+
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+\makeatletter
+\def\@maketitle{%
+\nopagebreak[4]
+  \vspace*{-\topskip}      % remove the initial space
+  \begingroup\centering    % instead of \begin{center}
+  \let \footnote \thanks
+  \hrule height \z@        % to avoid the insertion of lineskip glue
+    {\huge \@title \par}%
+    \vskip 0.5em 
+    {\large
+      \lineskip .5em 
+      \begin{tabular}[t]{c}%
+        \@author 
+      \end{tabular}\par}%
+    % \vskip 1em 
+    % {\large \@date}%
+  \par\endgroup            % instead of \end{center}
+  \let\endtitlepage\relax\let\endtitlepage\relax
+  \vskip 1.5em             % <--- modify this to adjust the separation
+\large}
+\makeatother
+
+
+\begin{document}
+\inputencoding{utf8}
+\title{ Heuristic Opt. Techniques - Assignment 4 Report}
+\author{ Martin Blöschl and Cem Okulmus }
+
+\maketitle
+\thispagestyle{empty}
+
+
+\section{Implementation}
+We chose to implement a Genetic Algorithm (GA) for this assignment. For this we set out to find an encoding that is easier for the GA to work with, and then implement the different operators for Selection, Recombination, Mutation and Replacement. For the last element, we decided early on to stick with a form of generational replacement, but where only the better  half  (w.r.t. fitness) of the previous generation is replaced. 
+
+\subsection{Encoding}
+
+Since the spine-order is already stored as just an array of integers, we simply thought of it as its own ``chromosome''. For the edge partitions, we encode a list of pairs of edges (which itself is an integer pair) and a page (as an integer). For decoding it, we create the edge partition as an array of the length of the pages, each cell containing the corresponding list of edges. 
+
+\subsection{Selection}
+
+\subsection{Recombination}
+
+\subsection{Mutation}
+
+\section{Evaluation}
+
+\section{Observation}
+
+
+\end{document}
