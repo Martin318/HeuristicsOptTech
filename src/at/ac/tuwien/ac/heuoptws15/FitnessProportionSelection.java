@@ -15,15 +15,16 @@ public class FitnessProportionSelection extends SelectionOperator {
     public List<KPMPSolution> select(List<KPMPSolution> population) {
 
         int fitnessSum = population.stream().mapToInt(e -> GeneticAlgorithm.fitness(e)).sum();
-
         List<KPMPSolution> chosen = new ArrayList<>();
 
-        for (KPMPSolution sol : population){
-            // decide if selecting
-            double chanceToSelect = GeneticAlgorithm.fitness(sol) / (double) fitnessSum;
-            if( Math.random() < chanceToSelect)
-                chosen.add(sol);
-        }
+        while (chosen.size() < (population.size() / 2))
+            for (KPMPSolution sol : population){
+                // decide if selecting
+                double chanceToSelect = GeneticAlgorithm.fitness(sol) / (double) fitnessSum;
+
+                if( Math.random() < chanceToSelect)
+                    chosen.add(sol);
+            }
 
         return chosen;
     }
