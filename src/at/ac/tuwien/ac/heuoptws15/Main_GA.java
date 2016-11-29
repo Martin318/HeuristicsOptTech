@@ -41,7 +41,7 @@ public class Main_GA {
 
 
 
-        GeneticAlgorithm g = new GeneticAlgorithm(100, new SimpleCrossingSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance));
+        GeneticAlgorithm g = new GeneticAlgorithm(1000, new SimpleCrossingSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance,1000));
 
 
         KPMPSolution globalBest = g.execute();
@@ -54,7 +54,7 @@ public class Main_GA {
         w = new KPMPSolutionWriter(instance.getK());
         globalBest.insertIntoWriter(w);
         try {
-            w.write(args[0] + "_GVNS_Solution");
+            w.write(args[0] + "_GA_Solution");
         } catch (IOException e) {
             System.out.println("Failed to  write file: " + e);
         }
@@ -63,17 +63,15 @@ public class Main_GA {
     }
 
 
-    static List<KPMPSolution> initialPopulation(KPMPInstance instance){
+    static List<KPMPSolution> initialPopulation(KPMPInstance instance, int size){
 
 
         List<KPMPSolution> initialPopulation = new ArrayList<KPMPSolution>();
-
-
-        ConstructionHeuristic h = new RandomizedConstructionHeuristic(0.5);
+        ConstructionHeuristic h = new RandomConstructionHeuristic();
 
         h.initialize(instance);
 
-        for(int i = 0; i< 50; i++){
+        for(int i = 0; i< size; i++){
 
             initialPopulation.add(h.getNextSolution());
 

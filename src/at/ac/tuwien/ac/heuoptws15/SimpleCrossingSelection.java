@@ -20,7 +20,7 @@ public class SimpleCrossingSelection extends  SelectionOperator{
 
             selected.add(population.get(i));
 
-            System.out.println("Selected individual with " + population.get(i).crossings()  + " crossings.");
+//            System.out.println("Selected individual with " + population.get(i).crossings()  + " crossings.");
         }
 
         return selected;

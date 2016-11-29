@@ -22,11 +22,11 @@ public class SwapRecombination extends  RecombinationOperator {
         for( int i = 0; i < first.size();i++) {
             KPMPSolution s = mating(first.get(i), second.get(i));
             children.add(s);
-            System.out.println("Created child with " + s.crossings() + " crossings");
+//            System.out.println("Created child with " + s.crossings() + " crossings");
 
             s = mating(first.get(i), second.get(i));
             children.add(s);
-            System.out.println("Created child with " + s.crossings() + " crossings");
+//            System.out.println("Created child with " + s.crossings() + " crossings");
 
 
 

@@ -16,11 +16,11 @@ public class SimpleMutate extends MutationOperator {
             // The winner of the mutation lottery.
             KPMPSolution s = population.get(RandomStuff.between(0,population.size()-1));
 
-            System.out.println("Doing mutation on individual with "+ s.crossings() + " crossings.");
+//            System.out.println("Doing mutation on individual with "+ s.crossings() + " crossings.");
 
             doMutation(s);
 
-            System.out.println("After mutation: "+ s.crossings() + " crossings.");
+//            System.out.println("After mutation: "+ s.crossings() + " crossings.");
 
 
 
