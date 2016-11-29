@@ -62,7 +62,11 @@ public class Edge{
     }
 
     public  int hashCode(){
-        return Integer.parseInt(nameOfFirstVertex + "0000" + nameOfSecondVertex);
+        int a = Math.max(nameOfSecondVertex,nameOfFirstVertex);
+        int b = Math.min(nameOfSecondVertex,nameOfFirstVertex);
+
+
+        return (a + b) * (a + b + 1) / 2 + a;
     }
 
 
