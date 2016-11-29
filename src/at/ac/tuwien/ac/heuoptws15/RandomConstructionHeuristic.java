@@ -55,7 +55,8 @@ public class RandomConstructionHeuristic extends ConstructionHeuristic {
 
         ArrayList<Edge> edges = new ArrayList<>();
 
-        // Currently chooses greedily the first fitting assignment
+        // totally random assignment of every existing edge
+
         for (int x = 0; x < instance.getNumVertices(); x++)
             for (int y = x; y < instance.getNumVertices(); y++)
                 if (instance.getAdjacencyMatrix()[x][y] == true) {
