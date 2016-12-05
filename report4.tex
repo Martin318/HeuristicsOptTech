@@ -69,13 +69,24 @@ We chose to implement a Genetic Algorithm (GA) for this assignment. For this we 
 
 \subsection{Encoding}
 
-Since the spine-order is already stored as just an array of integers, we simply thought of it as its own ``chromosome''. For the edge partitions, we encode a list of pairs of edges (which itself is an integer pair) and a page (as an integer). For decoding it, we create the edge partition as an array of the length of the pages, each cell containing the corresponding list of edges. 
+Since the spine-order is already stored as just an array of integers, we simply thought of it as its own ``chromosome''. For the edge partitions, we encode a list of pairs of edges (which itself is an integer pair) and a page (as an integer). For decoding it, we create the edge partition as an array of the length of the pages, each cell containing the corresponding list of edges.
+
+
+\subsection{Initial population}
+
+First, we used some solutions constructed by our advanced construction heuristics (see previous assignment reports) as initial population. However it turned out that those solutions were mostly very similar, and thus the initial population was not diverse enough. We then used a set of purely random initial solutions (random page assignment, random spine order). This turned out to be worse in the beginning, but eventually after some generations lead to better results.
+
+
 
 \subsection{Selection}
+
+We implemented a simple selection method that just selects the better half of the population for recombination. "Better" here means less crossings. To get more precise, we sort the population by crossings ascending and pick all individuals from 0 to half the size of the population (rounded down).
 
 \subsection{Recombination}
 
 \subsection{Mutation}
+
+We mutate approximately 33\% of the individuals and from those exactly one gene. Of couse we could spend some time optimizing this decision by trying out mutating less individuals but in those we mutate more genes 
 
 \section{Evaluation}
 

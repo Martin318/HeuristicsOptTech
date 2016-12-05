@@ -41,7 +41,7 @@ public class Main_GA {
 
 
 
-        GeneticAlgorithm g = new GeneticAlgorithm(1000, new SimpleCrossingSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance,1000));
+        GeneticAlgorithm g = new GeneticAlgorithm(1000, new SimpleCrossingSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance,10000));
 
 
         KPMPSolution globalBest = g.execute();
