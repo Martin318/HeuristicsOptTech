@@ -84,9 +84,17 @@ We implemented a simple selection method that just selects the better half of th
 
 \subsection{Recombination}
 
+
+
 \subsection{Mutation}
 
-We mutate approximately 33\% of the individuals and from those exactly one gene. Of couse we could spend some time optimizing this decision by trying out mutating less individuals but in those we mutate more genes 
+We mutate approximately 33\% of the individuals and from those exactly one gene. Of course we could spend some time optimizing these parameters. In the future, we could try mutating less individuals but in those selected for mutation we mutate multiple genes, or we could try mutating even more individuals. Since our parameter setting (33\%, mutate one gene) turned out to give quite good results, we did not spend additional time adjusting these parameters.
+
+The mutation of a gene is in our case changing the page assignment of an edge. Every edge must be assigned to one page. If such an assignment is mutated, we assign this edge to a random other page.
+
+\subsection{Replacement}
+
+As stated above, we replace the worse half of our population with the children of the selected population. The size of the populations always stays the same.
 
 \section{Evaluation}
 
