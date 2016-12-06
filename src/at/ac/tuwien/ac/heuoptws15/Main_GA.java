@@ -36,12 +36,12 @@ public class Main_GA {
         System.out.println("Sucessfully read instance:");
         System.out.println("Vertices: " + instance.getNumVertices());
         System.out.println("Book Pages: " + instance.getK());
-        System.out.println("Adjacency List: " + instance.getAdjacencyList());
+//        System.out.println("Adjacency List: " + instance.getAdjacencyList());
         System.out.println("--------------------");
 
 
 
-        GeneticAlgorithm g = new GeneticAlgorithm(1000, new SimpleCrossingSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance,10000));
+        GeneticAlgorithm g = new GeneticAlgorithm(100, new SimpleCrossingSelection(),new SimpleMutate(),new SwapRecombination(), initialPopulation(instance,500));
 
 
         KPMPSolution globalBest = g.execute();
@@ -72,10 +72,11 @@ public class Main_GA {
         h.initialize(instance);
 
         for(int i = 0; i< size; i++){
+            KPMPSolution s = h.getNextSolution();
+            initialPopulation.add(s);
+            initialPopulation.add(s);
 
-            initialPopulation.add(h.getNextSolution());
-
-            System.out.println(i + " crossings: " + initialPopulation.get(i).crossings());
+//            System.out.println(i + " crossings: " + initialPopulation.get(i).crossings());
 
         }
 

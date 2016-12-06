@@ -98,7 +98,34 @@ As stated above, we replace the worse half of our population with the children o
 
 \section{Evaluation}
 
+The evaluation was run, once again, on the eowyn cluster. For instances 1 through 5, we used a population size of 10000 and 200 generations. For instances 6 through 10, we reduced the population size to 1000 and generations to 100. This was for performance reasons, as the increase in memory size reduced the performance drastically. The results for 10 runs each can be seen on table \ref{fig:results}
+
+
 \section{Observation}
+For the smaller instances (1 through 5), the GA almost always found either optimal or compared with the other solution submissions from the other groups, the best known solutions (the exception being 5). For the larger instances this was not the case. The smaller population size reduced the variation and therefore effectiveness of the meta heuristic. 
+
+\newpage
+
+
+\begin{sidewaystable}
+  \centering
+ \label{fig:results}
+  \everyrow{\hline}
+  \begin{tabu} {| l |r | r |r |r|r |}
+  Instance        & Global best   & Mean (10 runs)   & std. dev. & runtime mean (sec.) & runtime std. dev.    \\ 
+  automatic-1     & 9             & 9                   & 0.0           &  ? & ?       \\ 
+  automatic-2     & 0             & 0.2                & 0.42          &  ? & ?       \\ 
+  automatic-3     & 26            & 41.7                & 6.98          &  ? & ?        \\ 
+  automatic-4     & 0             & 0.3                 & 0.67          &  ? & ?       \\ 
+  automatic-5     & 2             & 5.6                & 2.22          &  ? & ?       \\ 
+  automatic-6*     & 8360244       & 8404827           & 39653.48      &  ? & ?        \\ 
+  automatic-7*     & 92502        & 100305            & 7597.2       &  ? & ?        \\ 
+  automatic-8*     & 947961        & 989561              & 30022.91       &  ? & ?        \\ 
+  automatic-9*     & 1347025        & 1453652              & 82271.8        &  ? & ?        \\ 
+  automatic-10*    & 202479         & 207943               & 4081.1        &  ? & ?        \\ 
+\end{tabu}
+\caption{Test results for GVNS. Entries marked with Star (*) use different population sizes as described in the report.} 
+\end{sidewaystable}
 
 
 \end{document}

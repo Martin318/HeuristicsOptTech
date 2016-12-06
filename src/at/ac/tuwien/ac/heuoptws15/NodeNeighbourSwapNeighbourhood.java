@@ -26,7 +26,7 @@ public class NodeNeighbourSwapNeighbourhood extends Neighbourhood{
         newOrdering[nodeIndex] = orig_sol.ordering[nodeIndex-1];
 
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.numPages, newOrdering);
 
 
         //System.out.println("Generated neighbour. Swapped edge " + (nodeIndex-1) + " with " + (nodeIndex));
@@ -39,8 +39,8 @@ public class NodeNeighbourSwapNeighbourhood extends Neighbourhood{
 
         // DUPLICATE SOLUTION
 
-        for (int i = 0; i < orig_sol.pages.length; i++)
-            for (Edge e : orig_sol.pages[i].edges)
+        for (int i = 0; i < orig_sol.numPages; i++)
+            for (Edge e : orig_sol.getEdges(i))
                 solution.addEdge(e,i);
 
         return solution;
@@ -67,14 +67,14 @@ public class NodeNeighbourSwapNeighbourhood extends Neighbourhood{
         newOrdering[tempNodeIndex] = orig_sol.ordering[tempNodeIndex-1];
 
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.numPages, newOrdering);
 
 
         // UPDATE INDICES
 
         // DUPLICATE SOLUTION
-        for (int i = 0; i < orig_sol.pages.length; i++)
-            for (Edge e : orig_sol.pages[i].edges)
+        for (int i = 0; i < orig_sol.numPages; i++)
+            for (Edge e : orig_sol.getEdges(i))
                 solution.addEdge(e,i);
 
 

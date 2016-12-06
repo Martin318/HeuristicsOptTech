@@ -11,7 +11,7 @@ public class IntegerCollisionDetection implements CollisionChecker{
     int[] currentActive;
     Integer[] ordering;
     Integer[] orderingComp;
-    List<Edge> edges;
+    public List<Edge> edges;
     boolean changed = true;
 
     /**

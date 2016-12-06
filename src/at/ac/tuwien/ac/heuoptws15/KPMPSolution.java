@@ -13,19 +13,21 @@ public class KPMPSolution implements Cloneable, Comparable<KPMPSolution>{
 
     public Integer[] ordering;
     private Integer[] orderingComp;
-    Page[] pages;
-    public CollisionChecker[] activeEdge;
+    public int numPages;
+//    Page[] pages;
+    public IntegerCollisionDetection[] activeEdge;
 
 
     public KPMPSolution(int numVertices, int numPages, Integer[] ordering){
 
         this.ordering = ordering;
+        this.numPages = numPages;
 
-        pages = new Page[numPages];
+//        pages = new Page[numPages];
         activeEdge = new IntegerCollisionDetection[numPages];
 
         for(int i = 0; i < numPages; i++){
-            pages[i] = new Page();
+//            pages[i] = new Page();
             activeEdge[i] = new IntegerCollisionDetection(numVertices,ordering);
 
         }
@@ -37,7 +39,7 @@ public class KPMPSolution implements Cloneable, Comparable<KPMPSolution>{
     }
 
   /*  public KPMPSolution clone(){
-        KPMPSolution clone = new KPMPSolution(this.ordering.length,this.pages.length,this.ordering);
+        KPMPSolution clone = new KPMPSolution(this.ordering.length,this.numPages,this.ordering);
         clone.pages = new Page[pages.length];
         for(int i = 0; i< pages.length; i++) clone.pages[i] = pages[i].clone();
         clone.orderingComp = this.orderingComp.clone();
@@ -59,10 +61,10 @@ public class KPMPSolution implements Cloneable, Comparable<KPMPSolution>{
 
         s += "Pages: \n";
 
-        for(int i=0; i<pages.length; i++){
+        for(int i=0; i< numPages; i++){
             s += "Page: " + i + " ";
 
-            for(Edge e : pages[i].edges){
+            for(Edge e : activeEdge[i].edges){
 
                 s +=  e;
                 s += ", ";
@@ -144,7 +146,7 @@ public class KPMPSolution implements Cloneable, Comparable<KPMPSolution>{
         int currentCrossings;
 
 
-        for(int i = 0; i < this.pages.length; i++){
+        for(int i = 0; i < numPages; i++){
             currentCrossings = activeEdge[i].countAllCrossingsWithNewEdge(edge);
 
             if(currentCrossings == 0)
@@ -160,14 +162,18 @@ public class KPMPSolution implements Cloneable, Comparable<KPMPSolution>{
         return crossingsMinIndex;
     }
 
+    public List<Edge> getEdges(int i){
+        return activeEdge[i].edges;
+    }
+
 
     public void addEdge(Edge e, int page){
-        pages[page].edges.add(e);
+//        pages[page].edges.add(e);
         activeEdge[page].addEdge(e);
     }
 
     public void removeEdge(Edge e, int page){
-        pages[page].edges.remove(e);
+//        pages[page].edges.remove(e);
         activeEdge[page].removeEdge(e);
     }
 
@@ -177,9 +183,9 @@ public class KPMPSolution implements Cloneable, Comparable<KPMPSolution>{
         w.setSpineOrder(Arrays.asList(ordering));
 
 
-        for(int i = 0; i< pages.length; i++){
+        for(int i = 0; i< numPages; i++){
 
-            for(Edge e : pages[i].edges){
+            for(Edge e : activeEdge[i].edges){
                 w.addEdgeOnPage(e.getNameOfFirstVertex(),e.getNameOfSecondVertex(),i);
             }
 

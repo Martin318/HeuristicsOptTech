@@ -29,26 +29,26 @@ public class OneEdgeFlipNeighbourhood extends Neighbourhood {
     public KPMPSolution getRandomNeighbour() {
 
 
-        int tempPageIndex = RandomStuff.between(0,orig_sol.pages.length-1);
+        int tempPageIndex = RandomStuff.between(0,orig_sol.numPages-1);
         int tempTransferIndex;
         do {
-            tempTransferIndex = RandomStuff.between(0,orig_sol.pages.length-1);
+            tempTransferIndex = RandomStuff.between(0,orig_sol.numPages-1);
         } while ( tempPageIndex == tempTransferIndex);
 
-        int tempEdgeIndex = RandomStuff.between(0,orig_sol.pages[tempPageIndex].edges.size()-1 );
+        int tempEdgeIndex = RandomStuff.between(0,orig_sol.getEdges(tempPageIndex).size()-1 );
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, orig_sol.ordering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.numPages, orig_sol.ordering);
 
         // DUPLICATE SOLUTION
 
-        for (int i = 0; i < orig_sol.pages.length; i++)
-            for (Edge e : orig_sol.pages[i].edges)
+        for (int i = 0; i < orig_sol.numPages; i++)
+            for (Edge e : orig_sol.getEdges(i))
                 solution.addEdge(e,i);
 
         // DO A CHANGE
 
 
-        Edge e = solution.pages[tempPageIndex].edges.get(tempEdgeIndex);
+        Edge e = solution.getEdges(tempPageIndex).get(tempEdgeIndex);
         solution.removeEdge(e,tempPageIndex);
         solution.addEdge(e,tempTransferIndex);
 
@@ -58,35 +58,35 @@ public class OneEdgeFlipNeighbourhood extends Neighbourhood {
 
     public KPMPSolution getNextNeighbour() {
 
-        while(pageindex < orig_sol.pages.length && orig_sol.pages[pageindex].edges.size() == 0){
+        while(pageindex < orig_sol.numPages && orig_sol.getEdges(pageindex).size() == 0){
             pageindex++;
         }
 
-        if(pageindex == orig_sol.pages.length){
+        if(pageindex == orig_sol.numPages){
             return null;
         }
 
 
-        if(orig_sol.pages.length == 1)
+        if(orig_sol.numPages == 1)
             return null; // NO edge swap possible
 
         // TERMINATION criterium
 
-        if(transferIndex >= orig_sol.pages.length || pageindex >= orig_sol.pages.length)
+        if(transferIndex >= orig_sol.numPages || pageindex >= orig_sol.numPages)
             return null;
 
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, orig_sol.ordering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.numPages, orig_sol.ordering);
 
         // DUPLICATE SOLUTION
 
-        for (int i = 0; i < orig_sol.pages.length; i++)
-            for (Edge e : orig_sol.pages[i].edges)
+        for (int i = 0; i < orig_sol.numPages; i++)
+            for (Edge e : orig_sol.getEdges(i))
                 solution.addEdge(e,i);
 
         // DO A CHANGE
 
-        Edge e = solution.pages[pageindex].edges.get(edgeindex);
+        Edge e = solution.getEdges(pageindex).get(edgeindex);
         solution.removeEdge(e, pageindex);
         solution.addEdge(e, transferIndex);
 
@@ -96,14 +96,14 @@ public class OneEdgeFlipNeighbourhood extends Neighbourhood {
         edgeindex++;
 
 
-        if(edgeindex == orig_sol.pages[pageindex].edges.size()){
+        if(edgeindex == orig_sol.getEdges(pageindex).size()){
             edgeindex = 0;
             transferIndex ++;
             if(transferIndex == pageindex)
                 transferIndex ++;
         }
 
-        if(transferIndex == orig_sol.pages.length){
+        if(transferIndex == orig_sol.numPages){
             pageindex ++;
             transferIndex = 0;
         }

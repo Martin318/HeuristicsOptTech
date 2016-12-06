@@ -51,20 +51,20 @@ public class SwapRecombination extends  RecombinationOperator {
         else
             ordering = cycleSwap(parentTwo.ordering,parentOne.ordering);
 
-        KPMPSolution child = new KPMPSolution(parentOne.ordering.length,parentOne.pages.length,ordering);
+        KPMPSolution child = new KPMPSolution(parentOne.ordering.length,parentOne.numPages,ordering);
 
         HashMap<Edge,Integer> edgesOne = new HashMap<>();
         int counter = 0;
-        for (Page page : parentOne.pages){
-            for (Edge edge : page.edges)
+        for (int i = 0; i < parentOne.numPages; i++){
+            for (Edge edge : parentOne.getEdges(i))
                 edgesOne.put(edge,counter);
             counter++;
         }
 
         HashMap<Edge,Integer> edgesTwo = new HashMap<>();
         counter = 0;
-        for (Page page : parentTwo.pages){
-            for (Edge edge : page.edges)
+        for (int i = 0; i < parentTwo.numPages; i++){
+            for (Edge edge : parentTwo.getEdges(i))
                 edgesTwo.put(edge,counter);
             counter++;
         }

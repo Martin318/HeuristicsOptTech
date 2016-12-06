@@ -53,12 +53,12 @@ public class OrderingCycleNeighbourhood extends Neighbourhood {
 
 
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.numPages, newOrdering);
 
         // DUPLICATE SOLUTION
 
-        for (int i = 0; i < orig_sol.pages.length; i++) {
-            for (Edge e : orig_sol.pages[i].edges) {
+        for (int i = 0; i < orig_sol.numPages; i++) {
+            for (Edge e : orig_sol.getEdges(i)) {
 
                 solution.addEdge(e, i);
             }

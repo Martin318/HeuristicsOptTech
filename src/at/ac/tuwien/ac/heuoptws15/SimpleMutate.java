@@ -34,20 +34,19 @@ public class SimpleMutate extends MutationOperator {
 
     private void doMutation(KPMPSolution s){
 
-        if(s.pages.length == 1 ) return; // NOTHING TO DO HERE.
+        if(s.numPages == 1 ) return; // NOTHING TO DO HERE.
 
 
         // Move an edge to one other edge.
 
-        int pageIndex = RandomStuff.between(0, s.pages.length-1);
+        int pageIndex = RandomStuff.between(0, s.numPages-1);
 
-        int edgeIndex = RandomStuff.between(0, s.pages[pageIndex].edges.size()-1);
-
-
-        if(s.pages[pageIndex].edges.size() != 0){
+        int edgeIndex = RandomStuff.between(0, s.getEdges(pageIndex).size()-1);
 
 
-            Edge e = s.pages[pageIndex].edges.get(edgeIndex);
+        if(s.getEdges(pageIndex).size() != 0){
+
+            Edge e = s.getEdges(pageIndex).get(edgeIndex);
 
             s.removeEdge(e,pageIndex);
 
@@ -56,7 +55,7 @@ public class SimpleMutate extends MutationOperator {
             int moveIndex = pageIndex;
 
             while(moveIndex == pageIndex) {
-                moveIndex = RandomStuff.between(0, s.pages.length - 1);
+                moveIndex = RandomStuff.between(0, s.numPages - 1);
             }
 
             s.addEdge(e,moveIndex);

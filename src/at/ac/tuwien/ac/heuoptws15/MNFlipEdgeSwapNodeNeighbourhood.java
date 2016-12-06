@@ -30,14 +30,13 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         // SET UP THE EDGE STUFF
 
 
-        pagesizes = new int[orig_sol.pages.length];
+        pagesizes = new int[orig_sol.numPages];
         edgeSize = 0;
 
-        for (int i = 0; i < orig_sol.pages.length;i++){
-            Page p = orig_sol.pages[i];
-            edgeSize += p.edges.size();
+        for (int i = 0; i < orig_sol.numPages;i++){
+            edgeSize += sol.getEdges(i).size();
 
-            pagesizes[i] = p.edges.size() + (( i > 0)?pagesizes[i-1]:0);
+            pagesizes[i] = sol.getEdges(i).size() + (( i > 0)?pagesizes[i-1]:0);
         }
 
         if (this.N > edgeSize)
@@ -86,7 +85,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
             } while( previousValues.contains(tempSlotIndex[i]));
             previousValues.add(tempSlotIndex[i]);
             do{
-                tempTransferIndex[i] = RandomStuff.between( 0,orig_sol.pages.length-1);
+                tempTransferIndex[i] = RandomStuff.between( 0,orig_sol.numPages-1);
             } while ( tempTransferIndex[i] == pageIndex[tempSlotIndex[i]]);
         }
 
@@ -113,12 +112,12 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
             newOrdering[i] = temp;
         }
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.numPages, newOrdering);
 
         // DUPLICATE SOLUTION
 
-        for (int i = 0; i < orig_sol.pages.length; i++)
-            for (Edge e : orig_sol.pages[i].edges)
+        for (int i = 0; i < orig_sol.numPages; i++)
+            for (Edge e : orig_sol.getEdges(i))
                 solution.addEdge(e,i);
 
         // DO A CHANGE  DOS
@@ -128,7 +127,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         for(int i = 0; i < N; i++){
             int currentPage = pageIndex[tempSlotIndex[i]];
             int index = tempSlotIndex[i] - ((currentPage > 0)?pagesizes[currentPage-1]:0);
-            Edge original = orig_sol.pages[currentPage].edges.get(index);
+            Edge original = orig_sol.getEdges(currentPage).get(index);
             Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
             solution.removeEdge(e,currentPage);
             solution.addEdge(e,tempTransferIndex[i]);
@@ -140,7 +139,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
 
     public KPMPSolution getNextNeighbour() {
 
-        if(orig_sol.pages.length == 1)
+        if(orig_sol.numPages == 1)
             return null; // NO edge swap possible
 
         // TERMINATION CRITERIUM EDGE
@@ -168,12 +167,12 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         }
 
 
-        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.pages.length, newOrdering);
+        KPMPSolution solution = new KPMPSolution(orig_sol.ordering.length, orig_sol.numPages, newOrdering);
 
         // DUPLICATE SOLUTION
 
-        for (int i = 0; i < orig_sol.pages.length; i++)
-            for (Edge e : orig_sol.pages[i].edges)
+        for (int i = 0; i < orig_sol.numPages; i++)
+            for (Edge e : orig_sol.getEdges(i))
                 solution.addEdge(e,i);
 
         // DO A CHANGE  DOS
@@ -182,7 +181,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         for(int i = 0; i < N; i++){
             int currentPage = pageIndex[slotIndex[i]];
             int index = slotIndex[i] - ((currentPage > 0)?pagesizes[currentPage-1]:0);
-            Edge original = orig_sol.pages[currentPage].edges.get(index);
+            Edge original = orig_sol.getEdges(currentPage).get(index);
             Edge e = new Edge(original.getNameOfFirstVertex(),original.getNameOfSecondVertex());
             solution.removeEdge(e,currentPage);
             solution.addEdge(e,transferIndex[i]);
@@ -195,7 +194,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
             transferIndex[i]++;
             if (transferIndex[i] == pageIndex[slotIndex[i]]) // skip edge's current page
                 transferIndex[i]++;
-            if (transferIndex[i] >= orig_sol.pages.length){  // transferIndex reset
+            if (transferIndex[i] >= orig_sol.numPages){  // transferIndex reset
                 transferIndex[i] = ( pageIndex[slotIndex[i]] == 0)? 1 : 0;
                 slotIndex[i]++;
                 if (i != 0 && slotIndex[i] >= edgeSize)          // slotIndex reset, not done at i = 0 to trigger termination
