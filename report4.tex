@@ -65,22 +65,24 @@
 
 
 \section{Implementation}
-We chose to implement a Genetic Algorithm (GA) for this assignment. For this we set out to find an encoding that is easier for the GA to work with, and then implement the different operators for Selection, Recombination, Mutation and Replacement. For the last element, we decided early on to stick with a form of generational replacement, but where only the better  half  (w.r.t. fitness) of the previous generation is replaced. 
+We chose to implement a Genetic Algorithm (GA) for this assignment. For this we set out to find an encoding that is easier for the GA to work with, and then implement the different operators for Selection, Recombination, Mutation and Replacement. 
 
 \subsection{Encoding}
 
-Since the spine-order is already stored as just an array of integers, we simply thought of it as its own ``chromosome''. For the edge partitions, we encode a list of pairs of edges (which itself is an integer pair) and a page (as an integer). For decoding it, we create the edge partition as an array of the length of the pages, each cell containing the corresponding list of edges.
+Since the spine-order is already stored as just an array of integers, we simply thought of it as part of the ``chromosome''. For the edge partitions, we encode a list of pairs of edges (which itself is an integer pair) and a page (as an integer). For decoding it, we create the edge partition as an array of the length of the pages, each cell containing the corresponding list of edges. 
 
+\subsection{Fitness function}
+
+We wanted our fitness function to depend only on the crossings of the individual. For genetic algorithms, it is usually the case that higher fitness is better. Thus, using just the number of crossings would not have the desired effect (since more crossings are bad). We thought of something like $ f(x) = \frac{1}{1 + crossings} $. However, in the end we decided to use the number of crossings as "unfitness", and save the computation cost of the fraction and avoid dealing with precision issues of float/double values.  
 
 \subsection{Initial population}
 
 First, we used some solutions constructed by our advanced construction heuristics (see previous assignment reports) as initial population. However it turned out that those solutions were mostly very similar, and thus the initial population was not diverse enough. We then used a set of purely random initial solutions (random page assignment, random spine order). This turned out to be worse in the beginning, but eventually after some generations lead to better results.
 
 
-
 \subsection{Selection}
 
-We implemented a simple selection method that just selects the better half of the population for recombination. "Better" here means less crossings. To get more precise, we sort the population by crossings ascending and pick all individuals from 0 to half the size of the population (rounded down).
+We implemented a simple selection method that just selects the better half of the population for recombination. "Better" here means higher fitness (=lower unfitness, see section fitness function). To get more precise, we sort the population by crossings ascending and pick all individuals from 0 to half the size of the population (rounded down).
 
 \subsection{Recombination}
 
@@ -93,8 +95,7 @@ We mutate approximately 33\% of the individuals and from those exactly one gene.
 The mutation of a gene is in our case changing the page assignment of an edge. Every edge must be assigned to one page. If such an assignment is mutated, we assign this edge to a random other page.
 
 \subsection{Replacement}
-
-As stated above, we replace the worse half of our population with the children of the selected population. The size of the populations always stays the same.
+We decided early on to stick with a form of generational replacement, but where only the better  half  (w.r.t. fitness) of the previous generation is replaced. The size of the populations always stays the same. Since we always replace the worse half of the population, this implies that the fitness of the generation (fitness of the best individual) monotonically increases. The best individual is never dropped (except if all individuals have the same fitness of course).
 
 \section{Evaluation}
 
@@ -103,6 +104,10 @@ The evaluation was run, once again, on the eowyn cluster. For instances 1 throug
 
 \section{Observation}
 For the smaller instances (1 through 5), the GA almost always found either optimal or compared with the other solution submissions from the other groups, the best known solutions (the exception being 5). For the larger instances this was not the case. The smaller population size reduced the variation and therefore effectiveness of the meta heuristic. 
+
+\section{Conclusion}
+
+Despite very simple, the Generic Algorithm works surprisingly well and in some instances (in particular the small instances) even better than the local search procedures from the previous assignments. This could be explained by the fact that we generate random initial solutions and with a large population and a lot of generations we can cover a large part of the search space. In larger instances, this is computationally infeasible and thus the local search methods dominate here. 
 
 \newpage
 
