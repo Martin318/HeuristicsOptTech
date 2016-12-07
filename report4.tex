@@ -73,7 +73,18 @@ Since the spine-order is already stored as just an array of integers, we simply 
 
 \subsection{Fitness function}
 
-We wanted our fitness function to depend only on the crossings of the individual. For genetic algorithms, it is usually the case that higher fitness is better. Thus, using just the number of crossings would not have the desired effect (since more crossings are bad). We thought of something like $ f(x) = \frac{1}{1 + crossings} $. However, in the end we decided to use the number of crossings as "unfitness", and save the computation cost of the fraction and avoid dealing with precision issues of float/double values.  
+We wanted our fitness function to depend only on the crossings of the individual. For genetic algorithms, it is usually the case that higher fitness is better. Thus, using just the number of crossings would not have the desired effect (since more crossings are bad). We first compute for a given number of edges, the maximal number of possible crossings, regardless of page size. This can be thought of as if every edge would cross all others. So 
+\[
+	maxCrossings(sol) = \frac{|sol.edges| * (|sol.edges| - 1)}{2} 
+\]
+Where $|X|$ denotes cardinality of a set $X$ and $sol.edges$ is the list of edges in a solution.
+
+The fitness function f is then 
+\[
+	f(sol) = maxCrossings(sol) - crossings(sol)
+ \]
+
+ where $crossings(sol)$ computes the actual crossings in the given solution $sol$.
 
 \subsection{Initial population}
 
@@ -85,8 +96,9 @@ First, we used some solutions constructed by our advanced construction heuristic
 We implemented a simple selection method that just selects the better half of the population for recombination. "Better" here means higher fitness (=lower unfitness, see section fitness function). To get more precise, we sort the population by crossings ascending and pick all individuals from 0 to half the size of the population (rounded down).
 
 \subsection{Recombination}
+The recombination creates for two ``parent'' solutions a ``child'', by first creating a new spine order. For this end, a mapping between the existing two spine orders is considered. This mapping can be thought of as a permutation. We take the first cycle in this permutation (which could span the whole permutation) and apply it to either one, thus creating a new spine order for the ``child''. 
 
-
+For the edge partition, we take for half the edges the page assignments from ``parent'' one and for the other half of the edges the assignments from ``parent'' two. No particular order is considered for the edges.
 
 \subsection{Mutation}
 
@@ -99,7 +111,7 @@ We decided early on to stick with a form of generational replacement, but where 
 
 \section{Evaluation}
 
-The evaluation was run, once again, on the eowyn cluster. For instances 1 through 5, we used a population size of 10000 and 200 generations. For instances 6 through 10, we reduced the population size to 1000 and generations to 100. This was for performance reasons, as the increase in memory size reduced the performance drastically. The results for 10 runs each can be seen on table \ref{fig:results}
+The evaluation was run, once again, on the eowyn cluster. For instances 1 through 5, we used a population size of 10000 and 200 generations. For instances 6 through 10, we reduced the population size to 1000 and generations to 100. This was for performance reasons, as the increase in memory size reduced the performance drastically. The results for 10 runs each can be seen on table 1.
 
 
 \section{Observation}
@@ -107,7 +119,7 @@ For the smaller instances (1 through 5), the GA almost always found either optim
 
 \section{Conclusion}
 
-Despite very simple, the Generic Algorithm works surprisingly well and in some instances (in particular the small instances) even better than the local search procedures from the previous assignments. This could be explained by the fact that we generate random initial solutions and with a large population and a lot of generations we can cover a large part of the search space. In larger instances, this is computationally infeasible and thus the local search methods dominate here. 
+Despite our very simple implementation, the Generic Algorithm works surprisingly well and in some instances (in particular the small instances) even better than the local search procedures from the previous assignments. This could be explained by the fact that we generate random initial solutions and with a large population and a lot of generations we can cover a large part of the search space. In larger instances, this is computationally infeasible and thus the local search methods dominate here. 
 
 \newpage
 
@@ -118,18 +130,18 @@ Despite very simple, the Generic Algorithm works surprisingly well and in some i
   \everyrow{\hline}
   \begin{tabu} {| l |r | r |r |r|r |}
   Instance        & Global best   & Mean (10 runs)   & std. dev. & runtime mean (sec.) & runtime std. dev.    \\ 
-  automatic-1     & 9             & 9                   & 0.0           &  ? & ?       \\ 
-  automatic-2     & 0             & 0.2                & 0.42          &  ? & ?       \\ 
-  automatic-3     & 26            & 41.7                & 6.98          &  ? & ?        \\ 
-  automatic-4     & 0             & 0.3                 & 0.67          &  ? & ?       \\ 
-  automatic-5     & 2             & 5.6                & 2.22          &  ? & ?       \\ 
-  automatic-6*     & 8360244       & 8404827           & 39653.48      &  ? & ?        \\ 
-  automatic-7*     & 92502        & 100305            & 7597.2       &  ? & ?        \\ 
-  automatic-8*     & 947961        & 989561              & 30022.91       &  ? & ?        \\ 
-  automatic-9*     & 1347025        & 1453652              & 82271.8        &  ? & ?        \\ 
-  automatic-10*    & 202479         & 207943               & 4081.1        &  ? & ?        \\ 
+  automatic-1     & 9             & 9                   & 0.0           &  11.37 & 0.36       \\ 
+  automatic-2     & 0             & 0.2                & 0.42          &  14.19 & 0.89      \\ 
+  automatic-3     & 26            & 41.7                & 6.98          & 37.66 &1.38       \\ 
+  automatic-4     & 0             & 0.3                 & 0.67          &  27.14 & 0.68       \\ 
+  automatic-5     & 2             & 5.6                & 2.22          &  34.76 & 0.68      \\ 
+  automatic-6*     & 8360244       & 8404827           & 39653.48      &  900 & 0        \\ 
+  automatic-7*     & 92502        & 100305            & 7597.2       &  146.93 & 7.04        \\ 
+  automatic-8*     & 947961        & 989561              & 30022.91       &  900 &0        \\ 
+  automatic-9*     & 1347025        & 1453652              & 82271.8        &  900 &0        \\ 
+  automatic-10*    & 202479         & 207943               & 4081.1        &  900 &0        \\ 
 \end{tabu}
-\caption{Test results for GVNS. Entries marked with Star (*) use different population sizes as described in the report.} 
+\caption{Test results for GA. Entries marked with Star (*) use different population sizes as described in the report. Also there was a hard time out of 15 minutes (900 seconds) at which point the last result was output} 
 \end{sidewaystable}
 
 
