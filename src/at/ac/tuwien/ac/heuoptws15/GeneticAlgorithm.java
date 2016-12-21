@@ -7,14 +7,13 @@ import java.util.List;
  */
 public class GeneticAlgorithm {
 
-    private SelectionOperator selectionOp;
-    private MutationOperator mutationOp;
-    private RecombinationOperator recombinationOp;
-    private int generations;
-    private List<KPMPSolution> initialPop;
+    protected  SelectionOperator selectionOp;
+    protected MutationOperator mutationOp;
+    protected RecombinationOperator recombinationOp;
+    protected int generations;
+    protected List<KPMPSolution> initialPop;
 
-public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m, RecombinationOperator r, List<KPMPSolution> initialPopulation){
-
+    public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m, RecombinationOperator r, List<KPMPSolution> initialPopulation){
         this.selectionOp = s;
         this.mutationOp = m;
         this.recombinationOp = r;
@@ -29,7 +28,7 @@ public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m
      * @param edgeSize  number of edges in a solution
      * @return integer indicating the maximal number of possible crossings     *
      */
-    public static int maxCrossing(int edgeSize){
+    private static int maxCrossing(int edgeSize){
         return (edgeSize * (edgeSize - 1)) / 2;
     }
 
@@ -81,7 +80,7 @@ public GeneticAlgorithm(int generations, SelectionOperator s, MutationOperator m
     }
 
 
-    private KPMPSolution getBestSolution(List<KPMPSolution> l){
+    protected KPMPSolution getBestSolution(List<KPMPSolution> l){
 
         KPMPSolution best = null;
         int bestSolValue = Integer.MAX_VALUE;

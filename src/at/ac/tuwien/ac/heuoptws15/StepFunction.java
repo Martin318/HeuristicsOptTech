@@ -8,6 +8,8 @@ public abstract class StepFunction {
 
     public abstract boolean acceptSolution(KPMPSolution s, int crossings);
 
+    public abstract void initialize(KPMPSolution s, int crossings);
+
 
     public abstract KPMPSolution bestSolution();
 

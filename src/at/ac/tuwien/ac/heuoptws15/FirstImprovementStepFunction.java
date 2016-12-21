@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
  * Created by Martin on 30.10.2016.
  */
 public class FirstImprovementStepFunction extends  StepFunction {
+    boolean initialized = false;
 
     int bestSolutionValue;
     KPMPSolution bestSol;
@@ -13,10 +14,24 @@ public class FirstImprovementStepFunction extends  StepFunction {
     public FirstImprovementStepFunction(KPMPSolution initial, int crossings){
         bestSol = initial;
         bestSolutionValue = crossings;
+        initialized = true;
+    }
+
+    public FirstImprovementStepFunction(){
+
+    }
+
+    public void initialize(KPMPSolution initial, int crossings){
+        bestSol = initial;
+        bestSolutionValue = crossings;
+        initialized = true;
     }
 
 
     public boolean acceptSolution(KPMPSolution solution, int crossings){
+        if(!initialized) {
+           return false;
+        }
 
         if(crossings < bestSolutionValue){
             bestSolutionValue = crossings;
@@ -30,6 +45,10 @@ public class FirstImprovementStepFunction extends  StepFunction {
     }
 
     public KPMPSolution bestSolution(){
+        if(!initialized) {
+            return null;
+        }
+
         return bestSol;
     }
 

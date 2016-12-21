@@ -29,6 +29,11 @@ public class FuzzyFirstImprovementStepFunction extends StepFunction {
 
     }
 
+    @Override
+    public void initialize(KPMPSolution s, int crossings) {
+
+    }
+
     public KPMPSolution bestSolution(){
         return bestSol;
     }

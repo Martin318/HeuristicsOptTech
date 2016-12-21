@@ -11,6 +11,11 @@ public class RandomStepFunction extends StepFunction {
     }
 
     @Override
+    public void initialize(KPMPSolution s, int crossings) {
+
+    }
+
+    @Override
     public KPMPSolution bestSolution() {
         return null;
     }
