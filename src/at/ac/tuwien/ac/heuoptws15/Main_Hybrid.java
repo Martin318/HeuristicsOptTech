@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.cli.*;
 
 /**
  * Created by Cem on 21.12.2016.
@@ -23,50 +24,48 @@ public class Main_Hybrid {
         Neighbourhood n = null;
         StepFunction f = null;
 
+        CommandLineParser parser = new DefaultParser();
+        Options options = new Options();
+        options.addOption("i",true,"Number of iterations");
+        options.addOption("p",true,"Size of population");
+        options.addOption("n",true,"Neighbourhood for local search");
+        options.addOption("s",true,"Stepfunction for local search");
 
         try {
-            if (args.length > 4) {
-                instance = KPMPInstance.readInstance(args[0]);
-                iterations = Integer.parseInt(args[1]);
-                population_size = Integer.parseInt(args[2]);
+            if (args.length < 4)
+                throw new ParseException("invalid arguments");
+            CommandLine cmd = parser.parse(options,args);
+            instance = KPMPInstance.readInstance(args[0]);
+            String s = cmd.getOptionValue('i');
+            System.out.println(s);
+            iterations = Integer.parseInt(cmd.getOptionValue('i'));
+            population_size = Integer.parseInt(cmd.getOptionValue('p'));
 
-                // Neighourhood name
+            String neighbourhood_name = cmd.getOptionValue('n');
 
-                String neighbourhood_name = args[3];
+            if(neighbourhood_name.equals("0")) n = new NNodeSwapNeighbourhood(2);
+            if(neighbourhood_name.equals("1")) n = new NEdgeFlipNeighbourhood(2);
+            if(neighbourhood_name.equals("2")) n = new MNFlipEdgeSwapNodeNeighbourhood(2,2);
+            if(neighbourhood_name.equals("3")) n = new NodeNeighbourSwapNeighbourhood();
+            if(neighbourhood_name.equals("4")) n = new EdgeNeighbourNeighbourhood(true);
 
-                if(neighbourhood_name.equals("0")) n = new NNodeSwapNeighbourhood(2);
-                if(neighbourhood_name.equals("1")) n = new NEdgeFlipNeighbourhood(2);
-                if(neighbourhood_name.equals("2")) n = new MNFlipEdgeSwapNodeNeighbourhood(2,2);
-                if(neighbourhood_name.equals("3")) n = new NodeNeighbourSwapNeighbourhood();
-                if(neighbourhood_name.equals("4")) n = new EdgeNeighbourNeighbourhood(true);
+            // StepFunction
 
+            String stepfunction_name = cmd.getOptionValue('s');
 
-                if(n == null) throw new RuntimeException("Neighbourhood not set!");
-
-                // StepFunction
-
-                String stepfunction_name = args[4];
-
-
-                if(stepfunction_name.equals("0")) f = new FirstImprovementStepFunction();
-                if(stepfunction_name.equals("1")) f = new RandomStepFunction();
-                if(stepfunction_name.equals("2")) f = new BestImprovementStepFunction(null, 0);
-
-                if(f == null) throw new RuntimeException("Step function not set!");
+            if(stepfunction_name.equals("0")) f = new FirstImprovementStepFunction();
+            if(stepfunction_name.equals("1")) f = new RandomStepFunction();
+            if(stepfunction_name.equals("2")) f = new BestImprovementStepFunction(null, 0);
 
 
+        } catch (ParseException e) {
 
-            }
-            else {
-                System.out.println("Specify file path as first execution argument, number of iterations, population size, neighbourhood-name, step-function-name.");
-                System.exit(1);
-            }
-
-        } catch (FileNotFoundException fi) {
+            e.printStackTrace();
+            System.exit(1);
+        } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             System.exit(1);
         }
-
 
 
 
