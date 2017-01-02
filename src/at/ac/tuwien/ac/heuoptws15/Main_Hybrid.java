@@ -16,15 +16,53 @@ public class Main_Hybrid {
 
         KPMPInstance instance = null;
         // Specify file path as execution arugment
+
+        int iterations = -1;
+        int population_size = -1;
+
+        Neighbourhood n = null;
+        StepFunction f = null;
+
+
         try {
-            if (args.length > 0)
+            if (args.length > 4) {
                 instance = KPMPInstance.readInstance(args[0]);
+                iterations = Integer.parseInt(args[1]);
+                population_size = Integer.parseInt(args[2]);
+
+                // Neighourhood name
+
+                String neighbourhood_name = args[3];
+
+                if(neighbourhood_name.equals("0")) n = new NNodeSwapNeighbourhood(2);
+                if(neighbourhood_name.equals("1")) n = new NEdgeFlipNeighbourhood(2);
+                if(neighbourhood_name.equals("2")) n = new MNFlipEdgeSwapNodeNeighbourhood(2,2);
+                if(neighbourhood_name.equals("3")) n = new NodeNeighbourSwapNeighbourhood();
+                if(neighbourhood_name.equals("4")) n = new EdgeNeighbourNeighbourhood(true);
+
+
+                if(n == null) throw new RuntimeException("Neighbourhood not set!");
+
+                // StepFunction
+
+                String stepfunction_name = args[4];
+
+
+                if(stepfunction_name.equals("0")) f = new FirstImprovementStepFunction();
+                if(stepfunction_name.equals("1")) f = new RandomStepFunction();
+                if(stepfunction_name.equals("2")) f = new BestImprovementStepFunction(null, 0);
+
+                if(f == null) throw new RuntimeException("Step function not set!");
+
+
+
+            }
             else {
-                System.out.println("Specify file path as first execution argument.");
+                System.out.println("Specify file path as first execution argument, number of iterations, population size, neighbourhood-name, step-function-name.");
                 System.exit(1);
             }
 
-        } catch (FileNotFoundException f) {
+        } catch (FileNotFoundException fi) {
             System.out.println("File not found.");
             System.exit(1);
         }
@@ -41,8 +79,8 @@ public class Main_Hybrid {
 
 
 
-        GeneticAlgorithm g = new GeneticAlgorithmAndLocalSearch(100, new SimpleCrossingSelection(),new SimpleMutate(),
-                new SwapRecombination(), initialPopulation(instance,500),new NodeNeighbourSwapNeighbourhood(),new FirstImprovementStepFunction());
+        GeneticAlgorithm g = new GeneticAlgorithmAndLocalSearch(iterations, new SimpleCrossingSelection(),new SimpleMutate(),
+                new SwapRecombination(), initialPopulation(instance,population_size),n,f);
 
 
         KPMPSolution globalBest = g.execute();

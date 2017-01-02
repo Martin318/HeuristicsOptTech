@@ -28,6 +28,9 @@ public class BestImprovementStepFunction extends StepFunction {
     @Override
     public void initialize(KPMPSolution s, int crossings) {
 
+        bestSolutionValue = crossings;
+        bestSol = s;
+
     }
 
 
