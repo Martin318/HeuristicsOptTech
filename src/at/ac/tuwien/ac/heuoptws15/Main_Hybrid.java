@@ -36,26 +36,54 @@ public class Main_Hybrid {
                 throw new ParseException("invalid arguments");
             CommandLine cmd = parser.parse(options,args);
             instance = KPMPInstance.readInstance(args[0]);
-            String s = cmd.getOptionValue('i');
-            System.out.println(s);
             iterations = Integer.parseInt(cmd.getOptionValue('i'));
             population_size = Integer.parseInt(cmd.getOptionValue('p'));
 
+            // Neighbourhood
+
             String neighbourhood_name = cmd.getOptionValue('n');
 
-            if(neighbourhood_name.equals("0")) n = new NNodeSwapNeighbourhood(2);
-            if(neighbourhood_name.equals("1")) n = new NEdgeFlipNeighbourhood(2);
-            if(neighbourhood_name.equals("2")) n = new MNFlipEdgeSwapNodeNeighbourhood(2,2);
-            if(neighbourhood_name.equals("3")) n = new NodeNeighbourSwapNeighbourhood();
-            if(neighbourhood_name.equals("4")) n = new EdgeNeighbourNeighbourhood(true);
+            switch (Integer.parseInt(neighbourhood_name)){
+                case 0:
+                    n = new NNodeSwapNeighbourhood(2);
+                    break;
+                case 1:
+                    n = new NEdgeFlipNeighbourhood(2);
+                    break;
+                case 2:
+                    n = new MNFlipEdgeSwapNodeNeighbourhood(2,2);
+                    break;
+                case 3:
+                    n = new NodeNeighbourSwapNeighbourhood();
+                    break;
+                case 4:
+                    n = new EdgeNeighbourNeighbourhood(true);
+                    break;
+                default:
+                    System.out.println("No neighbourhood selected");
+                    System.exit(1);
+                    break;
+            }
+
 
             // StepFunction
 
             String stepfunction_name = cmd.getOptionValue('s');
-
-            if(stepfunction_name.equals("0")) f = new FirstImprovementStepFunction();
-            if(stepfunction_name.equals("1")) f = new RandomStepFunction();
-            if(stepfunction_name.equals("2")) f = new BestImprovementStepFunction(null, 0);
+            switch (Integer.parseInt(stepfunction_name)){
+                case 0:
+                    f = new FirstImprovementStepFunction();
+                    break;
+                case 1:
+                    f = new RandomStepFunction();
+                    break;
+                case 2:
+                    f = new BestImprovementStepFunction(null, 0);
+                    break;
+                default:
+                    System.out.println("No stepfunction selected");
+                    System.exit(1);
+                    break;
+            }
 
 
         } catch (ParseException e) {
