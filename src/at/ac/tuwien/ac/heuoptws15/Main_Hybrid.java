@@ -25,6 +25,7 @@ public class Main_Hybrid {
         StepFunction f = null;
 
         CommandLineParser parser = new DefaultParser();
+        HelpFormatter formatter = new HelpFormatter();
         Options options = new Options();
         options.addOption("i",true,"Number of iterations");
         options.addOption("p",true,"Size of population");
@@ -32,15 +33,18 @@ public class Main_Hybrid {
         options.addOption("s",true,"Stepfunction for local search");
 
         try {
-            if (args.length < 4)
-                throw new ParseException("invalid arguments");
-            CommandLine cmd = parser.parse(options,args);
+            if(args.length < 1)
+                throw  new ParseException("No arguments");
+            CommandLine cmd = parser.parse(options,args,false);
+            for(Option o : options.getOptions())
+                if(!cmd.hasOption(o.getOpt()))
+                    throw new ParseException("Option " + o.getOpt() + " is missing");
+
             instance = KPMPInstance.readInstance(args[0]);
             iterations = Integer.parseInt(cmd.getOptionValue('i'));
             population_size = Integer.parseInt(cmd.getOptionValue('p'));
 
             // Neighbourhood
-
             String neighbourhood_name = cmd.getOptionValue('n');
 
             switch (Integer.parseInt(neighbourhood_name)){
@@ -67,7 +71,6 @@ public class Main_Hybrid {
 
 
             // StepFunction
-
             String stepfunction_name = cmd.getOptionValue('s');
             switch (Integer.parseInt(stepfunction_name)){
                 case 0:
@@ -87,8 +90,8 @@ public class Main_Hybrid {
 
 
         } catch (ParseException e) {
-
             e.printStackTrace();
+            formatter.printHelp("myapp", "Start the heurisctic on a given instance", options, "", true);
             System.exit(1);
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
@@ -112,7 +115,8 @@ public class Main_Hybrid {
 
         KPMPSolution globalBest = g.execute();
 
-        System.out.println("////// GLOBAL BEST ////////  " + globalBest.crossings() );
+        System.out.println("Global Best Found:");
+        System.out.println(globalBest.crossings());
 
 
 
@@ -122,7 +126,7 @@ public class Main_Hybrid {
         try {
             w.write(args[0] + "_Hybrid_Solution");
         } catch (IOException e) {
-            System.out.println("Failed to  write file: " + e);
+//            System.out.println("Failed to  write file: " + e);
         }
 
 
@@ -139,7 +143,6 @@ public class Main_Hybrid {
 
         for(int i = 0; i< size; i++){
             KPMPSolution s = h.getNextSolution();
-            initialPopulation.add(s);
             initialPopulation.add(s);
 
 //            System.out.println(i + " crossings: " + initialPopulation.get(i).crossings());
