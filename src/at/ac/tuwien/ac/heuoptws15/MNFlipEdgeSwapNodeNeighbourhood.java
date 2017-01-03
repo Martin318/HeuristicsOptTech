@@ -103,8 +103,9 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
 
 
         Integer[] newOrdering = new Integer[orig_sol.ordering.length];
-        for (int i = 0; i < orig_sol.ordering.length; i++)
+       for (int i = 0; i < orig_sol.ordering.length; i++)
             newOrdering[i] = orig_sol.ordering[i];
+
 
         for( int i = 0;  i < M-1; i++){
             int temp = newOrdering[tempNodeTransferIndex[i]];
@@ -164,6 +165,7 @@ public class MNFlipEdgeSwapNodeNeighbourhood  extends Neighbourhood {
         for( int i = 0;  i < M-1; i++) {
             int temp = newOrdering[nodeTransferIndex[i]];
             newOrdering[nodeTransferIndex[i]] = newOrdering[i];
+            newOrdering[i] = temp;
         }
 
 

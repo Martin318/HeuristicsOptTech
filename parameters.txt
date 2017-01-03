@@ -1,6 +1,6 @@
 # name		switch		type values			[conditions (using R syntax)]
-iterations   	"-i"		i    (10,1000)
-population_size	"-l" 		i    (10,1000)
-neighbourhood	"-n"		c    (0, 1, 2, 3, 4)		
-stepfunction	"-s"		c    (0, 1, 2)
+iterations   	"-i "		i    (10,1000)
+population_size	"-p " 		i    (10,1000)
+neighbourhood	"-n "		c    (0, 1, 2, 3, 4)		
+stepfunction	"-s "		c    (0, 1, 2)
 

@@ -1,5 +1,7 @@
 package at.ac.tuwien.ac.heuoptws15;
 
+import com.sun.org.apache.xml.internal.serializer.utils.SerializerMessages_zh_CN;
+
 import java.util.Objects;
 
 /**
@@ -23,7 +25,16 @@ public class Edge{
 
 
     public int theLargerEndPointwithRespectTo(Integer[] orderingComp){
-        return Math.max(orderingComp[nameOfFirstVertex],orderingComp[nameOfSecondVertex]);
+        try{
+
+            return Math.max(orderingComp[nameOfFirstVertex],orderingComp[nameOfSecondVertex]);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return 0;
+
     }
 
     @Override
