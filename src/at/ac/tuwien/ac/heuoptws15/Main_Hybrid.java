@@ -16,7 +16,7 @@ public class Main_Hybrid {
 
 
         KPMPInstance instance = null;
-        // Specify file path as execution arugment
+        // Specify file path as execution argument
 
         int iterations = -1;
         int population_size = -1;
@@ -30,32 +30,58 @@ public class Main_Hybrid {
         options.addOption("i",true,"Number of iterations");
         options.addOption("p",true,"Size of population");
         options.addOption("n",true,"Neighbourhood for local search");
-        options.addOption("s",true,"Stepfunction for local search");
+        options.addOption("s",true,"Step-function for local search");
+        options.addOption("np",true, "Parameter for certain neighbourhoods");
+        options.addOption("m",true, "Parameter for certain neighbourhoods");
 
         try {
             if(args.length < 1)
                 throw  new ParseException("No arguments");
             CommandLine cmd = parser.parse(options,args,false);
-            for(Option o : options.getOptions())
+
+            // Making sure all needed things are defined
+            for(Option o : options.getOptions()){
+                if (o.getOpt().equals("np") || o.getOpt().equals("m"))  // optional options
+                    continue;
                 if(!cmd.hasOption(o.getOpt()))
                     throw new ParseException("Option " + o.getOpt() + " is missing");
+            }
+
 
             instance = KPMPInstance.readInstance(args[0]);
             iterations = Integer.parseInt(cmd.getOptionValue('i'));
             population_size = Integer.parseInt(cmd.getOptionValue('p'));
 
             // Neighbourhood
-            String neighbourhood_name = cmd.getOptionValue('n');
+            int neighbourhood = Integer.parseInt(cmd.getOptionValue("n"));
 
-            switch (Integer.parseInt(neighbourhood_name)){
+            // Make sure parameters of chosen neighbourhood are defined
+            Integer n_param = null;
+            Integer m_param = null;
+
+            if( neighbourhood == 0 || neighbourhood == 1 || neighbourhood == 2 )
+                if (!cmd.hasOption("np"))
+                    throw new ParseException("Option np is missing");
+                else
+                    n_param  = Integer.parseInt(cmd.getOptionValue("np"));
+
+            if( neighbourhood == 2 )
+                if (!cmd.hasOption('m'))
+                    throw new ParseException("Option m is missing");
+                else
+                    m_param = Integer.parseInt(cmd.getOptionValue("m"));
+
+
+
+            switch (neighbourhood){
                 case 0:
-                    n = new NNodeSwapNeighbourhood(2);
+                    n = new NNodeSwapNeighbourhood(n_param);
                     break;
                 case 1:
-                    n = new NEdgeFlipNeighbourhood(2);
+                    n = new NEdgeFlipNeighbourhood(n_param);
                     break;
                 case 2:
-                    n = new MNFlipEdgeSwapNodeNeighbourhood(2,2);
+                    n = new MNFlipEdgeSwapNodeNeighbourhood(m_param,n_param);
                     break;
                 case 3:
                     n = new NodeNeighbourSwapNeighbourhood();
@@ -71,8 +97,7 @@ public class Main_Hybrid {
 
 
             // StepFunction
-            String stepfunction_name = cmd.getOptionValue('s');
-            switch (Integer.parseInt(stepfunction_name)){
+            switch (Integer.parseInt(cmd.getOptionValue('s'))){
                 case 0:
                     f = new FirstImprovementStepFunction();
                     break;
@@ -83,7 +108,7 @@ public class Main_Hybrid {
                     f = new BestImprovementStepFunction(null, 0);
                     break;
                 default:
-                    System.out.println("No stepfunction selected");
+                    System.out.println("No step-function selected");
                     System.exit(1);
                     break;
             }
@@ -91,7 +116,7 @@ public class Main_Hybrid {
 
         } catch (ParseException e) {
             e.printStackTrace();
-            formatter.printHelp("myapp", "Start the heurisctic on a given instance", options, "", true);
+            formatter.printHelp("HybridHeuristic", "Start the heuristic on a given instance", options, "", true);
             System.exit(1);
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
@@ -101,10 +126,10 @@ public class Main_Hybrid {
 
 
         System.out.println("--------------------");
-        System.out.println("Sucessfully read instance:");
+        System.out.println("Successfully read instance:");
         System.out.println("Vertices: " + instance.getNumVertices());
         System.out.println("Book Pages: " + instance.getK());
-//        System.out.println("Adjacency List: " + instance.getAdjacencyList());
+//      System.out.println("Adjacency List: " + instance.getAdjacencyList());
         System.out.println("--------------------");
 
 
@@ -120,15 +145,14 @@ public class Main_Hybrid {
 
 
 
-        KPMPSolutionWriter w;
-        w = new KPMPSolutionWriter(instance.getK());
-        globalBest.insertIntoWriter(w);
-        try {
-            w.write(args[0] + "_Hybrid_Solution");
-        } catch (IOException e) {
+//        KPMPSolutionWriter w;
+//        w = new KPMPSolutionWriter(instance.getK());
+//        globalBest.insertIntoWriter(w);
+//        try {
+//            w.write(args[0] + "_Hybrid_Solution");
+//        } catch (IOException e) {
 //            System.out.println("Failed to  write file: " + e);
-        }
-
+//        }
 
     }
 
@@ -144,9 +168,7 @@ public class Main_Hybrid {
         for(int i = 0; i< size; i++){
             KPMPSolution s = h.getNextSolution();
             initialPopulation.add(s);
-
-//            System.out.println(i + " crossings: " + initialPopulation.get(i).crossings());
-
+//         System.out.println(i + " crossings: " + initialPopulation.get(i).crossings());
         }
 
         return initialPopulation;

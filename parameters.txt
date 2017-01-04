@@ -1,6 +1,8 @@
-# name		switch		type values			[conditions (using R syntax)]
+# name		switch		type values			        [conditions (using R syntax)]
 iterations   	"-i "		i    (10,1000)
-population_size	"-p " 		i    (10,1000)
-neighbourhood	"-n "		c    (0, 1, 2, 3, 4)		
+population_size	"-p " 		i    (10,10000)
+neighbourhood	"-n "		c    (0, 1, 2, 3, 4)
 stepfunction	"-s "		c    (0, 1, 2)
+NParameter      "-np "      c    (2,4)            | neighbourhood == "0" ||  neighbourhood == "1" ||  neighbourhood == "2"
+MParameter      "-m "       c    (2,4)            | neighbourhood == "2"
 

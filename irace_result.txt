@@ -1,0 +1,198 @@
+cem@cem-Aspire-E1-572G:~$ cd Desktop/IdeaProjects/HeuristicsOptTech/cem@cem-Aspire-E1-572G:~/Desktop/IdeaProjects/HeuristicsOptTech$ ./../../../R/x86_64-pc-linux-gnu-library/3.3/irace/bin/irace*******************************************************************************
+* irace: An implementation in R of Iterated Race
+* Version: 2.1.1662
+* Copyright (C) 2010-2016
+* Manuel Lopez-Ibanez     <manuel.lopez-ibanez@manchester.ac.uk>
+* Jeremie Dubois-Lacoste  <jeremie.dubois-lacoste@ulb.ac.be>
+* Leslie Perez Caceres    <leslie.perez.caceres@ulb.ac.be>
+*
+* This is free software, and you are welcome to redistribute it under certain
+* conditions.  See the GNU General Public License for details. There is NO
+* WARRANTY; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*
+* irace builds upon previous code from the race package:
+*
+* race: Racing methods for the selection of the best
+* Copyright (C) 2003 Mauro Birattari
+*******************************************************************************
+	installed at: /home/cem/R/x86_64-pc-linux-gnu-library/3.3/irace
+Warning: A default scenario file './scenario.txt' has been found and will be read
+# 2017-01-04 19:02:44 CET: Elitist race
+# Elitist new instances: 1
+# Elitist limit: 2
+
+# 2017-01-04 19:02:44 CET: Initialization
+# nbIterations: 4
+# minNbSurvival: 4
+# nbParameters: 6
+# seed: 1710046643
+# confidence level: 0.95
+# budget: 180
+# mu: 5
+# deterministic: FALSE
+
+# 2017-01-04 19:02:44 CET: Iteration 1 of 4
+# experimentsUsedSoFar: 0
+# remainingBudget: 180
+# currentBudget: 45
+# nbConfigurations: 7
+  Markers:
+     x No test is performed.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+                                                                   
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|          1|          7|          6|    5.000000000|          7|00:04:20|   NA|  NA|    NA|
+|x|          2|          7|          6|    2.500000000|         14|00:03:24|+0.79|0.90|0.0728|
+|x|          3|          7|          6|    4.666666667|         21|00:01:22|+0.84|0.89|0.1035|
+|x|          4|          7|          7|    13.25000000|         28|00:04:17|+0.63|0.72|0.1599|
+|-|          5|          5|          7|    10.60000000|         35|00:01:39|-0.01|0.19|0.3515|
+|=|          6|          5|          7|    11.00000000|         40|00:01:09|-0.17|0.02|0.4760|
+|=|          7|          5|          1|    9.714285714|         45|00:02:53|-0.15|0.01|0.5203|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+Best configuration:           1    mean value:     9.714285714
+Description of the best configuration:
+  .ID. iterations population_size neighbourhood stepfunction NParameter MParameter .PARENT.
+1    1        370            6725             2            0          4          4       NA
+
+
+# 2017-01-04 19:21:53 CET: Elite configurations:
+  iterations population_size neighbourhood stepfunction NParameter MParameter
+1        370            6725             2            0          4          4
+6        199            3931             4            2       <NA>       <NA>
+2        564            9705             1            1          4       <NA>
+7        549            4694             0            2          2       <NA>
+# 2017-01-04 19:21:53 CET: Iteration 2 of 4
+# experimentsUsedSoFar: 45
+# remainingBudget: 135
+# currentBudget: 45
+# nbConfigurations: 9
+  Markers:
+     x No test is performed.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+                                                                   
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|          8|          9|          1|    9.000000000|          9|00:01:51|   NA|  NA|    NA|
+|x|          6|          9|          1|    9.000000000|         14|00:00:56|+0.04|0.52|0.7051|
+|x|          7|          9|          1|    6.000000000|         19|00:02:15|+0.29|0.53|0.7535|
+|x|          5|          9|          1|    4.500000000|         24|00:01:10|+0.20|0.40|0.5990|
+|-|          2|          7|          1|    3.600000000|         29|00:02:15|+0.13|0.30|0.6094|
+|=|          4|          7|          1|    9.833333333|         32|00:02:49|-0.06|0.11|0.7125|
+|=|          1|          7|         10|    9.428571429|         35|00:02:30|-0.06|0.09|0.7240|
+|=|          3|          7|         10|    9.375000000|         42|00:01:51|-0.05|0.08|0.7362|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+Best configuration:          10    mean value:     9.375000000
+Description of the best configuration:
+   .ID. iterations population_size neighbourhood stepfunction NParameter MParameter .PARENT.
+10   10        630            9429             1            1          4       <NA>        2
+
+
+# 2017-01-04 19:37:33 CET: Elite configurations:
+   iterations population_size neighbourhood stepfunction NParameter MParameter
+10        630            9429             1            1          4       <NA>
+1         370            6725             2            0          4          4
+2         564            9705             1            1          4       <NA>
+6         199            3931             4            2       <NA>       <NA>
+# 2017-01-04 19:37:33 CET: Iteration 3 of 4
+# experimentsUsedSoFar: 87
+# remainingBudget: 93
+# currentBudget: 46
+# nbConfigurations: 8
+  Markers:
+     x No test is performed.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+                                                                   
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|          9|          8|         14|    38.00000000|          8|00:08:14|   NA|  NA|    NA|
+|x|          5|          8|         14|    19.00000000|         12|00:01:37|-0.29|0.36|1.1931|
+|x|          2|          8|         14|    12.66666667|         16|00:03:45|-0.14|0.24|0.6894|
+|x|          6|          8|         14|    11.75000000|         20|00:01:20|-0.04|0.22|0.7047|
+|=|          4|          8|         16|    15.80000000|         24|00:04:39|+0.06|0.25|0.6559|
+|=|          1|          8|         14|    15.33333333|         28|00:04:22|+0.04|0.20|0.6810|
+|=|          7|          8|         14|    13.14285714|         32|00:03:41|-0.00|0.14|0.7469|
+|=|          3|          8|         14|    12.62500000|         36|00:01:22|-0.00|0.12|0.6540|
+|=|          8|          8|         14|    12.22222222|         44|00:02:31|+0.03|0.13|0.6578|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+Best configuration:          14    mean value:     12.22222222
+Description of the best configuration:
+   .ID. iterations population_size neighbourhood stepfunction NParameter MParameter .PARENT.
+14   14        282            5584             2            0          4          4        1
+
+
+# 2017-01-04 20:09:08 CET: Elite configurations:
+   iterations population_size neighbourhood stepfunction NParameter MParameter
+14        282            5584             2            0          4          4
+16        752            9886             1            1          4       <NA>
+15        820            5609             1            1          4       <NA>
+10        630            9429             1            1          4       <NA>
+# 2017-01-04 20:09:08 CET: Iteration 4 of 4
+# experimentsUsedSoFar: 131
+# remainingBudget: 49
+# currentBudget: 49
+# nbConfigurations: 8
+  Markers:
+     x No test is performed.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+                                                                   
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         10|          8|         14|    9.000000000|          8|00:02:40|   NA|  NA|    NA|
+|x|          2|          8|         14|    4.500000000|         12|00:02:57|+0.00|0.50|0.4375|
+|x|          9|          8|         17|    14.00000000|         16|00:03:11|+0.25|0.50|0.3405|
+|x|          6|          8|         17|    12.75000000|         20|00:01:01|+0.41|0.55|0.2832|
+|!|          5|          7|         17|    10.20000000|         24|00:01:18|+0.09|0.27|0.3073|
+|=|          8|          7|         17|    10.00000000|         27|00:00:58|+0.13|0.27|0.3718|
+|!|          3|          6|         17|    9.857142857|         30|00:00:59|+0.10|0.23|0.2055|
+|=|          4|          6|         16|    13.25000000|         32|00:02:53|+0.01|0.13|0.2943|
+|=|          1|          6|         14|    13.22222222|         34|00:02:53|+0.01|0.12|0.3573|
+|=|          7|          6|         16|    11.20000000|         40|00:06:18|-0.03|0.08|0.4201|
+|=|         11|          6|         16|    10.54545455|         46|00:07:52|-0.07|0.03|0.4783|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+Best configuration:          16    mean value:     10.54545455
+Description of the best configuration:
+   .ID. iterations population_size neighbourhood stepfunction NParameter MParameter .PARENT.
+16   16        752            9886             1            1          4       <NA>       10
+
+
+# 2017-01-04 20:42:15 CET: Elite configurations:
+   iterations population_size neighbourhood stepfunction NParameter MParameter
+16        752            9886             1            1          4       <NA>
+19        881            5516             1            1          4       <NA>
+14        282            5584             2            0          4          4
+17        896            7081             2            0          4          4
+# 2017-01-04 20:42:15 CET: Stopped because there is not enough budget left to race more than the minimum (4)
+# You may either increase the budget or set 'minNbSurvival' to a lower value
+# Iteration: 5
+# nbIterations: 5
+# experimentsUsedSoFar: 177
+# timeUsed: 0
+# remainingBudget: 3
+# currentBudget: 3
+# number of elites: 4
+# nbConfigurations: 3
+# Best configurations (first number is the configuration ID)
+   iterations population_size neighbourhood stepfunction NParameter MParameter
+16        752            9886             1            1          4       <NA>
+19        881            5516             1            1          4       <NA>
+14        282            5584             2            0          4          4
+17        896            7081             2            0          4          4
+# Best configurations as commandlines (first number is the configuration ID)
+16  -i 752 -p 9886 -n 1 -s 1 -np 4
+19  -i 881 -p 5516 -n 1 -s 1 -np 4
+14  -i 282 -p 5584 -n 2 -s 0 -np 4 -m 4
+17  -i 896 -p 7081 -n 2 -s 0 -np 4 -m 4
+
