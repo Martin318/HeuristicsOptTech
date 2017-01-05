@@ -24,6 +24,7 @@ public class GeneticAlgorithmAndLocalSearch extends GeneticAlgorithm {
         List<KPMPSolution> currentPopulation = initialPop;
         KPMPSolution globalBest = getBestSolution(currentPopulation);
 
+        long start = System.currentTimeMillis();
 
         for(int i = 0; i< generations; i++){
             System.out.println( "Generation " + i + " start!");
@@ -45,6 +46,8 @@ public class GeneticAlgorithmAndLocalSearch extends GeneticAlgorithm {
                 System.out.println("Global best improved to " + globalBest.crossings());
             }
 
+            if ( System.currentTimeMillis() - start >= 900000 )
+               return globalBest;
         }
 
 
@@ -62,6 +65,8 @@ public class GeneticAlgorithmAndLocalSearch extends GeneticAlgorithm {
             globalBest = next;
 
             next = search.getNextSolution(globalBest);
+            if ( System.currentTimeMillis() - start >= 900000 )
+                return globalBest;
         }
 
 
