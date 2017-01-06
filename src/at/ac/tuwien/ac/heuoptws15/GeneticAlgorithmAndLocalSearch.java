@@ -46,7 +46,7 @@ public class GeneticAlgorithmAndLocalSearch extends GeneticAlgorithm {
                 System.out.println("Global best improved to " + globalBest.crossings());
             }
 
-            if ( System.currentTimeMillis() - start >= 900000 )
+            if ( System.currentTimeMillis() - start >= 450000 )
                return globalBest;
         }
 

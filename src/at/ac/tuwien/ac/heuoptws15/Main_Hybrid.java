@@ -51,6 +51,9 @@ public class Main_Hybrid {
             instance = KPMPInstance.readInstance(args[0]);
             iterations = Integer.parseInt(cmd.getOptionValue('i'));
             population_size = Integer.parseInt(cmd.getOptionValue('p'));
+            if (instance.getNumVertices() >= 200)
+                population_size /= 5;
+
 
             // Neighbourhood
             int neighbourhood = Integer.parseInt(cmd.getOptionValue("n"));
@@ -168,7 +171,8 @@ public class Main_Hybrid {
         for(int i = 0; i< size; i++){
             KPMPSolution s = h.getNextSolution();
             initialPopulation.add(s);
-//         System.out.println(i + " crossings: " + initialPopulation.get(i).crossings());
+            if (i % 100 == 0)
+                System.out.println(i );
         }
 
         return initialPopulation;

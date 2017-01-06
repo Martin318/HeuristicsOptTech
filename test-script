@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for f in Instances/* 
+do 
+	for i in {1..10} 
+	do 
+		echo $f
+		./target-runner 1 2 3 $f -i 150 -p 5000 -n 2 -s 0 -np 2 -m 2 
+	done 
+done 
