@@ -79,9 +79,39 @@ Our Metaheuristic works in the follwing way: First, we execute the genetic algor
 \subsection{Experimental setup}
 
 
+We tested our implementation locally on a PC with the following specification: Intel i7-4500U processor, 8 GB of RAM, Ubuntu 16.10 64 bit. Note that we have only tested our implementation with one configuration. The reason for this is that we tested different parameter configurations for the assignment 6 anyway. The results of this section are meant to be "reasonable default values" that we can compare to the results from the last assignments.
+The configuration is the following:
+
+XXXXXXXXXXXXX;XXXXXXXX;XXXXXXXXXXXXXXX;XXXXXXXXXXXXXXXXXXXXXX;X
+
+
 
 \subsection{Results + Runtimes}
 
+
+
+\begin{table}[]
+\centering
+\caption{The results and runtimes (rt) using default values of the algorithm.}
+\label{my-label}
+\begin{tabular}{l|l|l|l|l|l|l|l|l|l|l}
+               &  1 &  2 &  3 &  4 &  5 &  6 &  7 &  8 &  9 &  10                    \\ \hline
+Best           & 9          & 0          & 43         & 0          & 4          & 8416290    & 82565      & 1107609    & 1582522    & \multicolumn{1}{l|}{212878}   \\ \hline
+Mean           & 9.2        & 0          & 50.7       & 0.6        & 7.2        & 8441085.9  & 90530.5    & 1112839.1  & 1596328.5  & \multicolumn{1}{l|}{215352.8} \\ \hline
+Std. D & 0.34       & 0          & 2.84       & 0.04       & 1.46       & 34687.3    & 6546.04    & 19450.45   & 90587.87   & \multicolumn{1}{l|}{2154.52}  \\ \hline
+Mean rt   & 14.99      & 21.74      & 78.21      & 54.3       & 69.23      & 900        & 369.21     & 900        & 900        & \multicolumn{1}{l|}{900}      \\ \hline
+Std. D rt   & 1.36       & 1.87       & 2.03       & 1.10       & 1.46       & 0          & 10.88      & 0          & 0          & \multicolumn{1}{l|}{0}        \\ \cline{2-11} 
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Comparison}
+
+
+Looking at our results in Table 1 and the results from the last exercise, we can see that the number of crossings are very similar. We also see a slight increase of runtime, since our genetic algorithm was extended with a local search.
+
+We will see if we can further improve our results by optimizing our parameters.
 
 
 \section{Assignment 6}
