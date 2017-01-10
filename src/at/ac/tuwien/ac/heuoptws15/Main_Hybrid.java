@@ -136,7 +136,6 @@ public class Main_Hybrid {
         System.out.println("--------------------");
 
 
-
         GeneticAlgorithm g = new GeneticAlgorithmAndLocalSearch(iterations, new SimpleCrossingSelection(),new SimpleMutate(),
                 new SwapRecombination(), initialPopulation(instance,population_size),n,f);
 

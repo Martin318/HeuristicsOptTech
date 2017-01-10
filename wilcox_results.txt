@@ -1,0 +1,34 @@
+> wilcox.test(untun, tune_881,paired=TRUE)
+
+	Wilcoxon signed rank test
+
+data:  untun and tune_881
+V = 9, p-value = 0.06445
+alternative hypothesis: true location shift is not equal to 0
+
+> wilcox.test(untun, tune_282,paired=TRUE)
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  untun and tune_282
+V = 6, p-value = 0.1073
+alternative hypothesis: true location shift is not equal to 0
+
+Warning message:
+In wilcox.test.default(untun, tune_282, paired = TRUE) :
+  cannot compute exact p-value with zeroes
+> wilcox.test(untun, tune_896,paired=TRUE)
+
+	Wilcoxon signed rank test
+
+data:  untun and tune_896
+V = 22, p-value = 0.625
+alternative hypothesis: true location shift is not equal to 0
+
+> wilcox.test(untun, tune_752,paired=TRUE)
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  untun and tune_752
+V = 18, p-value = 0.6356
+alternative hypothesis: true location shift is not equal to 0
