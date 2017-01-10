@@ -6,6 +6,7 @@
 \usepackage{geometry}
 \usepackage{tabu}
 \usepackage{float}
+\usepackage{ctable}
 \usepackage{caption}
 \usepackage{rotating}
 \usepackage{titlesec}
@@ -73,7 +74,49 @@ In the previous exercise, we developed a genetic algorithm. As stated in the pre
 
 Our genetic algorithm was implemented to be as simple and fast as possible. This allowed us to have a large population and compute a lot of generations. By incorporating local search, we want to improve the already very diverse solutions by reaching optimality in a certain neighbourhood.
 
-Our Metaheuristic works in the follwing way: First, we execute the genetic algorithm to compute solutions. The best solution will then be used as a starting solution for local search. We can use any local search neighbourhood and step function from the previous exercises. Local search will be executed and the best solution from the genetic algorithm will be improved further. The result of the local search will  be a solution that (if first improvement or best improvement is used as step function) is as least as good as the solution from our genetic algorithm and also a local optimum in a certain neighbourhood.
+Our Metaheuristic works in the following way: First, we execute the genetic algorithm to compute solutions. The best solution will then be used as a starting solution for local search. We can use any local search neighbourhood and step function from the previous exercises. Local search will be executed and the best solution from the genetic algorithm will be improved further. The result of the local search will  be a solution that (if first improvement or best improvement is used as step function) is as least as good as the solution from our genetic algorithm and also a local optimum in a certain neighbourhood.
+
+\subsection{Parameters of the Metaheuristic}
+
+Since this approach combines a genetic algorithm (GA) with a local search (LS), the configuration space becomes more complex. This becomes more relevant when one tries to find optimal or near optimal values for given problem instances. Here is a short description of each parameter our implementation uses. 
+
+\subsubsection{Generations} \textbf{-i $\#$number} 
+
+This indicates how many generations the GA will simulate. While ideally this number should be very high, there is an observable point for each instance, where the GA no longer produces better results. Therefore an ideal parameter has to be high enough to fully exploit the GA but not too high to waste time. 
+
+\subsubsection{Population size} \textbf{-p $\#$number}
+
+This parameter describes how many instances should be in the population throughout the GA, since our approach keeps the number of instances constant. This parameter is ideally very high, to have large ``gene pool'' for the GA. At the same time it increases the memory usage of the GA quite a bit. So ideally a compromise between performance and effectiveness has to be found. 
+
+\subsubsection{ Neighbourhood} \textbf{-n $\{ 0,1,2,3,4\} $}
+
+This determines which neighbourhood structure is used for the local search. Compared to the parameters for the GA, this one chooses one of five separate methods of doing local search, rather than increasing or decreasing a number. Our approach uses all the neighbourhoods we have developed so far. 
+
+\begin{enumerate}\addtocounter{enumi}{-1}
+  \item \emph{N Node Swap} \\ 
+  N nodes are swapped in the current spine order, creating a new one. 
+  \item\emph{ N Edge Flip} \\ 
+  N Edges are flipped from their current assigned page to another 
+  \item \emph{M N Edge Flip Node Swap} \\
+  Combination of the two above, using two parameters 
+  \item \emph{Node Neighbour Swap }\\ 
+  As \emph{N Node Swap}, but restricting to swapping two adjacent nodes in the spine order. 
+  \item  \emph{Edge Neighbour Flip} \\
+  As \emph{N Edge Flip}, but restricted to flipping two edges assigned to adjacent pages. 
+\end{enumerate}
+
+\subsubsection{Step-function} \textbf{-s $\{ 0,1,2\} $}
+
+This determines which step function is used for the local search to find better instances. 
+
+\begin{enumerate}
+  \item First Improvement \\ 
+  This chooses the first instance in the neighbourhood of a target, which has a lower crossing count. 
+  \item Random Step \\ 
+  This produces a completely random element in the neighbourhood (irrespective of any ordering) and picks it regardless of its crossing count (Leads to random search, with results only returned if better crossing eventually found)
+  \item Best Improvement \\
+  Fully examines all elements of the neighbourhood and picks the one with the lowest crossing count, which is better then the target. 
+\end{enumerate}
 
 
 \subsection{Experimental setup}
@@ -82,7 +125,15 @@ Our Metaheuristic works in the follwing way: First, we execute the genetic algor
 We tested our implementation locally on a PC with the following specification: Intel i7-4500U processor, 8 GB of RAM, Ubuntu 16.10 64 bit. Note that we have only tested our implementation with one configuration. The reason for this is that we tested different parameter configurations for the assignment 6 anyway. The results of this section are meant to be "reasonable default values" that we can compare to the results from the last assignments.
 The configuration is the following:
 
-XXXXXXXXXXXXX;XXXXXXXX;XXXXXXXXXXXXXXX;XXXXXXXXXXXXXXXXXXXXXX;X
+
+\begin{figure}[H]
+  \textbf{Generations:} 150 \\
+\textbf{Population Size:} 5000 \\
+\textbf{Neighbourhood:} \emph{M N Edge Flip Node Swap} with \textbf{M:} 2, \textbf{N:} 2\\
+\textbf{Step-function:} \emph{First Improvement} 
+\caption{Our ``untuned'' configuration}
+\end{figure}
+
 
 
 
@@ -90,17 +141,20 @@ XXXXXXXXXXXXX;XXXXXXXX;XXXXXXXXXXXXXXX;XXXXXXXXXXXXXXXXXXXXXX;X
 
 
 
-\begin{table}[]
+\begin{table}[H]
 \centering
-\caption{The results and runtimes (rt) using default values of the algorithm.}
+\caption{The results and run times (RT) using default values of the algorithm.}
 \label{my-label}
-\begin{tabular}{l|l|l|l|l|l|l|l|l|l|l}
-               &  1 &  2 &  3 &  4 &  5 &  6 &  7 &  8 &  9 &  10                    \\ \hline
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Instance     &  1 &  2 &  3 &  4 &  5 &  6 &  7 &  8 &  9 &  10                    \\ 
+\specialrule{.2em}{.0em}{.0em} 
 Best           & 9          & 0          & 43         & 0          & 4          & 8416290    & 82565      & 1107609    & 1582522    & \multicolumn{1}{l|}{212878}   \\ \hline
 Mean           & 9.2        & 0          & 50.7       & 0.6        & 7.2        & 8441085.9  & 90530.5    & 1112839.1  & 1596328.5  & \multicolumn{1}{l|}{215352.8} \\ \hline
-Std. D & 0.34       & 0          & 2.84       & 0.04       & 1.46       & 34687.3    & 6546.04    & 19450.45   & 90587.87   & \multicolumn{1}{l|}{2154.52}  \\ \hline
-Mean rt   & 14.99      & 21.74      & 78.21      & 54.3       & 69.23      & 900        & 369.21     & 900        & 900        & \multicolumn{1}{l|}{900}      \\ \hline
-Std. D rt   & 1.36       & 1.87       & 2.03       & 1.10       & 1.46       & 0          & 10.88      & 0          & 0          & \multicolumn{1}{l|}{0}        \\ \cline{2-11} 
+Std. Dev & 0.34       & 0          & 2.84       & 0.04       & 1.46       & 34687.3    & 6546.04    & 19450.45   & 90587.87   & \multicolumn{1}{l|}{2154.52}  \\ 
+\specialrule{.2em}{.0em}{.0em} 
+Mean RT   & 14.99      & 21.74      & 78.21      & 54.3       & 69.23      & 900        & 369.21     & 900        & 900        & \multicolumn{1}{l|}{900}      \\ \hline
+Std. Dev RT   & 1.36       & 1.87       & 2.03       & 1.10       & 1.46       & 0          & 10.88      & 0          & 0          & \multicolumn{1}{l|}{0}        \\ \hline
 \end{tabular}
 \end{table}
 
@@ -115,6 +169,58 @@ We will see if we can further improve our results by optimizing our parameters.
 
 
 \section{Assignment 6}
+
+
+For this we were asked to familiarize ourselves with the \emph{irace} package in R. This is an implementation of the ``iterated race'' method introduced in the lecture to find good configurations for (meta-)heuristics, where a large number of parameters have to adapted to certain set of training instances. 
+
+We chose for these the ten instances (automatic-1 to automatic-10) that we used throughout the course. We also had to provide irace with a simple script that would execute our heuristic for a given instance and sets of parameters. This was all we needed to to do, as the process is fairly automated. 
+
+It produced, after 180 tests, four elite configurations which were found to perform the best by irace. These we  named $A$, $B$, $C$ and $D$ and they are shown in the Figures below. 
+
+
+\begin{figure}[H]
+  \textbf{Generations:} 282 \\
+\textbf{Population Size:} 5584 \\
+\textbf{Neighbourhood:} \emph{M N Edge Flip Node Swap} with \textbf{M:} 4, \textbf{N:} 4\\
+\textbf{Step-function:} \emph{First Improvement} 
+\caption{Elite configuration $A$}
+\end{figure}
+
+
+\begin{figure}[H]
+  \textbf{Generations:} 752 \\
+\textbf{Population Size:} 9886 \\
+\textbf{Neighbourhood:} \emph{N Edge Flip } with \textbf{N:} 2\\
+\textbf{Step-function:} \emph{Random Step} 
+\caption{Elite configuration $B$}
+\end{figure}
+
+
+
+\begin{figure}[H]
+  \textbf{Generations:} 896 \\
+\textbf{Population Size:} 7081 \\
+\textbf{Neighbourhood:} \emph{M N Edge Flip Node Swap} with \textbf{M:} 2, \textbf{N:} 2\\
+\textbf{Step-function:} \emph{First Improvement} 
+\caption{Elite configuration $C$}
+\end{figure}
+
+
+\begin{figure}[H]
+  \textbf{Generations:} 881 \\
+\textbf{Population Size:} 5516 \\
+\textbf{Neighbourhood:} \emph{N Edge Flip} with \textbf{M:} 2, \textbf{N:} 2\\
+\textbf{Step-function:} \emph{Random Step} 
+\caption{Elite configuration $D$}
+\end{figure}
+
+\section{Evaluation}
+
+To evaluate them, we first run for each configuration and each instance ten runs. From these we took the averages and as instructed run a ``Wilcox Signed Rank Test'', which is included in the ``MASS'' package of R. The results are .... 
+
+\section{Conclusion}
+Since none of the elite configurations proved to be statistically different, in the sense of being clearly from a different distribution, we conclude that our default configuration was already rather good, or vice-versa that \emph{irace} failed to produce configurations which were clearly superior. Perhaps this could be fixed by going over the 180 tests, though these already proved to be rather time consuming on our local machine. 
+
 
 
 
