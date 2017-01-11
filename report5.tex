@@ -67,6 +67,8 @@
 
 \section{Assignment 5}
 
+The task of assignment 5 was it to combine the algorithm from assignment 4 with another heuristic. 
+
 
 \subsection{Implementation}
 
@@ -90,7 +92,7 @@ This parameter describes how many instances should be in the population througho
 
 \subsubsection{ Neighbourhood} \textbf{-n $\{ 0,1,2,3,4\} $}
 
-This determines which neighbourhood structure is used for the local search. Compared to the parameters for the GA, this one chooses one of five separate methods of doing local search, rather than increasing or decreasing a number. Our approach uses all the neighbourhoods we have developed so far. 
+This determines which neighbourhood structure is used for the local search. Compared to the parameters for the GA, this one chooses one of five separate methods of doing local search, rather than increasing or decreasing a number. Our approach uses all the neighbourhoods we have developed so far. For a detailed description of the neighbourhoods see the report of the previous assignment.
 
 \begin{enumerate}\addtocounter{enumi}{-1}
   \item \emph{N Node Swap} \\ 
@@ -239,10 +241,23 @@ I & A (Best) & A (Mean)  & B (Best) & B (Mean)  & C (Best) & C (Mean)  & D (Mean
 \end{tabular}
 \end{table}
 
-To evaluate them, we first run for each configuration and each instance ten runs. From these we took the averages and as instructed run a ``Wilcox Signed Rank Test'', which is included in the ``MASS'' package of R. The results are .... 
+To evaluate them, we first run for each configuration and each instance ten runs. The results (crossings) of the elite configurations A-D can be seen in table 2.
+
+From these we took the averages and as instructed run a ``Wilcox Signed Rank Test'', which is included in the ``MASS'' package of R. The results are shown in table 3. The p-value of all configurations is XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+\begin{table}[]
+\centering
+\caption{The Wilcox Signed Rank test of the elite configurations vs. the untuned configuration.}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+        & A       & B      & C     & D      \\ \hline
+p-value & 0.06445 & 0.1073 & 0.625 & 0.6356 \\ \hline
+\end{tabular}
+\end{table} 
 
 \section{Conclusion}
-Since none of the elite configurations proved to be statistically different, in the sense of being clearly from a different distribution, we conclude that our default configuration was already rather good, or vice-versa that \emph{irace} failed to produce configurations which were clearly superior. Perhaps this could be fixed by going beyond the 180 tests, though these already proved to be rather time consuming on our local machine. 
+Since none of the elite configurations proved to be statistically different, in the sense of being clearly from a different distribution, we conclude that our default configuration was already rather good, or vice-versa that \emph{irace} failed to produce configurations which were clearly superior. Perhaps this could be fixed by going beyond the 180 tests, though these already proved to be rather time consuming on our local machine. Looking at the previous assignment, we can see improved results and consistency in the smaller instances, but not much improvement in the larger instances.
 
 
 
