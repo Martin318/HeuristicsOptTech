@@ -139,25 +139,28 @@ The configuration is the following:
 
 \subsection{Results + Runtimes}
 
+The results from the algorithm using the configuration in Figure 1 are displayed in Table 1.
 
 
-\begin{table}[H]
+\begin{table}[]
 \centering
-\caption{The results and run times (RT) using default values of the algorithm.}
+\caption{The results (crossings) and run times (RT) in seconds using default values of the algorithm.}
 \label{my-label}
-\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|}
 \hline
-Instance     &  1 &  2 &  3 &  4 &  5 &  6 &  7 &  8 &  9 &  10                    \\ 
-\specialrule{.2em}{.0em}{.0em} 
-Best           & 9          & 0          & 43         & 0          & 4          & 8416290    & 82565      & 1107609    & 1582522    & \multicolumn{1}{l|}{212878}   \\ \hline
-Mean           & 9.2        & 0          & 50.7       & 0.6        & 7.2        & 8441085.9  & 90530.5    & 1112839.1  & 1596328.5  & \multicolumn{1}{l|}{215352.8} \\ \hline
-Std. Dev & 0.34       & 0          & 2.84       & 0.04       & 1.46       & 34687.3    & 6546.04    & 19450.45   & 90587.87   & \multicolumn{1}{l|}{2154.52}  \\ 
-\specialrule{.2em}{.0em}{.0em} 
-Mean RT   & 14.99      & 21.74      & 78.21      & 54.3       & 69.23      & 900        & 369.21     & 900        & 900        & \multicolumn{1}{l|}{900}      \\ \hline
-Std. Dev RT   & 1.36       & 1.87       & 2.03       & 1.10       & 1.46       & 0          & 10.88      & 0          & 0          & \multicolumn{1}{l|}{0}        \\ \hline
+Instance & Best    & Mean      & Std. Dev & Mean RT & Std. Dev RT \\ \hline
+1        & 9       & 9,2       & 0,34     & 14,99   & 1,36        \\ \hline
+2        & 0       & 0         & 0        & 21,74   & 1,87        \\ \hline
+3        & 43      & 50,7      & 2,84     & 78,21   & 2,03        \\ \hline
+4        & 0       & 0,6       & 0,04     & 54,3    & 1,1         \\ \hline
+5        & 4       & 7,2       & 1,46     & 69,23   & 1,46        \\ \hline
+6        & 8416290 & 8441085,9 & 34687,3  & 900     & 0           \\ \hline
+7        & 82565   & 90530,5   & 6546,04  & 369,21  & 10,88       \\ \hline
+8        & 1107609 & 1112839,1 & 19450,45 & 900     & 0           \\ \hline
+9        & 1582522 & 1596328,5 & 90587,87 & 900     & 0           \\ \hline
+10       & 212878  & 215352,8  & 2154,52  & 900     & 0           \\ \hline
 \end{tabular}
 \end{table}
-
 
 
 \subsection{Comparison}
@@ -216,10 +219,30 @@ It produced, after 180 tests, four elite configurations which were found to perf
 
 \section{Evaluation}
 
+\begin{table}[]
+\centering
+\caption{The results of the four elite configurations.}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+\hline
+I & A (Best) & A (Mean)  & B (Best) & B (Mean)  & C (Best) & C (Mean)  & D (Mean) & D (Mean)  \\ \hline
+1        & 9        & 9,2       & 9        & 9.3       & 9        & 9.8       & 9        & 9         \\ \hline
+2        & 0        & 0         & 0        & 0         & 0        & 0.2       & 0        & 0.4       \\ \hline
+3        & 38       & 45.6      & 26       & 37.8      & 35       & 41.7      & 34       & 40        \\ \hline
+4        & 0        & 0.2       & 0        & 0         & 0        & 1.2       & 0        & 0.4       \\ \hline
+5        & 3        & 5.2       & 2        & 4.9       & 3        & 5.7       & 4        & 6         \\ \hline
+6        & 8466454  & 8472111.4 & 8481672  & 8497624.7 & 8464659  & 8476492.4 & 8459663  & 7633459   \\ \hline
+7        & 85074    & 97363.2   & 95260    & 109261.9  & 84718    & 97434     & 89119    & 95114.7   \\ \hline
+8        & 1107939  & 1115966.8 & 1135812  & 1140314   & 1111452  & 1115030.7 & 1124319  & 1129448.9 \\ \hline
+9        & 1589458  & 1601760.3 & 1621229  & 1633475   & 1590908  & 1600572.2 & 1617767  & 1626279.9 \\ \hline
+10       & 213863   & 215938.8  & 216214   & 217755.5  & 212445   & 215925.6  & 215868   & 217462.2  \\ \hline
+\end{tabular}
+\end{table}
+
 To evaluate them, we first run for each configuration and each instance ten runs. From these we took the averages and as instructed run a ``Wilcox Signed Rank Test'', which is included in the ``MASS'' package of R. The results are .... 
 
 \section{Conclusion}
-Since none of the elite configurations proved to be statistically different, in the sense of being clearly from a different distribution, we conclude that our default configuration was already rather good, or vice-versa that \emph{irace} failed to produce configurations which were clearly superior. Perhaps this could be fixed by going over the 180 tests, though these already proved to be rather time consuming on our local machine. 
+Since none of the elite configurations proved to be statistically different, in the sense of being clearly from a different distribution, we conclude that our default configuration was already rather good, or vice-versa that \emph{irace} failed to produce configurations which were clearly superior. Perhaps this could be fixed by going beyond the 180 tests, though these already proved to be rather time consuming on our local machine. 
 
 
 
