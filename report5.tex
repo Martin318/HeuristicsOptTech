@@ -67,12 +67,12 @@
 
 \section{Assignment 5}
 
-The task of assignment 5 was it to combine the algorithm from assignment 4 with another heuristic. 
+The task consisted of combining the algorithm from the previous assignment with another heuristic. 
 
 
 \subsection{Implementation}
 
-In the previous exercise, we developed a genetic algorithm. As stated in the previous report, our algorithm provided quite good results by itself. However, we wanted to improve the results by combining the genetic algorithm with local search.
+In the previous exercise, we developed a genetic algorithm. As stated in the previous report, our algorithm provided quite satisfactory results by itself. However, we wanted to improve the results by combining the genetic algorithm with local search.
 
 Our genetic algorithm was implemented to be as simple and fast as possible. This allowed us to have a large population and compute a lot of generations. By incorporating local search, we want to improve the already very diverse solutions by reaching optimality in a certain neighbourhood.
 
@@ -92,7 +92,7 @@ This parameter describes how many instances should be in the population througho
 
 \subsubsection{ Neighbourhood} \textbf{-n $\{ 0,1,2,3,4\} $}
 
-This determines which neighbourhood structure is used for the local search. Compared to the parameters for the GA, this one chooses one of five separate methods of doing local search, rather than increasing or decreasing a number. Our approach uses all the neighbourhoods we have developed so far. For a detailed description of the neighbourhoods see the report of the previous assignment.
+This determines which neighbourhood structure is used for LS. Compared to the parameters for the GA, this one chooses one of five separate methods of doing local search, rather than increasing or decreasing a number. Our approach uses all the neighbourhoods we have developed so far. For a detailed description of the neighbourhoods see the report of the previous assignment.
 
 \begin{enumerate}\addtocounter{enumi}{-1}
   \item \emph{N Node Swap} \\ 
@@ -111,12 +111,12 @@ This determines which neighbourhood structure is used for the local search. Comp
 
 This determines which step function is used for the local search to find better instances. 
 
-\begin{enumerate}
-  \item First Improvement \\ 
+\begin{enumerate}\addtocounter{enumi}{-1}
+  \item \emph{First Improvement }\\ 
   This chooses the first instance in the neighbourhood of a target, which has a lower crossing count. 
-  \item Random Step \\ 
+  \item\emph{ Random Step }\\ 
   This produces a completely random element in the neighbourhood (irrespective of any ordering) and picks it regardless of its crossing count (Leads to random search, with results only returned if better crossing eventually found)
-  \item Best Improvement \\
+  \item \emph{Best Improvement }\\
   Fully examines all elements of the neighbourhood and picks the one with the lowest crossing count, which is better then the target. 
 \end{enumerate}
 
@@ -141,7 +141,7 @@ The configuration is the following:
 
 \subsection{Results + Runtimes}
 
-The results from the algorithm using the configuration in Figure 1 are displayed in Table 1.
+The results from the algorithm using the configuration in Figure 1 are displayed in Table 1. Note that we used a maximal running time of 15 minutes (900 seconds), after which the heuristic returns the currently best found solution.
 
 
 \begin{table}[]
@@ -172,6 +172,7 @@ Looking at our results in Table 1 and the results from the last exercise, we can
 
 We will see if we can further improve our results by optimizing our parameters.
 
+\newpage
 
 \section{Assignment 6}
 
@@ -241,9 +242,9 @@ I & A (Best) & A (Mean)  & B (Best) & B (Mean)  & C (Best) & C (Mean)  & D (Mean
 \end{tabular}
 \end{table}
 
-To evaluate them, we first run for each configuration and each instance ten runs. The results (crossings) of the elite configurations A-D can be seen in table 2.
-
-From these we took the averages and as instructed run a ``Wilcox Signed Rank Test'', which is included in the ``MASS'' package of R. The results are shown in table 3. The p-value of all configurations is XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+To evaluate them, we first run for each configuration and each instance ten runs. The results (crossings) of the elite configurations A-D can be seen in Table 2. Running times have been ommited for brevity and since they are not the focus of this evaluation, which is concerned with the quality of results for a given configuration.
+ 
+From these we took the averages and as instructed run a ``Wilcox Signed Rank Test'', which is included in the ``MASS'' package of R. The p-value of all configurations is shown in Table 3. These are probabilities that the null hypothesis (in our case that the compared samples are from the same distribution) is true. Usually, only results below 0.05 are considered to show that the null hypothesis can be rejected. 
 
 \begin{table}[]
 \centering
